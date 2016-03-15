@@ -1,7 +1,7 @@
 Text {
 	signal clicked;
 	property bool hover;
-	property string cursor;
+	property string cursor: "pointer";
 
 	onCursorChanged: {
 		this.element.css('cursor', value);
@@ -24,6 +24,7 @@ Text {
 
 	onCompleted: {
 		var self = this;
+		this.element.css('cursor', this.cursor);
 		self.element.click(self._onClick.bind(self))
 		self.element.hover(self._onEnter.bind(self), self._onExit.bind(self)) //fixme: unsubscribe
 	}
