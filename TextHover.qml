@@ -3,7 +3,19 @@ Text {
 	property bool hover;
 	property string cursor: "pointer";
 
-	constructor:		{ this.style('cursor', this.cursor) }
+	property string href;
+
+	onHrefChanged: {
+		this.element.attr("href", this.href)
+	}
+
+	constructor: {
+		this.element.remove();
+		this.element = $('<a></a>');
+		this.parent.element.append(this.element);
+		this.style('cursor', this.cursor);
+	}
+
 	onCursorChanged: 	{ this.style('cursor', value) }
 
 	_onEnter: {
