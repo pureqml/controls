@@ -3,6 +3,6 @@ Protocol {
 
 	onUrlChanged: {
 		var self = this
-		this.request(value, {}, function(data) { self.data = data })
+		this.request(value, function(data) { self.data = data })
 	}
 }
