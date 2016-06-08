@@ -3,9 +3,20 @@ Text {
 	property bool hover;
 	property string cursor: "pointer";
 
-	onCursorChanged: {
-		this.element.css('cursor', value);
+	property string href;
+
+	onHrefChanged: {
+		this.element.attr("href", this.href)
 	}
+
+	constructor: {
+		this.element.remove();
+		this.element = $('<a></a>');
+		this.parent.element.append(this.element);
+		this.style('cursor', this.cursor);
+	}
+
+	onCursorChanged: 	{ this.style('cursor', value) }
 
 	_onEnter: {
 		if (this.recursiveVisible)
@@ -24,7 +35,6 @@ Text {
 
 	onCompleted: {
 		var self = this;
-		this.element.css('cursor', this.cursor);
 		self.element.click(self._onClick.bind(self))
 		self.element.hover(self._onEnter.bind(self), self._onExit.bind(self)) //fixme: unsubscribe
 	}
