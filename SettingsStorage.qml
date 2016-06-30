@@ -1,23 +1,22 @@
 LocalStorage {
 	signal saved;
 	signal loaded;
-	property variant innerSettings;
+	signal optionUpdated;
 
 	load: {
-		this.read();
-		this.innerSettings = this.value ? JSON.parse(this.value) : 0
+		this.read()
 		this.loaded()
 	}
 
-	save: { this.value = JSON.stringify(this.innerSettings); this.saved() }
-
-	getValue(name): { return this.innerSettings[name] }
+	getValue(name): {
+		this.name = name
+		return this.value && (typeof this.value === "object") ? JSON.parse(this.value) : this.value
+	}
 
 	setValue(name, value): {
-		if (!this.innerSettings)
-			this.innerSettings = {}
-		this.innerSettings[name] = value
-		this.save()
+		this.name = name
+		this.value = JSON.stringify(value)
+		this.optionUpdated(name, value)
 	}
 
 	onCompleted: { this.load() }
