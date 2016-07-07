@@ -10,7 +10,13 @@ LocalStorage {
 
 	getValue(name): {
 		this.name = name
-		return this.value && (typeof this.value === "object") ? JSON.parse(this.value) : this.value
+		var res
+		try {
+			res = JSON.parse(this.value)
+		} catch(e) {
+			res = this.value
+		}
+		return res
 	}
 
 	setValue(name, value): {
