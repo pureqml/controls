@@ -1,19 +1,28 @@
 Item {
+	property string source;
+	property bool allowFullScreen;
 	height: 315;
 	width: 560;
-	property string src;
-	property string vid;
 
-	reload: {
-		this.element.empty();
-		var youtube = $('<iframe src="' + this.src + '" frameborder="0" allowfullscreen>');
-		youtube.width(this.width);
-		youtube.height(this.height);
-		this.element.append(youtube);
+	function _update(name, value) {
+		switch (name) {
+			case 'width': this._updateSize(); break
+			case 'height': this._updateSize(); break
+			case 'source': this.element[0].src = value; break
+			case 'allowFullScreen': this.element[0].allowFullscreen = value; break
+		}
+
+		qml.core.Item.prototype._update.apply(this, arguments);
 	}
 
-	onVidChanged: { this.src = "https://www.youtube.com/embed/" + this.vid; }
-	onSrcChanged: { this.reload(); }
-	onWidthChanged: { this.reload(); }
-	onCompleted: { this.reload(); }
+	constructor: {
+		this.element.remove()
+		this.element = $(this.getContext().createElement('iframe'))
+		this.parent.element.append(this.element)
+	}
+
+	function _updateSize() {
+		var style = { width: this.width, height: this.height }
+		this.style(style)
+	}
 }

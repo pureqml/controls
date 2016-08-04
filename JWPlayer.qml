@@ -65,7 +65,7 @@ Item {
 		this._jwplayer = window.jwplayer
 		this._videoId = "videoDiv" + Math.floor(Math.random() * 100500)
  
-		var player = $(document.createElement('div'))
+		var player = $(this.getContext().createElement('div'))
 		player[0].id = this._videoId
 		this.element.append(player)
 
