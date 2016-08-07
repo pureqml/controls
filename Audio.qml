@@ -15,8 +15,8 @@ Item {
 
 	constructor: {
 		this.element.remove()
-		this.element = $(this.getContext().createElement('audio'))
-		this._audioPlayer = this.element[0]
+		this.element = this.getContext().createElement('audio')
+		this._audioPlayer = this.element
 		this.parent.element.append(this.element)
 	}
 }
