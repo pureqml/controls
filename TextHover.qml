@@ -34,8 +34,8 @@ Text {
 	}
 
 	onCompleted: {
-		var self = this;
-		self.element.click(self._onClick.bind(self))
-		self.element.hover(self._onEnter.bind(self), self._onExit.bind(self)) //fixme: unsubscribe
+		this.element.on('click', this._onClick.bind(this))
+		this.element.on('mouseenter', this._onEnter.bind(this))
+		this.element.on('mouseleave', this._onExit.bind(this))
 	}
 }
