@@ -17,7 +17,7 @@ Item {
 
 	constructor: {
 		this.element.remove()
-		this.element = this.getContext().createElement('iframe')
+		this.element = this._context.createElement('iframe')
 		this.parent.element.append(this.element)
 	}
 

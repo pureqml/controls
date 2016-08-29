@@ -11,7 +11,7 @@ Text {
 
 	constructor: {
 		this.element.remove();
-		this.element = this.getContext().createElement('a')
+		this.element = this._context.createElement('a')
 		this.parent.element.append(this.element);
 		this.style('cursor', this.cursor);
 	}
