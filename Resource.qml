@@ -3,6 +3,9 @@ Protocol {
 
 	onUrlChanged: {
 		var self = this
-		this.request(value, function(data) { self.data = data })
+		this.requestXHR({
+			"url": value,
+			"callback": function(data) { self.data = data.target.responseText }
+		})
 	}
 }
