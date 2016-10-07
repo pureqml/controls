@@ -6,7 +6,7 @@ Text {
 	property string href;
 
 	onHrefChanged: {
-		this.element.attr("href", this.href)
+		this.element.dom.href = this.href
 	}
 
 	constructor: {
