@@ -1,6 +1,7 @@
 Item {
 	property string code;
 	property string language;
+	clip: true;
 
 	function _update(name, value) {
 		switch (name) {
