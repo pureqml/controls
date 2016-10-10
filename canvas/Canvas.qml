@@ -1,4 +1,4 @@
-Rectangle {
+Item {
 	function getTag() {	return 'canvas'	}
 
 	onWidthChanged: { this.element.dom.width = value; }
