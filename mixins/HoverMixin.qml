@@ -4,38 +4,36 @@ Object {
 	property bool enabled: true;
 	property string cursor: "pointer";
 
-	constructor: { 
+	constructor: {
 		this.element = this.parent.element;
 		this.parent.style('cursor', this.cursor) 
 	}
 
-	onCursorChanged: 	{ this.parent.style('cursor', value) }
+	onCursorChanged: {
+		this.parent.style('cursor', value)
+	}
 
-	function _bindClick() {
-		var self = this
-		if (!this._clicked)
-			this._clicked = function (){ self.parent.emit.apply(self.parent, qml.core.copyArguments(arguments, 0, 'clicked'))}
-		this.element.on('click', this._clicked)
+	function _bindClick(value) {
+		if (value && !this._hmClickBinder) {
+			this._hmClickBinder = new _globals.core.EventBinder(this.element)
+			this._hmClickBinder.on('click', _globals.core.createSignalForwarder(this.parent, 'clicked').bind(this))
+		}
+		if (this._hmClickBinder)
+			this._hmClickBinder.enable(value)
 	}
 
 	onClickableChanged: {
-		if (value)
-			this._bindClick()
-		else
-			this.element.removeListener('click', this._clicked)
+		this._bindClick(value)
 	}
 
 	function _bindHover(value) {
-		var self = this
-		var onEnter = function() { self.value = true }
-		var onLeave = function() { self.value = false }
-		if (value) {
-			this.element.on('mouseenter', onEnter)
-			this.element.on('mouseleave', onLeave)
-		} else {
-			this.element.removeListener('mouseenter', onEnter)
-			this.element.removeListener('mouseleave', onLeave)
+		if (value && !this._hmHoverBinder) {
+			this._hmHoverBinder = new _globals.core.EventBinder(this.parent.element)
+			this._hmHoverBinder.on('mouseenter', function() { this.value = true }.bind(this))
+			this._hmHoverBinder.on('mouseleave', function() { this.value = false }.bind(this))
 		}
+		if (this._hmHoverBinder)
+			this._hmHoverBinder.enable(value)
 	}
 
 	onEnabledChanged: {
@@ -43,9 +41,7 @@ Object {
 	}
 
 	onCompleted: {
-		if (this.clickable)
-			this._bindClick()
-		if (this.enabled)
-			this._bindHover(true)
+		this._bindClick(this.clickable)
+		this._bindHover(this.enabled)
 	}
 }
