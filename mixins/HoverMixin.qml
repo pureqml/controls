@@ -2,7 +2,7 @@ Object {
 	property bool clickable: true;
 	property bool value;
 	property bool enabled: true;
-	property string cursor: "pointer";
+	property string cursor;
 
 	constructor: {
 		this.element = this.parent.element;
