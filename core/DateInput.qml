@@ -11,8 +11,7 @@ InputBase {
 			case 'min': this.element.dom.min = value; break
 			case 'max': this.element.dom.max = value; break
 		}
-
-		qml.qb.InputBase.prototype._update.apply(this, arguments);
+		_globals.core.InputBase.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {

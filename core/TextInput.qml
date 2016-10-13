@@ -9,8 +9,7 @@ InputBase {
 		switch (name) {
 			case 'text': if (value != this.element.dom.value) this.element.dom.value = value; break
 		}
-
-		qml.qb.InputBase.prototype._update.apply(this, arguments);
+		_globals.core.InputBase.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {

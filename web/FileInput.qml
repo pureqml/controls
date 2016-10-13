@@ -10,7 +10,7 @@ InputBase {
 			case 'filter': this.element.dom.accept = value; break
 		}
 
-		qml.qb.InputBase.prototype._update.apply(this, arguments);
+		_globals.core.InputBase.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {

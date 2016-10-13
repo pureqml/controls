@@ -5,7 +5,7 @@ InputBase {
 	type: "search";
 
 	function _update(name, value) {
-		qml.qb.InputBase.prototype._update.apply(this, arguments);
+		_globals.core.InputBase.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {
