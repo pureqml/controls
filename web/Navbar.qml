@@ -26,7 +26,7 @@ Layout {
 
 			if (this.vertical)
 			{
-				if (c.recursiveVisible && c instanceof qml.qb.NavbarItem) {
+				if (c.recursiveVisible && c instanceof _globals.web.NavbarItem) {
 					c.x = cX + c.anchors.leftMargin;
 					c.y = cY + c.anchors.topMargin;
 					cY = c.y + c.height + this.spacing;
@@ -35,7 +35,7 @@ Layout {
 				}
 			}
 			else {//horizontal
-				if (c.recursiveVisible && c instanceof qml.qb.NavbarItem) {
+				if (c.recursiveVisible && c instanceof _globals.web.NavbarItem) {
 					c.y = 0;
 					c.x = cX + c.anchors.leftMargin;
 					cX = c.x + c.width + this.spacing;

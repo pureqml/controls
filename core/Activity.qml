@@ -6,7 +6,7 @@ Item {
 	signal started;
 	signal stopped;
 
-	isActivity(obj): { return obj instanceof qml.controls.Activity; }
+	isActivity(obj): { return obj instanceof _globals.core.Activity; }
 
 	isAnyActiveInContext: {
 		var childrens = this.parent.children;

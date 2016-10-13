@@ -11,7 +11,7 @@ Item {
 			case 'code':		this._code.dom.innerHTML = value; window.hljs.highlightBlock(this._code.dom); break
 			case 'language':	this._code.dom.className = value; break
 		}
-		qml.core.Item.prototype._update.apply(this, arguments);
+		_globals.core.Item.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {

@@ -12,6 +12,6 @@ Object {
 			case 'right':	this.parent.style(this.prefix + 'right', value); break;
 			case 'bottom':	this.parent.style(this.prefix + 'bottom', value); break;
 		}
-		qml.core.Object.prototype._update.apply(this, arguments);
+		_globals.core.Object.prototype._update.apply(this, arguments);
 	}
 }

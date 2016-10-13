@@ -14,7 +14,7 @@ Object {
 				break
 		}
 
-		qml.core.Object.prototype._update.apply(this, arguments);
+		_globals.core.Object.prototype._update.apply(this, arguments);
 	}
 
 	open: {

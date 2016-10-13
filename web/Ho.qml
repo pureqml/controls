@@ -95,7 +95,7 @@ Object {
 			case 'y':
 			case 'top':			this.style('top', value); break;
 			case 'display':		this.style('display', value); break;
-			case 'color': 		this.style('background-color', qml.core.normalizeColor(value)); break;
+			case 'color': 		this.style('background-color', _globals.core.normalizeColor(value)); break;
 			case 'float':		this.style('float', value); break;
 			case 'boxSizing':	this.style('box-sizing', value); break;
 			case 'position':	this.style('position', value); break;
@@ -106,7 +106,7 @@ Object {
 			case 'clip':		this.style('overflow', value? 'hidden': 'visible'); break;
 			case 'rotate':		this.style('transform', 'rotate(' + value + 'deg)'); break
 		}
-		qml.core.Object.prototype._update.apply(this, arguments);
+		_globals.core.Object.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {

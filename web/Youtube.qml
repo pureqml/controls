@@ -12,7 +12,7 @@ Item {
 			case 'allowFullScreen': this.element[0].allowFullscreen = value; break
 		}
 
-		qml.core.Item.prototype._update.apply(this, arguments);
+		_globals.core.Item.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {

@@ -11,8 +11,7 @@ Item {
 				this._updateCenter()
 				break;
 		}
-
-		qml.core.Item.prototype._update.apply(this, arguments);
+		_globals.core.Item.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {

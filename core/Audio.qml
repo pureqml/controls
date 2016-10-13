@@ -6,7 +6,7 @@ Item {
 		switch (name) {
 			case 'source': this.element[0].setAttribute('src', value); if (this.autoPlay) this.play(); break
 		}
-		qml.core.Item.prototype._update.apply(this, arguments);
+		_globals.core.Item.prototype._update.apply(this, arguments);
 	}
 
 	play: { this._audioPlayer.play() }
