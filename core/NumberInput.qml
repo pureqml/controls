@@ -12,6 +12,7 @@ InputBase {
 			case 'min': this.element.dom.min = value; break
 			case 'max': this.element.dom.max = value; break
 			case 'step': this.element.dom.step = value; break
+			case 'value': this.element.dom.value = value; break
 		}
 		_globals.core.InputBase.prototype._update.apply(this, arguments);
 	}
