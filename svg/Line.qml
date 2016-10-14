@@ -25,45 +25,53 @@ Object {
 	function _update (name, value) {
 		switch(name) {
 			case 'color': 
-			case 'width': 
+			case 'width':
+				log ("update stroke", name, value)
 				this.element.setAttribute('style', 'stroke:' + _globals.core.normalizeColor(this.color) + ';stroke-width:' + this.width +';') 
 				break;
 
 			case 'x1':
-			case 'x2':
-			case 'y1':
-			case 'y2':
-				var b = this.calcBoxSize();
-				this.element.setAttribute('x1', this.x1 - b.x);
-				this.element.setAttribute('x2', this.x2 - b.x);
-				this.element.setAttribute('y1', this.y1 - b.y);
-				this.element.setAttribute('y2', this.y2 - b.y);
-				this.parent._update('box', b)
+				this.element.setAttribute('x1', value);
 				break;
+			case 'x2':
+				this.element.setAttribute('x2', value);
+				break;
+			case 'y1':
+				this.element.setAttribute('y1', value);
+				break;
+			case 'y2':
+				this.element.setAttribute('y2', value);
+				break;
+// 				var b = this.calcBoxSize();
+// 				this.element.setAttribute('x2', this.x2 - b.x);
+// 				this.element.setAttribute('y1', this.y1 - b.y);
+// 				this.element.setAttribute('y2', this.y2 - b.y);
+// 				this.parent._update('box', b)
+// 				break;
 		}
 		_globals.core.Object.prototype._update.apply(this, arguments);
 	}
 
-	function calcBoxSize() {
-		var x, y, w, h, x1 = this.x1, x2 = this.x2, y1 = this.y1, y2 = this.y2
-		if (x1 < x2) {
-			x = x1
-			w = x2 - x1 + this.width
-		} else {
-			x = x2
-			w = x1 - x2 + this.width
-		}
+	// function calcBoxSize() {
+	// 	var x, y, w, h, x1 = this.x1, x2 = this.x2, y1 = this.y1, y2 = this.y2
+	// 	if (x1 < x2) {
+	// 		x = x1
+	// 		w = x2 - x1 + this.width
+	// 	} else {
+	// 		x = x2
+	// 		w = x1 - x2 + this.width
+	// 	}
 
-		if (y1 < y2) {
-			y = y1
-			h = y2 - y1 + this.width
-		} else {
-			y = y2
-			h = y1 - y2 + this.width
-		}
+	// 	if (y1 < y2) {
+	// 		y = y1
+	// 		h = y2 - y1 + this.width
+	// 	} else {
+	// 		y = y2
+	// 		h = y1 - y2 + this.width
+	// 	}
 
-		return { x: x, y: y, width: w, height: h }
-	}
+	// 	return { x: x, y: y, width: w, height: h }
+	// }
 
 	function style(name, style) {
 		var element = this.element
