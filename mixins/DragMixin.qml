@@ -4,6 +4,10 @@ Object {
 	property int x;
 	property int y;
 
+	property enum direction {
+		Any, Vertical, Horizontal
+	};
+
 	constructor: { this.element = this.parent.element; }
 
 	function _bindPressed(value) {
@@ -18,8 +22,10 @@ Object {
 					this._dmMoveBinder = new _globals.core.EventBinder(context.window)
 					this._dmMoveBinder.on('mousemove', function(e) {
 						e.preventDefault();
-						this.parent.y = e.clientY - this._startY
-						this.parent.x = e.clientX - this._startX
+						if (this.direction !== this.Horizontal)
+							this.parent.y = e.clientY - this._startY
+						if (this.direction !== this.Vertical)
+							this.parent.x = e.clientX - this._startX
 					}.bind(this))
 
 					this._dmMoveBinder.on('mouseup', function() { 
