@@ -21,6 +21,10 @@ Item {
 				this.element.setAttribute('height', value);
 				break;
 
+			case 'clip':
+				this.style('overflow', value? 'hidden': 'visible'); break;
+				break;
+
 			case 'x':
 				this.style('left', value);
 				break;
