@@ -1,4 +1,5 @@
 Item {
+	property bool fitToContent: false;
 	property string code;
 	property string language;
 	property Font font: Font {}
@@ -10,6 +11,7 @@ Item {
 			case 'height':		this._updateSize(); break
 			case 'code':		this._code.dom.innerHTML = value; window.hljs.highlightBlock(this._code.dom); break
 			case 'language':	this._code.dom.className = value; window.hljs.highlightBlock(this._code.dom); break
+			case 'fitToContent': this._code.dom.style.height = value ? "auto" : "inherit"; break
 		}
 		_globals.core.Item.prototype._update.apply(this, arguments);
 	}
@@ -30,6 +32,8 @@ Item {
 	}
 
 	function _updateSize() {
+		if (this.fitToContent)
+			this.height = this._code.dom.scrollHeight
 		var style = { width: this.width, height: this.height }
 		this.style(style)
 	}
