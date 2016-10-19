@@ -3,6 +3,10 @@ Object {
 	property bool enabled: true;
 	property int x;
 	property int y;
+	property int limitx1;
+	property int limitx2;
+	property int limity1;
+	property int limity2;
 
 	property enum direction {
 		Any, Vertical, Horizontal
@@ -22,10 +26,28 @@ Object {
 					this._dmMoveBinder = new _globals.core.EventBinder(context.window)
 					this._dmMoveBinder.on('mousemove', function(e) {
 						e.preventDefault();
-						if (this.direction !== this.Horizontal)
-							this.parent.y = e.clientY - this._startY
-						if (this.direction !== this.Vertical)
-							this.parent.x = e.clientX - this._startX
+						if (this.direction !== this.Horizontal) {
+							var eY = e.clientY, sY = this._startY, ly1 = this.limity1, ly2 = this.limity2
+							if (ly2  && (eY - sY > ly2)) {
+								log (eY, sY, ly2, ly1)
+								this.parent.y = ly2
+							}
+							else if (ly1 && (eY - sY < ly1))
+								this.parent.y = ly1
+							else
+								this.parent.y = eY - sY
+						}
+						if (this.direction !== this.Vertical) {
+							var eX = e.clientX, sX = this._startX, lx1 = this.limitx1, lx2 = this.limitx2
+							if (lx2  && (eX - sX > lx2)) {
+								log (eX, sX, lx2, lx1)
+								this.parent.x = lx2
+							}
+							else if (lx1 && (eX - sX < lx1))
+								this.parent.x = lx1
+							else
+								this.parent.x = eX - sX
+						}
 					}.bind(this))
 
 					this._dmMoveBinder.on('mouseup', function() { 
