@@ -6,4 +6,14 @@ Rectangle {
 	property alias cursor: hoverMixin.cursor;
 	color: "transparent";
 	hoverMixin.cursor: "pointer";
+	property string position;
+
+	function _update(name, value) {
+		switch (name) {
+			case 'position': 
+				this.style('position', value); 
+				break
+		}
+		_globals.core.Rectangle.prototype._update.apply(this, arguments);
+	}
 }
