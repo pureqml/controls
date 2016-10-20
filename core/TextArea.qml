@@ -6,6 +6,7 @@ Item {
 	property Color backgroundColor: "#fff";
 	property Font font: Font {}
 	property Border border: Border {}
+	property string placeholder;
 	width: 150;
 	height: 100;
 
@@ -13,6 +14,7 @@ Item {
 		switch (name) {
 			case 'text': if (value != this.element.dom.value) this.element.dom.value = value; break
 			case 'color': this.style('color', value); break
+			case 'placeholder': this.element[0].setAttribute('placeholder', value); break
 			case 'width': this._updateSize(); break
 			case 'height': this._updateSize(); break
 			case 'backgroundColor': this.style('background', value); break

@@ -6,12 +6,14 @@ Item {
 	property string type: "text";
 	property Font font: Font {}
 	property Border border: Border {}
+	property string placeholder;
 
 	function _update(name, value) {
 		switch (name) {
 			case 'type': this.element.dom.type = value; break
 			case 'width': this._updateSize(); break
 			case 'height': this._updateSize(); break
+			case 'placeholder': this.element[0].setAttribute('placeholder', value); break
 			case 'color': this.style('color', value); break
 			case 'backgroundColor': this.style('background', value); break
 			case 'borderWidth': this.style('borderStyle', value ? 'inherit' : 'hidden'); break
