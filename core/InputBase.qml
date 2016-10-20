@@ -8,6 +8,18 @@ Item {
 	property Border border: Border {}
 	property string placeholder;
 
+	onActiveFocusChanged: {
+		if (value)
+			this.element.dom.select()
+		else
+			this.element.dom.blur()
+	}
+
+	onRecursiveVisibleChanged: {
+		if (!value)
+			this.element.blur()
+	}
+
 	function _update(name, value) {
 		switch (name) {
 			case 'type': this.element.dom.type = value; break
