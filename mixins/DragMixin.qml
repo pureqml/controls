@@ -29,7 +29,6 @@ Object {
 						if (this.direction !== this.Horizontal) {
 							var eY = e.clientY, sY = this._startY, ly1 = this.limity1, ly2 = this.limity2
 							if (ly2  && (eY - sY > ly2)) {
-								log (eY, sY, ly2, ly1)
 								this.parent.y = ly2
 							}
 							else if (ly1 && (eY - sY < ly1))
@@ -40,7 +39,6 @@ Object {
 						if (this.direction !== this.Vertical) {
 							var eX = e.clientX, sX = this._startX, lx1 = this.limitx1, lx2 = this.limitx2
 							if (lx2  && (eX - sX > lx2)) {
-								log (eX, sX, lx2, lx1)
 								this.parent.x = lx2
 							}
 							else if (lx1 && (eX - sX < lx1))
