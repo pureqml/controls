@@ -15,19 +15,19 @@ Item {
 		_globals.core.Item.prototype._update.apply(this, arguments);
 	}
 
+	/// returns tag for corresponding element
+	function getTag() { return 'pre' }
+
 	constructor: {
 		if (!window.hljs) {
 			log("hljs is not defined! Maybe you forget to attach highlight.js file.")
 			return
 		}
-		this.element.remove()
-		this.element = this._context.createElement('pre')
 		this._code = this._context.createElement('code')
 		this._code.dom.style.width = "auto"
 		this._code.dom.style.height = "auto"
 		this._code.dom.style.font = "inherit"
 		this.element.append(this._code)
-		this.parent.element.append(this.element)
 	}
 
 	function _updateSize() {
