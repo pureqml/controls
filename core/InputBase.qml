@@ -28,12 +28,8 @@ Item {
 		_globals.core.Item.prototype._update.apply(this, arguments);
 	}
 
-	constructor: {
-		this.element.remove()
-		this.element = this._context.createElement('input')
-		this.parent.element.append(this.element)
-		this.style('borderStyle', 'hidden')
-	}
+	/// returns tag for corresponding element
+	function getTag() { return 'input' }
 
 	function _updateSize() {
 		var style = { width: this.width, height: this.height }
