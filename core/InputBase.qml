@@ -17,7 +17,7 @@ Item {
 
 	onRecursiveVisibleChanged: {
 		if (!value)
-			this.element.blur()
+			this.element.dom.blur()
 	}
 
 	function _update(name, value) {
