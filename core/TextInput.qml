@@ -13,7 +13,6 @@ InputBase {
 	}
 
 	constructor: {
-		var self = this
-		this.element.on("input", function() { self.text = this.element.dom.value }.bind(this))
+		this.element.on("input", function() { this.text = this.element.dom.value }.bind(this))
 	}
 }

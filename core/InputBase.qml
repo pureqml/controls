@@ -8,6 +8,11 @@ Item {
 	property Border border: Border {}
 	property string placeholder;
 
+	constructor: {
+		this.element.on("focus", function() { this.activeFocus = true; }.bind(this))
+		this.element.on("blur", function() { this.activeFocus = false; }.bind(this))
+	}
+
 	onActiveFocusChanged: {
 		if (value)
 			this.element.dom.select()
