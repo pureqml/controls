@@ -25,4 +25,8 @@ Object {
 		else
 			this.parent.width = this.parent.parent.width * this.xs / 100
 	}
+
+	onCompleted: {
+		this._calculate();
+	}
 }
