@@ -24,7 +24,5 @@ Object {
 			this.parent.width = this.parent.parent.width * (this.sm || this.xs) / 100
 		else
 			this.parent.width = this.parent.parent.width * this.xs / 100
-
-		log ("Relative width", value, this.parent.width)
 	}
 }
