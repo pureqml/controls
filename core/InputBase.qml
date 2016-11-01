@@ -1,5 +1,6 @@
 Item {
 	property enum horizontalAlignment { AlignLeft, AlignRight, AlignHCenter, Justify };
+	property Paddings paddings: Paddings {}
 	property Color color: "#000";
 	property Color backgroundColor: "#fff";
 	property Font font: Font {}
@@ -29,7 +30,7 @@ Item {
 			case 'type': this.element.dom.type = value; break
 			case 'width': this._updateSize(); break
 			case 'height': this._updateSize(); break
-			case 'placeholder': this.element[0].setAttribute('placeholder', value); break
+			case 'placeholder': this.element.setAttribute('placeholder', value); break
 			case 'color': this.style('color', value); break
 			case 'backgroundColor': this.style('background', value); break
 			case 'horizontalAlignment':

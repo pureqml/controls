@@ -1,5 +1,4 @@
 InputBase {
-	property Paddings paddings: Paddings {}
 	property int max;
 	property int min;
 	property int step;
