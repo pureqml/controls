@@ -16,12 +16,6 @@ InputBase {
 	}
 
 	constructor: {
-		var self = this
-		this.element.on("change", function() { self.value = this.element.dom.value }.bind(this))
-	}
-
-	function _updateSize() {
-		var style = { width: this.width, height: this.height }
-		this.style(style)
+		this.element.on("change", function() { this.value = this.element.dom.value }.bind(this))
 	}
 }

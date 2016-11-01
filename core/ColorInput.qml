@@ -9,7 +9,6 @@ InputBase {
 	}
 
 	constructor: {
-		var self = this
-		this.element.on("input", function() { self.color = this.element.dom.value }.bind(this))
+		this.element.on("input", function() { this.color = this.element.dom.value }.bind(this))
 	}
 }

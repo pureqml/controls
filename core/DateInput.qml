@@ -15,7 +15,6 @@ InputBase {
 	}
 
 	constructor: {
-		var self = this
-		this.element.on("change", function() { self.value = this.element.dom.value }.bind(this))
+		this.element.on("change", function() { this.value = this.element.dom.value }.bind(this))
 	}
 }
