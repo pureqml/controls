@@ -1,12 +1,12 @@
 Item {
 	property enum horizontalAlignment { AlignLeft, AlignRight, AlignHCenter, Justify };
-	property int borderWidth: border.width;
+//	property int borderWidth: border.width;
 	property Color color: "#000";
 	property Color backgroundColor: "#fff";
-	property string type: "text";
 	property Font font: Font {}
 	property Border border: Border {}
 	property string placeholder;
+	property string type: "text";
 
 	constructor: {
 		this.element.on("focus", function() { this.activeFocus = true; }.bind(this))
@@ -33,7 +33,7 @@ Item {
 			case 'placeholder': this.element[0].setAttribute('placeholder', value); break
 			case 'color': this.style('color', value); break
 			case 'backgroundColor': this.style('background', value); break
-			case 'borderWidth': this.style('borderStyle', value ? 'inherit' : 'hidden'); break
+//			case 'borderWidth': this.style('borderStyle', value ? 'inherit' : 'hidden'); break
 			case 'horizontalAlignment':
 				switch(value) {
 				case this.AlignLeft:	this.style('text-align', 'left'); break
