@@ -1,4 +1,5 @@
 InputBase {
+	property Paddings paddings: Paddings {}
 	property string text;
 	property bool passwordMode: false;
 	height: 20;

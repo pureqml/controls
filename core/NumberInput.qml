@@ -1,4 +1,5 @@
 InputBase {
+	property Paddings paddings: Paddings {}
 	property int max;
 	property int min;
 	property int step;
@@ -18,7 +19,6 @@ InputBase {
 	}
 
 	constructor: {
-		var self = this
-		this.element.on("input", function() { self.value = this.element.dom.value }.bind(this))
+		this.element.on("input", function() { this.value = this.element.dom.value }.bind(this))
 	}
 }

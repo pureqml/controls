@@ -1,4 +1,5 @@
 InputBase {
+	property Paddings paddings: Paddings {}
 	property string text;
 	width: 150;
 	height: 100;
