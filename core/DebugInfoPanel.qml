@@ -30,8 +30,11 @@ Rectangle {
 
 		DebugInfoItem {
 			label: "Device:";
-			value: context.system.device == System.Desktop ? "Desktop" : 
-				context.system.device == System.Tv ? "Tv" : "Mobile";
+
+			onCompleted: {
+				this.value = this._context.system.device == this._context.system.Desktop ? "Desktop" :
+					this._context.system.device == this._context.system.Tv ? "Tv" : "Mobile";
+			}
 		}
 
 		DebugInfoItem {
