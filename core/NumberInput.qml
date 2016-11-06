@@ -1,8 +1,8 @@
 InputBase {
-	property int max;
-	property int min;
-	property int step;
-	property int value;
+	property float max;
+	property float min;
+	property float step;
+	property float value;
 	width: 100;
 	height: 25;
 	type: "number";
