@@ -4,7 +4,7 @@ Item {
 
 	/// specialized implementation of element creation in a certain namespace.
 	function createElement(tag) {
-		this.element = new _globals.core.html.Element(this._context, document.createElementNS('http://www.w3.org/2000/svg', tag))
+		this.element = new _globals.html5.html.Element(this._context, document.createElementNS('http://www.w3.org/2000/svg', tag))
 		this.parent.element.append(this.element)
 	}
 

@@ -12,7 +12,7 @@ Object {
 
 	/// specialized implementation of element creation in a certain namespace.
 	function createElement(tag, append) {
-		this.element = new _globals.core.html.Element(this, document.createElementNS('http://www.w3.org/2000/svg', tag))
+		this.element = new _globals.html5.html.Element(this, document.createElementNS('http://www.w3.org/2000/svg', tag))
 		if (!append) {
 			this.parent.element.append(this.element)
 		}
