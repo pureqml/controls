@@ -1,5 +1,6 @@
 BaseView {
 	property enum orientation { Vertical, Horizontal };
+	property bool cacheEnable: true;
 
 	constructor: {
 		this._offset = 0
@@ -51,9 +52,9 @@ BaseView {
 
 		log("current item", ci, pb)
 
-		var renderedLeft, renderedRight;
+		var renderedLeft, renderedRight, plusOne = this.cacheEnable;
 
-		for (var i = ci - 1; pb > 0; --i) {
+		for (var i = ci - 1; pb > 0 || plusOne; --i) {
 			var item = items[i + this._offset]
 
 			if (!item) {
@@ -63,19 +64,25 @@ BaseView {
 
 			var s = (horizontal? item.width: item.height)
 
+			if (pb <= 0)
+				plusOne = false
+
 			pb -= s + this.spacing
 			if (horizontal)
 				item.viewX = pb
 			else
 				item.viewY = pb
 
+
+
 			log("left item", i, pb)
 			item.visible = true
 			renderedLeft = i + this._offset
 		}
 
+		plusOne = this.cacheEnable;
 
-		for (var i = ci + 1; pf < w; ++i) {
+		for (var i = ci + 1; pf < w || plusOne; ++i) {
 			var item = items[i + this._offset]
 
 			if (!item) {
@@ -90,26 +97,28 @@ BaseView {
 			else
 				item.viewY = pf
 
+			if (pf >= w)
+				plusOne = false
+
 			log("right item", i, pf)
 			pf += s + this.spacing
 			item.visible = true
-			renderedRight = i + this._offset
+			renderedRight = i + this._offset + 1
 		}
 
-		for( var i = renderedRight + 1 ; i < this._items.length; ++i) {
-			log("trying to remove", i)
-			var item = items[i]
+		for( var i = 0 ; i < this._items.length - renderedRight; ++i) {
+			log("trying to remove from the end", i)
+			var item = items.pop()
 			if (item) {
 				item.element.remove();
 			}
 		}
 
-		this._items.splice(renderedRight + 1, this._items.length - renderedRight - 1);
-
-		for( var i = renderedLeft - 1 ; i >= 0; --i) {
-			log("trying to remove", i)
-			var item = items[i]
+		for( var i = 0 ; i < renderedLeft; ++i) {
+			log("trying to remove from the beginning", i)
+			var item = items.shift()
 			if (item) {
+				this._offset--
 				item.element.remove();
 			}
 		}
