@@ -109,9 +109,8 @@ BaseView {
 		for( var i = 0 ; i < this._items.length - renderedRight; ++i) {
 			log("trying to remove from the end", i)
 			var item = items.pop()
-			if (item) {
-				item.element.remove();
-			}
+			if (item)
+				item.discard()
 		}
 
 		for( var i = 0 ; i < renderedLeft; ++i) {
@@ -119,7 +118,7 @@ BaseView {
 			var item = items.shift()
 			if (item) {
 				this._offset--
-				item.element.remove();
+				item.discard()
 			}
 		}
 
