@@ -20,39 +20,38 @@ BaseView {
 		this.count = model.count
 
 		var horizontal = this.orientation === this.Horizontal
-
 		var items = this._items
-		var n = items.length
-		if (!n) {
+
+		if (!items.length) {
 			this.rendered = true
 			return
 		}
 
-		var w = this.width, h = this.height
-		//log("layout " + n + " into " + w + "x" + h)
+		var w = this.width
+		var h = this.height
 		var created = false
-		var c = horizontal? this.content.x: this.content.y
-		var size = horizontal? w: h
-
-		var itemsCount = 0
-
+		var size = horizontal ? w : h
 		var ci = this.currentIndex
 		var item = items[ci + this._offset]
+
 		if (!item) {
 			item = this._createDelegate(ci)
 			created = true
 		}
 
-		var pb = (w - item.width) / 2
-		var pf = pb + item.width + this.spacing
+		var itemSize = horizontal ? item.width : item.height
+		var pb = (size - itemSize) / 2
+		var pf = pb + itemSize + this.spacing
+
 		if (horizontal)
 			item.viewX = pb
 		else
 			item.viewY = pb
 
-		log("current item", ci, pb)
-
-		var renderedLeft, renderedRight, plusOne = this.cacheEnable;
+		//log("current item", ci, pb)
+		var renderedBefore,
+			renderedAfter,
+			plusOne = this.cacheEnable;
 
 		for (var i = ci - 1; pb > 0 || plusOne; --i) {
 			var item = items[i + this._offset]
@@ -62,27 +61,26 @@ BaseView {
 				created = true
 			}
 
-			var s = (horizontal? item.width: item.height)
+			var s = (horizontal ? item.width : item.height)
 
 			if (pb <= 0)
 				plusOne = false
 
 			pb -= s + this.spacing
+
 			if (horizontal)
 				item.viewX = pb
 			else
 				item.viewY = pb
 
-
-
-			log("left item", i, pb)
+			//log("item before", i, pb)
 			item.visible = true
-			renderedLeft = i + this._offset
+			renderedBefore = i + this._offset
 		}
 
 		plusOne = this.cacheEnable;
 
-		for (var i = ci + 1; pf < w || plusOne; ++i) {
+		for (var i = ci + 1; pf < size || plusOne; ++i) {
 			var item = items[i + this._offset]
 
 			if (!item) {
@@ -90,30 +88,32 @@ BaseView {
 				created = true
 			}
 
-			var s = (horizontal? item.width: item.height)
+			var s = (horizontal ? item.width : item.height)
 
 			if (horizontal)
 				item.viewX = pf
 			else
 				item.viewY = pf
 
-			if (pf >= w)
+			if (pf >= s)
 				plusOne = false
 
-			log("right item", i, pf)
+			//log("item after", i, pf, s)
 			pf += s + this.spacing
 			item.visible = true
-			renderedRight = i + this._offset + 1
+			renderedAfter = i + this._offset + 1
 		}
 
-		for( var i = 0 ; i < this._items.length - renderedRight; ++i) {
+		//log("before", renderedBefore, "afer", renderedAfter)
+
+		for (var i = 0; i < this._items.length - renderedAfter; ++i) {
 			log("trying to remove from the end", i)
 			var item = items.pop()
 			if (item)
 				item.discard()
 		}
 
-		for( var i = 0 ; i < renderedLeft; ++i) {
+		for (var i = 0; i < renderedBefore; ++i) {
 			log("trying to remove from the beginning", i)
 			var item = items.shift()
 			if (item) {
@@ -122,7 +122,7 @@ BaseView {
 			}
 		}
 
-		this._items.splice(0, renderedLeft - 1);
+		this._items.splice(0, renderedBefore - 1);
 
 		this.rendered = true
 		if (created)
@@ -153,7 +153,7 @@ BaseView {
 			this._items.unshift(item)
 			this._offset++
 		}
-		log ("_createDelegate", idx, mapped, this._offset)
+		log("_createDelegate", idx, mapped, this._offset)
 		item.view = this
 		this.element.append(item.element)
 		item._local['model'] = row
