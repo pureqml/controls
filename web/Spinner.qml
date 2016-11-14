@@ -3,7 +3,7 @@ WebItem {
 	property bool running;
 	width: 80;
 	height: 80;
-	rotate: 0;
+	transform.rotate: 0;
 	property int squize: 0;
 
 	start: {
@@ -15,7 +15,7 @@ WebItem {
 	}
 
 	onRunningChanged: {
-		spinnerItem.rotate += 360;
+		spinnerItem.transform.rotate += 360;
 		spinnerItem.squize = ++spinnerItem.squize % 5;
 	}
 
@@ -68,7 +68,7 @@ WebItem {
 		Behavior on x, y { Animation {duration: 400; easing: "linear";  cssTransition: true;} }
 	}
 
-	Behavior on rotate { Animation {duration: 850; cssTransition: true;} }
+	Behavior on transform { Animation {duration: 850; cssTransition: true;} }
 
 	Timer {
 		id: spinTimer;
@@ -77,7 +77,7 @@ WebItem {
 		repeat: true;
 
 		onTriggered: {
-			spinnerItem.rotate += 360;
+			spinnerItem.transform.rotate += 360;
 			spinnerItem.squize = ++spinnerItem.squize % 5;
 			if (spinnerItem.squize === 1) {
 				var t = r1.z;

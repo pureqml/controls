@@ -20,8 +20,8 @@ WebItem {
 			width: parent.isBack ? 16 : 24;
 			height: 2;
 			color: parent.parent.barColor;
-			rotate: !parent.isMenu ? -45 : 0;
-			Behavior on x, y, width, rotate { Animation { duration: 400; cssTransition: true; } }
+			transform.rotate: !parent.isMenu ? -45 : 0;
+			Behavior on x, y, width, transform { Animation { duration: 400; cssTransition: true; } }
 		}
 
 		Rectangle {
@@ -30,8 +30,8 @@ WebItem {
 			width: 24;
 			height: 2;
 			color: parent.parent.barColor;
-			rotate: parent.isBack ? 180 : parent.isCross ? 45 : 0;
-			Behavior on rotate { Animation { duration: 400; cssTransition: true; } }
+			transform.rotate: parent.isBack ? 180 : parent.isCross ? 45 : 0;
+			Behavior on transform { Animation { duration: 400; cssTransition: true; } }
 		}
 
 		Rectangle {
@@ -40,8 +40,8 @@ WebItem {
 			width: parent.isBack ? 16 : 24;
 			height: 2;
 			color: parent.parent.barColor;
-			rotate: !parent.isMenu ? 45 : 0;
-			Behavior on x, y, rotate, width { Animation { duration: 400; cssTransition: true; } }
+			transform.rotate: !parent.isMenu ? 45 : 0;
+			Behavior on x, y, transform, width { Animation { duration: 400; cssTransition: true; } }
 		}
 	}
 }

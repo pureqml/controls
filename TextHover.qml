@@ -1,6 +1,7 @@
 Text {
 	property Mixin hover: HoverMixin {}
-	hover.cursor: "pointer";
+	property alias cursor: hover.cursor;
+	cursor: "pointer";
 	property string href;
 
 	onHrefChanged: { this.element.dom.href = this.href }
