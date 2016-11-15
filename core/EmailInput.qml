@@ -1,5 +1,6 @@
 TextInput {
 	property bool correct;
+	type: "email";
 
 	onTextChanged: {
 		if (!this.re)
