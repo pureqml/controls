@@ -1,17 +1,18 @@
 Item {
 	id: swipeMenu;
-	height: parent.height;
-	width: 12;
-	property int xDuration: 350;
+	property Item innerArea: Item { }
 	property bool hideable: true;
-	property int shiftX;
+	property int xDuration: 350;
 	property int openWidth: 280;
 	property int intPos: 0;
+	property int shiftX;
+	width: 12;
+	height: parent.height;
 
 	show: {
 		if (!this.hideable)
 			return;
-		this.width = innerArea.width + 30;
+		this.width = this.innerArea.width + 30;
 		this.intPos = this.openWidth;
 	}
 
@@ -20,10 +21,6 @@ Item {
 			return;
 		this.width = 12;
 		this.intPos = 0;
-	}
-
-	Item { 
-		id: innerArea;
 	}
 
 	onCompleted: {
