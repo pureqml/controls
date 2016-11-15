@@ -1,6 +1,7 @@
 Text {
-	property Mixin hover: HoverMixin {}
-	property alias cursor: hover.cursor;
+	property Mixin hoverMixin: HoverMixin {}
+	property alias cursor: hoverMixin.cursor;
+	property alias hover: hoverMixin.value;
 	cursor: "pointer";
 	property string href;
 
