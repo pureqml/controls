@@ -15,6 +15,8 @@ Item {
 	property int	progress;
 	property int	buffered;
 
+	LocalStorage { id: volumeStorage; name: "volume"; }
+
 	function getTag() { return 'video' }
 
 	constructor: {
@@ -134,13 +136,33 @@ Item {
 	function manifestParsedHandler(event, data) {
 		log("manifest parsed, found " + data.levels.length + " quality level")
 		this.ready = true
+		this.loop = this.element.dom.loop
+		this.seekTo(0)
+		this.ready = true
+		this.muted = this.element.dom.muted
+		this.paused = this.element.dom.paused
+		this.element.dom.volume = this.volume
 	}
 
 	play: { this.element.dom.play() }
 	stop: { this.element.dom.pause(); this.deinit() }
 	pause: { this.element.dom.pause() }
-	seek(value): { }
-	seekTo(value): { }
+	seek(value): { this.element.dom.currentTime += value }
+	seekTo(value): { this.element.dom.currentTime = value }
+	volumeUp:			{ this.volume += 0.1 }
+	volumeDown:			{ this.volume -= 0.1 }
+	toggleMute:			{ this.element.dom.muted = !this.element.dom.muted }
+	onVolumeChanged:	{ this.applyVolume() }
+
+	applyVolume: {
+		if (this.volume > 1.0)
+			this.volume = 1.0;
+		else if (this.volume < 0.0)
+			this.volume = 0.0;
+
+		volumeStorage.value = this.volume
+		this.element.dom.volume = this.volume
+	}
 
 	onSourceChanged: {
 		if (!this._hls)
