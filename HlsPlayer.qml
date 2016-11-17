@@ -32,7 +32,7 @@ Item {
 		this._hlsevents = Hls.Events
 		this._hlserrorTypes = Hls.ErrorTypes
 		this._hlserrorDetails = Hls.ErrorDetails
-		hls.on(this._hlsevents.MANIFEST_PARSED, this.manifestParsedHandler)
+		hls.on(this._hlsevents.MANIFEST_PARSED, this.manifestParsedHandler.bind(this))
 
 		var self = this
 		this._attachVideo = function() {
@@ -40,8 +40,8 @@ Item {
 			self.ready = false
 		}.bind(this)
 
-		hls.on(this._hlsevents.MEDIA_ATTACHED, this._attachVideo)
-		hls.on(this._hlsevents.ERROR, this.errorHandling)
+		hls.on(this._hlsevents.MEDIA_ATTACHED, this._attachVideo.bind(this))
+		hls.on(this._hlsevents.ERROR, this.errorHandling.bind(this))
 		this.initHls()
 
 		var player = this.element
@@ -171,6 +171,11 @@ Item {
 		this.deinit()
 		this.initHls()
 		this._hls.loadSource(value)
+		if (this.autoPlay)
+			this.play()
+	}
+
+	onCompleted: {
 		if (this.autoPlay)
 			this.play()
 	}
