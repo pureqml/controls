@@ -14,13 +14,13 @@ SvgBase {
 	function _update (name, value) {
 		switch(name) {
 			case 'color':
-				this.element.setAttribute('stroke', _globals.core.normalizeColor(value)) 
+				this.element.setAttribute('stroke', _globals.core.normalizeColor(value))
 				break;
 			case 'fill':
-				this.element.setAttribute('fill', value) 
+				this.element.setAttribute('fill', value)
 				break;
 			case 'width':
-				this.element.setAttribute('stroke-width:', value) 
+				this.element.setAttribute('stroke-width', value)
 				break;
 
 			case 'x1':
