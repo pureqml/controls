@@ -1,6 +1,5 @@
 MouseArea {
 	focus: true;
-	smooth: true;
 	clip: true;
 	property Color color: (activeFocus && !focusOnHover) || containsMouse ? colorTheme.activeBackgroundColor : colorTheme.backgroundColor;
 	hoverEnabled: recursiveVisible;
