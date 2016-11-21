@@ -1,7 +1,9 @@
 Object {
-	property bool clickable: true;
-	property bool value;
 	property bool enabled: true;
+	property bool clickable: true;
+	property bool activeHoverEnabled: false;
+	property bool value;
+	property bool activeHover: false;
 	property string cursor;
 
 	constructor: {
@@ -22,9 +24,6 @@ Object {
 			this._hmClickBinder.enable(value)
 	}
 
-	onClickableChanged: {
-		this._bindClick(value)
-	}
 
 	function _bindHover(value) {
 		if (value && !this._hmHoverBinder) {
@@ -36,12 +35,25 @@ Object {
 			this._hmHoverBinder.enable(value)
 	}
 
-	onEnabledChanged: {
-		this._bindHover(value)
+	function _bindActiveHover(value) {
+		if (value && !this._hmActiveHoverBinder) {
+			this._hmActiveHoverBinder = new _globals.core.EventBinder(this.parent.element)
+			this._hmActiveHoverBinder.on('mouseover', function() { this.activeHover = true }.bind(this))
+			this._hmActiveHoverBinder.on('mouseout', function() { this.activeHover = false }.bind(this))
+		}
+		if (this._hmActiveHoverBinder)
+		{
+			this._hmActiveHoverBinder.enable(value)
+		}
 	}
+
+	onEnabledChanged: { this._bindHover(value) }
+	onClickableChanged: { this._bindClick(value) }
+	onActiveHoverEnabledChanged: { this._bindActiveHover(value) }
 
 	onCompleted: {
 		this._bindClick(this.clickable)
 		this._bindHover(this.enabled)
+		this._bindActiveHover(this.activeHoverEnabled)
 	}
 }

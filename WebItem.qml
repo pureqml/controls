@@ -4,6 +4,8 @@ Rectangle {
 	property alias clickable: hoverMixin.clickable;
 	property alias hoverable: hoverMixin.enabled;
 	property alias cursor: hoverMixin.cursor;
+	property alias activeHover: hoverMixin.activeHover;
+	property alias activeHoverEnabled: hoverMixin.activeHoverEnabled;
 	color: "transparent";
 	hoverMixin.cursor: "pointer";
 	property string position;
