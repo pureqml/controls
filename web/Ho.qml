@@ -67,7 +67,7 @@ Object {
 			var value = this._styles[name]
 			var rule = []
 
-			var prefixedName = this._get('context').getPrefixedName(name)
+			var prefixedName = _globals.html5.html.getPrefixedName(name)
 			if (prefixedName === undefined)
 				this._modernizrCache[name] = prefixedName = window.Modernizr.prefixedCSS(name)
 			rule.push(prefixedName !== false? prefixedName: name)
