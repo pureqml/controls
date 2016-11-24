@@ -22,7 +22,7 @@ Item {
 				break;
 
 			case 'clip':
-				this.style('overflow', value? 'hidden': 'visible'); break;
+				this.style('overflow', value? 'hidden': 'visible');
 				break;
 
 			case 'x':
