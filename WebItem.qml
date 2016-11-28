@@ -9,9 +9,13 @@ Rectangle {
 	color: "transparent";
 	hoverMixin.cursor: "pointer";
 	property string position;
+	property string title;
 
 	function _update(name, value) {
 		switch (name) {
+			case 'title':
+				this.element.dom.setAttribute('title', value);
+				break;
 			case 'position': 
 				this.style('position', value); 
 				break
