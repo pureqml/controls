@@ -1,10 +1,11 @@
 Item {
-	property int contentWidth;
-	property int contentHeight;
-	property string code;
-	property string language;
-	property Font font: Font {}
+	property int contentWidth;		///< content width
+	property int contentHeight;		///< content height
+	property string code;			///< code string
+	property string language;		///< programming language
+	property Font font: Font {}		///< code text font
 
+	/// @private
 	function _update(name, value) {
 		switch (name) {
 			case 'width':		this._updateSize(); break
@@ -15,9 +16,10 @@ Item {
 		_globals.core.Item.prototype._update.apply(this, arguments);
 	}
 
-	/// returns tag for corresponding element
+	/// @private returns tag for corresponding element
 	function getTag() { return 'pre' }
 
+	/// @private
 	constructor: {
 		if (!window.hljs) {
 			log("hljs is not defined! Maybe you forget to attach highlight.js file.")
@@ -30,6 +32,7 @@ Item {
 		this.element.append(this._code)
 	}
 
+	/// @private
 	function _updateSize() {
 		this.contentWidth = this._code.dom.scrollWidth
 		this.contentHeight = this._code.dom.scrollHeight
