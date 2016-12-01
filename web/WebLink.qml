@@ -7,7 +7,7 @@ WebItem {
 			case 'href':	this.element.dom.setAttribute('href', value); break;
 			case 'target':	this.element.dom.setAttribute('target', value); break;
 		}
-		_globals.controls.WebItem.prototype._update.apply(this, arguments);
+		_globals.web.WebItem.prototype._update.apply(this, arguments);
 	}
 
 	function getTag() { return 'a' }
