@@ -12,7 +12,10 @@ Object {
 		Any, Vertical, Horizontal
 	};
 
-	constructor: { this.element = this.parent.element; }
+	constructor: {
+		this.element = this.parent.element;
+		this._bindPressed(this.enabled)
+	}
 
 	function _bindPressed(value) {
 		if (value && !this._dmPressBinder) {
@@ -62,9 +65,5 @@ Object {
 
 	onEnabledChanged: {
 		this._bindPressed(value)
-	}
-
-	onCompleted: {
-		this._bindPressed(this.enabled)
 	}
 }

@@ -9,6 +9,9 @@ Object {
 	constructor: {
 		this.element = this.parent.element;
 		this.parent.style('cursor', this.cursor) 
+		this._bindClick(this.clickable)
+		this._bindHover(this.enabled)
+		this._bindActiveHover(this.activeHoverEnabled)
 	}
 
 	onCursorChanged: {
@@ -50,10 +53,4 @@ Object {
 	onEnabledChanged: { this._bindHover(value) }
 	onClickableChanged: { this._bindClick(value) }
 	onActiveHoverEnabledChanged: { this._bindActiveHover(value) }
-
-	onCompleted: {
-		this._bindClick(this.clickable)
-		this._bindHover(this.enabled)
-		this._bindActiveHover(this.activeHoverEnabled)
-	}
 }

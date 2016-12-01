@@ -4,6 +4,7 @@ Object {
 
 	constructor: {
 		this.element = this.parent.element;
+		this._bindWheel(this.enabled)
 	}
 
 	function _bindWheel(value) {
@@ -16,8 +17,4 @@ Object {
 	}
 
 	onEnabledChanged: { this._bindWheel(value) }
-
-	onCompleted: {
-		this._bindWheel(this.enabled)
-	}
 }
