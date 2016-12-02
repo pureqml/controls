@@ -1,7 +1,7 @@
 InputBase {
 	property bool checked: false;
 	height: 20;
-	width: 173;
+	width: 20;
 	type: "checkbox";
 
 	constructor: {
