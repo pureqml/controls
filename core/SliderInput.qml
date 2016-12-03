@@ -3,10 +3,12 @@ Item {
 	property int min: 0;
 	property int max: 100;
 	property int step: 1;
+	height: 30;
 
 	/// @private
 	constructor: {
 		this.element.dom.type = "range"
+		this.element.dom.value = 0
 		this.element.on("input", function() { this.value = this.element.dom.value }.bind(this))
 	}
 
