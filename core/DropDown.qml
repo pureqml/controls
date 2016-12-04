@@ -42,4 +42,21 @@ Item {
 		option.dom.innerHTML = text
 		this.element.append(option)
 	}
+
+	clear: {
+		if (!this.element.dom.options || !this.element.dom.options.length)
+			return
+
+		var options = this.element.dom.options
+		for (var i = options.length - 1; i >= 0; --i)
+			options[i].remove()
+	}
+
+	remove(idx): {
+		if (!this.element.dom.options || idx >= this.element.dom.options.length || idx < 0) {
+			log("bad index")
+			return
+		}
+		this.element.dom.options[idx].remove()
+	}
 }
