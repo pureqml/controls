@@ -3,4 +3,7 @@ Text {
 	font.weight: 300;
 	wrapMode: Text.WordWrap;
 	font.family: "Roboto Slab";
+
+	/// returns tag for corresponding element
+	function getTag() { return 'h3' }
 }
