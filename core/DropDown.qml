@@ -39,8 +39,6 @@ Item {
 
 	/// add option into select
 	append(value, text): {
-		if (value == this.value)
-			this.text = text
 		var option = this._context.createElement('option')
 		option.dom.value = value
 		option.dom.innerHTML = text
