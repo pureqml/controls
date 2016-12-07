@@ -32,6 +32,10 @@ Item {
 	function getTag() { return 'select' }
 
 	/// @private
+	function registerStyle(style, tag)
+	{ style.addRule(tag, "position: absolute; visibility: inherit; margin: 0px;") }
+
+	/// @private
 	function _updateSize() {
 		var style = { width: this.width, height: this.height }
 		this.style(style)

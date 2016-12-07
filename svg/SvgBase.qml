@@ -21,6 +21,10 @@ Object {
 	/// returns tag for corresponding element
 	function getTag() { return 'svg' }
 
+	function registerStyle(style, tag) {
+		style.addRule(tag, 'position: absolute; visibility: inherit; overflow: visible;')
+	}
+
 	function externalTarget() { return false }
 
 	/// @internal

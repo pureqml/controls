@@ -15,6 +15,10 @@ Item {
 	/// returns tag for corresponding element
 	function getTag() { return 'button' }
 
+	function registerStyle(style, tag) {
+		style.addRule(tag, "position: absolute; visibility: inherit;")
+	}
+
 	function _updateSize() {
 		var style = { width: this.width, height: this.height }
 		this.style(style)

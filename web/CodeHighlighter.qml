@@ -20,6 +20,11 @@ Item {
 	function getTag() { return 'pre' }
 
 	/// @private
+	function registerStyle(style, tag) {
+		style.addRule(tag, 'position: absolute; visibility: inherit; margin: 0px;')
+	}
+
+	/// @private
 	constructor: {
 		if (!window.hljs) {
 			log("hljs is not defined! Maybe you forget to attach highlight.js file.")
