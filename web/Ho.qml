@@ -115,7 +115,9 @@ Object {
 			if (this.element)
 				throw "double ctor call"
 
-			this.element = this.createElement(this.getTag())
+
+			this.element = this._context.createElement('div')
+			this.parent.element.append(this.element)
 		}
 	}
 }
