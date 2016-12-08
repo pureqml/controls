@@ -1,5 +1,6 @@
+///setup parents overflow mode
 Object {
-	property enum value { Visible, Hidden, Scroll, ScrollX, ScrollY };
+	property enum value { Visible, Hidden, Scroll, ScrollX, ScrollY };	///< overflow mode value, can be:  Visible, Hidden, Scroll, ScrollX, ScrollY
 
 	/// @internal
 	function _update (name, value) {
