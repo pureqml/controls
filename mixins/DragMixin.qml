@@ -19,6 +19,10 @@ Object {
 
 	function _moveHandler(e) {
 		e.preventDefault();
+
+		if (e.changedTouches)
+			e = e.changedTouches[0]
+		
 		if (this.direction !== this.Horizontal) {
 			var eY = e.clientY, sY = this._startY, ly1 = this.limity1, ly2 = this.limity2
 			if (ly2  && (eY - sY > ly2)) {
@@ -44,6 +48,10 @@ Object {
 	function _downHandler(e) {
 		e.preventDefault();
 		this.pressed = true
+		
+		if (e.changedTouches)
+			e = e.changedTouches[0]
+		
 		this._startX = e.clientX - this.parent.x
 		this._startY = e.clientY - this.parent.y
 		if (!this._dmMoveBinder) {
