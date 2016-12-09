@@ -30,7 +30,7 @@ SvgBase {
 				this.element.setAttribute('d', this.buildPath());
 				break;
 		}
-		_globals.svg.SvgBase.prototype._update.apply(this, arguments);
+		_globals.controls.svg.SvgBase.prototype._update.apply(this, arguments);
 	}
 
 	function buildPath() {
