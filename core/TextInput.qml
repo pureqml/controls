@@ -9,7 +9,7 @@ InputBase {
 		switch (name) {
 			case 'text': if (value != this.element.dom.value) this.element.dom.value = value; break
 		}
-		_globals.core.InputBase.prototype._update.apply(this, arguments);
+		_globals.controls.core.InputBase.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {

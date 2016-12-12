@@ -11,7 +11,7 @@ InputBase {
 			case 'min': this.element.dom.min = value; break
 			case 'max': this.element.dom.max = value; break
 		}
-		_globals.core.InputBase.prototype._update.apply(this, arguments);
+		_globals.controls.core.InputBase.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {

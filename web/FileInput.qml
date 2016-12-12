@@ -10,7 +10,7 @@ InputBase {
 			case 'filter': this.element.dom.accept = value; break
 		}
 
-		_globals.core.InputBase.prototype._update.apply(this, arguments);
+		_globals.controls.core.InputBase.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {
