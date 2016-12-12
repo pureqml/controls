@@ -9,6 +9,10 @@ BaseView {
 	function positionViewAtIndex(idx) {
 	}
 
+	function _processUpdates() {
+		this._modelUpdate.apply(this, true) //do not check _items count in apply
+	}
+
 	function _layout() {
 		if (!this.recursiveVisible)
 			return
