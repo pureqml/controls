@@ -1,5 +1,6 @@
 Object {
 	property bool pressed;
+	property bool moved;
 	property bool enabled: true;
 	property int x;
 	property int y;
@@ -30,8 +31,10 @@ Object {
 			}
 			else if (ly1 && (eY - sY < ly1))
 				this.parent.y = ly1
-			else
+			else {
+				this.moved = true;
 				this.parent.y = eY - sY
+			}
 		}
 		if (this.direction !== this.Vertical) {
 			var eX = e.clientX, sX = this._startX, lx1 = this.limitx1, lx2 = this.limitx2
@@ -40,8 +43,10 @@ Object {
 			}
 			else if (lx1 && (eX - sX < lx1))
 				this.parent.x = lx1
-			else
+			else {
+				this.moved = true;
 				this.parent.x = eX - sX
+			}
 		}
 	}
 
