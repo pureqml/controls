@@ -1,4 +1,4 @@
-InputBase {
+BaseInput {
 	property string text;
 	width: 150;
 	height: 100;
@@ -8,7 +8,7 @@ InputBase {
 			case 'text': if (value != this.element.dom.value) this.element.dom.value = value; break
 		}
 
-		_globals.controls.core.InputBase.prototype._update.apply(this, arguments);
+		_globals.controls.input.BaseInput.prototype._update.apply(this, arguments);
 	}
 
 	/// returns tag for corresponding element

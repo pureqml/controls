@@ -1,11 +1,11 @@
-InputBase {
+BaseInput {
 	property string text;
 	width: 100;
 	height: 25;
 	type: "search";
 
 	function _update(name, value) {
-		_globals.controls.core.InputBase.prototype._update.apply(this, arguments);
+		_globals.controls.input.BaseInput.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {

@@ -1,4 +1,4 @@
-InputBase {
+BaseInput {
 	property string text;
 	property bool passwordMode: false;
 	height: 20;
@@ -9,7 +9,7 @@ InputBase {
 		switch (name) {
 			case 'text': if (value != this.element.dom.value) this.element.dom.value = value; break
 		}
-		_globals.controls.core.InputBase.prototype._update.apply(this, arguments);
+		_globals.controls.input.BaseInput.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {

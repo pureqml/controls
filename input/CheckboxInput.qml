@@ -1,4 +1,4 @@
-InputBase {
+BaseInput {
 	property bool checked: false;
 	height: 20;
 	width: 20;

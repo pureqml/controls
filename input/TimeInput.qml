@@ -1,4 +1,4 @@
-InputBase {
+BaseInput {
 	property string max;
 	property string min;
 	property string value;
@@ -12,7 +12,7 @@ InputBase {
 			case 'max': this.element.dom.max = value; break
 		}
 
-		_globals.controls.core.InputBase.prototype._update.apply(this, arguments);
+		_globals.controls.input.BaseInput.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {

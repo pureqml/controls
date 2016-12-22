@@ -1,4 +1,4 @@
-InputBase {
+BaseInput {
 	property float max;
 	property float min;
 	property float step;
@@ -14,7 +14,7 @@ InputBase {
 			case 'step': this.element.dom.step = value; break
 			case 'value': this.element.dom.value = value; break
 		}
-		_globals.controls.core.InputBase.prototype._update.apply(this, arguments);
+		_globals.controls.input.BaseInput.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {
