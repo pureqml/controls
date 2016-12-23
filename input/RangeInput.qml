@@ -22,10 +22,12 @@ Item {
 			case 'orientation':
 				switch (value) {
 				case this.Horizontal:
-					this.transform.rotate = 0
+					this.style("appearance", "slider-horizontal")
+					this.element.setAttribute('orient', 'horizontal')
 					break
 				case this.Vertical:
-					this.transform.rotate = -90
+					this.style("appearance", "slider-vertical")
+					this.element.setAttribute('orient', 'vertical')
 					break
 				}
 		}
