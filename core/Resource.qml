@@ -1,4 +1,5 @@
 Protocol {
+	property string url;
 	property string data;
 
 	onUrlChanged: {
