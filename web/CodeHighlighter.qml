@@ -4,6 +4,7 @@ Item {
 	property string code;			///< code string
 	property string language;		///< programming language
 	property Font font: Font {}		///< code text font
+	height: contentHeight;
 
 	/// @private
 	function _update(name, value) {
