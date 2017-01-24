@@ -6,9 +6,8 @@ Item {
 	property Color backgroundColor: "#fff";		///< background color
 	property Font font: Font {}					///< object holding properties of text font
 	property Border border: Border {}			///< object holding properties of the border
-	property string placeholder;				///< inner text placeholder
-	property Color placeholderColor;			///< placeholder color
 	property string type: "text";				///< input type value, must overrie in inheritor
+	property PlaceHolder placeholder: PlaceHolder{}	///< input placeholder object
 
 	/// @private
 	constructor: {
@@ -37,8 +36,6 @@ Item {
 			case 'type': this.element.dom.type = value; break
 			case 'width': this._updateSize(); break
 			case 'height': this._updateSize(); break
-			case 'placeholder': this.element.setAttribute('placeholder', value); break
-			case 'placeholderColor': this.setPlaceholderColor(value); break
 			case 'color': this.style('color', value); break
 			case 'backgroundColor': this.style('background', value); break
 			case 'horizontalAlignment':
@@ -56,28 +53,6 @@ Item {
 
 	/// returns tag for corresponding element
 	function getTag() { return 'input' }
-
-	function setPlaceholderColor(color) {
-		var cls
-		if (!this._placeholderClass) {
-			cls = this._placeholderClass = this._context.stylesheet.allocateClass('input')
-			this.element.addClass(cls)
-		}
-		else
-			cls = this._placeholderClass
-
-		var rgba = new _globals.core.Color(color).rgba()
-		//fixme: port to modernizr
-		var selectors = ['::-webkit-input-placeholder', '::-moz-placeholder', ':-moz-placeholder', ':-ms-input-placeholder']
-		selectors.forEach(function(selector) {
-			try {
-				this._context.stylesheet._addRule('.' + cls + selector, 'color: ' + rgba)
-				log('added rule for .' + cls + selector)
-			} catch(ex) {
-				//log(ex)
-			}
-		}.bind(this))
-	}
 
 	function registerStyle(style) {
 		style.addRule('input', "position: absolute; visibility: inherit; border-style: solid; border-width: 0px; box-sizing: border-box;")
