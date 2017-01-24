@@ -1,7 +1,10 @@
 Item {
 	property enum type { Pie, Line, Column };
-	
-	init(data, opt): {
+
+	/**@param data:Object data for chart building
+	@param opt:Object chart displaying properties
+	Fill google chart function*/
+	fill(data, opt): {
 		var elem = this.element
 		var w = this.width
 		var h = this.height
