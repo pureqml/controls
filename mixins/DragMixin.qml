@@ -1,17 +1,12 @@
 Object {
-	property bool pressed;
 	property bool moved;
+	property bool pressed;
 	property bool enabled: true;
-	property int x;
-	property int y;
-	property int limitx1;
-	property int limitx2;
-	property int limity1;
-	property int limity2;
-
-	property enum direction {
-		Any, Vertical, Horizontal
-	};
+	property int top;
+	property int left;
+	property int right;
+	property int bottom;
+	property enum direction { Any, Vertical, Horizontal };
 
 	constructor: {
 		this.element = this.parent.element;
@@ -23,26 +18,26 @@ Object {
 
 		if (e.changedTouches)
 			e = e.changedTouches[0]
-		
+
 		if (this.direction !== this.Horizontal) {
-			var eY = e.clientY, sY = this._startY, ly1 = this.limity1, ly2 = this.limity2
-			if (ly2  && (eY - sY > ly2)) {
-				this.parent.y = ly2
+			var eY = e.clientY, sY = this._startY, top = this.top, bottom = this.bottom
+			if (bottom  && (eY - sY > bottom)) {
+				this.parent.y = bottom
 			}
-			else if (ly1 && (eY - sY < ly1))
-				this.parent.y = ly1
+			else if (top && (eY - sY < top))
+				this.parent.y = top
 			else {
 				this.moved = true;
 				this.parent.y = eY - sY
 			}
 		}
 		if (this.direction !== this.Vertical) {
-			var eX = e.clientX, sX = this._startX, lx1 = this.limitx1, lx2 = this.limitx2
-			if (lx2  && (eX - sX > lx2)) {
-				this.parent.x = lx2
+			var eX = e.clientX, sX = this._startX, left = this.left, right = this.right
+			if (right  && (eX - sX > right)) {
+				this.parent.x = right
 			}
-			else if (lx1 && (eX - sX < lx1))
-				this.parent.x = lx1
+			else if (left && (eX - sX < left))
+				this.parent.x = left
 			else {
 				this.moved = true;
 				this.parent.x = eX - sX
@@ -53,10 +48,10 @@ Object {
 	function _downHandler(e) {
 		e.preventDefault();
 		this.pressed = true
-		
+
 		if (e.changedTouches)
 			e = e.changedTouches[0]
-		
+
 		this._startX = e.clientX - this.parent.x
 		this._startY = e.clientY - this.parent.y
 		if (!this._dmMoveBinder) {
@@ -65,16 +60,16 @@ Object {
 			this._dmMoveBinder.on('mousemove', this._moveHandler.bind(this))
 			this._dmMoveBinder.on('touchmove', this._moveHandler.bind(this))
 
-			this._dmMoveBinder.on('mouseup', function() { 
+			this._dmMoveBinder.on('mouseup', function() {
 				this.pressed = false
 				this._dmMoveBinder.enable(false)
 			}.bind(this))
 
-			this._dmMoveBinder.on('touchend', function() { 
+			this._dmMoveBinder.on('touchend', function() {
 				this.pressed = false
 				this._dmMoveBinder.enable(false)
 			}.bind(this))
-		} 
+		}
 		this._dmMoveBinder.enable(true)
 	}
 
