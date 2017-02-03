@@ -1,4 +1,5 @@
 Sprite {
+	signal triggered;
 	property int totalFrames;
 	property int duration;
 	property bool repeat;
@@ -35,6 +36,7 @@ Sprite {
 	}
 
 	function _animate() {
+		this.triggered();
 		var pw = this.paintedWidth, w = this.width, ci = this._currentIndex
 		var rows = pw / w
 		var row = Math.floor(ci / rows)
@@ -64,8 +66,10 @@ Sprite {
 			self._countdown = self.totalFrames - self._currentIndex
 
 			this._interval = setInterval(function() {
-				if (self._countdown === 0)
+				if (self._countdown === 0) {
 					clearInterval(this._interval)
+					self.running = false
+				}
 				else {
 					--self._countdown;
 					self._animate();
