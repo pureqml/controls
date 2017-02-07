@@ -3,7 +3,8 @@ BaseInput {
 	property float min;
 	property float step;
 	property float value;
-	width: 100;
+	horizontalAlignment: BaseInput.AlignHCenter;
+	width: 50;
 	height: 25;
 	type: "number";
 
