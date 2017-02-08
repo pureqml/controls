@@ -1,6 +1,7 @@
 Sprite {
 	signal triggered;
 	property int totalFrames;
+	property int currentFrame;
 	property int duration;
 	property bool repeat;
 	property bool running;
@@ -8,7 +9,7 @@ Sprite {
 
 	/// restarts animation from the beginning
 	restart: { 
-		this._currentIndex = 0
+		this.currentFrame = 0
 		this.running = true;
 	}
 	
@@ -26,6 +27,8 @@ Sprite {
 	/** @private */
 	function _update(name, value) {
 		switch(name) {
+			case 'totalFrames':
+			case 'interval':
 			case 'running':
 			case 'duration':
 			case 'repeat':
@@ -35,16 +38,15 @@ Sprite {
 		_globals.controls.core.Sprite.prototype._update.apply(this, arguments);
 	}
 
-	function _animate() {
-		this.triggered();
-		var pw = this.paintedWidth, w = this.width, ci = this._currentIndex
+	onCurrentFrameChanged: {
+		log ("onCurrentFrameChanged", value)
+		var pw = this.paintedWidth, w = this.width
 		var rows = pw / w
-		var row = Math.floor(ci / rows)
-		var col = ci % rows
+		var row = Math.floor(value / rows)
+		var col = value % rows
 
 		this.offsetX = col * w
 		this.offsetY = row * this.height
-		this._currentIndex = ++ci % this.totalFrames
 	}
 
 	function _start() {
@@ -56,25 +58,26 @@ Sprite {
 		if (!this.running || this.status != this.Ready)
 			return;
 
-		if (!this._currentIndex)
-			this._currentIndex = 0
-
 		var self = this;
-		if (this.repeat)
-			this._interval = setInterval(function() { self._animate(); }, this.interval);
+		if (self.repeat)
+			self._interval = setInterval(function() { 
+				self.currentFrame = ++self.currentFrame % self.totalFrames
+				self.triggered(); 
+			}, self.interval);
 		else {
-			self._countdown = self.totalFrames - self._currentIndex
+			self._countdown = self.totalFrames - self.currentFrame
 
-			this._interval = setInterval(function() {
+			self._interval = setInterval(function() {
 				if (self._countdown === 0) {
-					clearInterval(this._interval)
+					clearInterval(self._interval)
 					self.running = false
 				}
 				else {
 					--self._countdown;
-					self._animate();
+					self.currentFrame = ++self.currentFrame % self.totalFrames
+					self.triggered(); 
 				}
-				}, this.interval);
+				}, self.interval);
 		}
 	}
 }

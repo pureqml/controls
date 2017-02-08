@@ -1,8 +1,8 @@
-InputBase {
+BaseInput {
 	property string value;
 	property string filter;
 	width: 250;
-	height: 20;
+	height: 30;
 	type: "file";
 
 	function _update(name, value) {
@@ -10,7 +10,7 @@ InputBase {
 			case 'filter': this.element.dom.accept = value; break
 		}
 
-		_globals.controls.core.InputBase.prototype._update.apply(this, arguments);
+		_globals.controls.input.BaseInput.prototype._update.apply(this, arguments);
 	}
 
 	constructor: {
