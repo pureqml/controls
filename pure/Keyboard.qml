@@ -8,7 +8,7 @@ Item {
 
 	ListModel {
 		id: keyboardModel;
-		property int language: 0;
+		property int language: 1;
 		property int mode: 0;
 		property string rusLetters: "абвгдеёжзийклмнопрстуфхцчшщъыьэюя.,1234567890";
 		property string engLetters: "abcdefghijklmnopqrstuvwxyz.,1234567890";
@@ -52,61 +52,43 @@ Item {
 		anchors.fill: parent;
 		spacing: 5;
 		model: keyboardModel;
-		delegate: ListView {
-			spacing: 5;
+		delegate: Item {
 			width: parent.width;
 			height: 45;
-			orientation: ListView.Horizontal;
-			keyNavigationWraps: false;
-			handleNavigationKeys: false;
-			model: KeyboardRowModel {
-				parentModel: keyboardModel;
-				begin: model.index * 7;
-				end: begin + 7;
-			}
-			delegate: Rectangle {
-				id: key;
-				height: 45;
-				width: model.widthScale ? model.widthScale * (height + 5) - 5 : height;
-				color: model.contextColor ? model.contextColor : "#444";
-				border.color: "#fff";
-				border.width: activeFocus && parent.activeFocus ? 5 : 0;
-				
-				Text {
-					id: keyText;
-					anchors.centerIn: parent;
-					text: model.text;
-					color: "#fff";
+
+			ListView {
+				anchors.fill: parent;
+				orientation: ListView.Horizontal;
+				spacing: 5;
+				model: KeyboardRowModel {
+					parentModel: keyboardModel;
+					begin: model.index * 7;
+					end: begin + 7;
+				}
+				delegate: KeyboardDelegate { }
+
+				onCurrentIndexChanged: { keyboardProto.currentRow = this.currentIndex; }
+				onLeftPressed: { --this.currentIndex; }
+
+				onRightPressed: {
+					if (this.currentIndex == this.count - 1)
+						event.accepted = false;
+					else
+						++this.currentIndex;
 				}
 
-				Image {
-					anchors.centerIn: parent;
-					source: model.icon;
-					visible: model.icon;
+				onSelectPressed: {
+					var row = this.model.get(this.currentIndex);
+					if (row.text)
+						keyboardProto.keySelected(row.text);
+					else
+						keyboardProto.backspase();
 				}
-			}
 
-			onCurrentIndexChanged: { keyboardProto.currentRow = this.currentIndex; }
-			onLeftPressed: { --this.currentIndex; }
-
-			onRightPressed: {
-				if (this.currentIndex == this.count - 1)
-					event.accepted = false;
-				else
-					++this.currentIndex;
-			}
-
-			onSelectPressed: {
-				var row = this.model.get(this.currentIndex);
-				if (row.text)
-					keyboardProto.keySelected(row.text);
-				else
-					keyboardProto.backspase();
-			}
-
-			onActiveFocusChanged: {
-				if (this.activeFocus)
-					this.currentIndex = keyboardProto.currentRow;
+				onActiveFocusChanged: {
+					if (this.activeFocus)
+						this.currentIndex = keyboardProto.currentRow;
+				}
 			}
 		}
 
