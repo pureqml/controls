@@ -7,17 +7,23 @@ Sprite {
 	property bool running;
 	property int interval: duration / totalFrames;
 
+	/// start animation or continue if paused
+	start: { this.running = true; }
+
 	/// restarts animation from the beginning
 	restart: { 
 		this.currentFrame = 0
-		this.running = true;
+		this.running = true
 	}
-	
-	/// stop(pause) animation 
-	stop: { this.running = false; }
 
-	/// start animation or continue if paused
-	start: { this.running = true; }
+	/// pause animation 
+	pause: { this.running = false; }
+	
+	/// stop animation 
+	stop: {
+		this.currentFrame = 0
+		this.running = false
+	}
 
 	onCompleted: {
 		if (this.running)
