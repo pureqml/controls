@@ -45,11 +45,10 @@ Sprite {
 	}
 
 	onCurrentFrameChanged: {
-		log ("onCurrentFrameChanged", value)
 		var pw = this.paintedWidth, w = this.width
-		var rows = pw / w
-		var row = Math.floor(value / rows)
-		var col = value % rows
+		var cols = Math.floor(pw / w)
+		var col = value % cols
+		var row = Math.floor(value / cols)
 
 		this.offsetX = col * w
 		this.offsetY = row * this.height
