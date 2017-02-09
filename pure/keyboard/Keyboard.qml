@@ -6,52 +6,13 @@ Item {
 	width: 420;
 	height: 480;
 
-	ListModel {
-		id: keyboardModel;
-		property int language: 1;
-		property int mode: 0;
-		property string rusLetters: "абвгдеёжзийклмнопрстуфхцчшщъыьэюя.,1234567890";
-		property string engLetters: "abcdefghijklmnopqrstuvwxyz.,1234567890";
-		property string rusLettersUp: "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ.,1234567890";
-		property string engLettersUp: "ABCDEFGHIJKLMNOPQRSTUVWXYZ.,1234567890";
-		property string special: "!#$%&+?/:;_-*@";
-		property string letters: mode == 2 ? special :
-			language == 0 && mode == 0 ? rusLetters :
-			language == 0 && mode == 1 ? rusLettersUp :
-			language == 1 && mode == 0 ? engLetters : engLettersUp;
-
-		fill: {
-			this.clear();
-			this.append({});
-			this.append({});
-			if (this.mode == 2)
-				return;
-			this.append({});
-			this.append({});
-			this.append({});
-			this.append({});
-			this.append({});
-			if (this.language == 0)
-				this.append({});
-		}
-
-		switchLanguage: {
-			this.language = (++this.language % 2);
-			this.fill();
-		}
-
-		switchCase: {
-			this.mode = (++this.mode % 3);
-			this.fill();
-		}
-
-		onCompleted: { this.fill(); }
-	}
+	KeyboardModel { id: keyboardModel; }
 
 	ListView {
 		anchors.fill: parent;
 		spacing: 5;
 		model: keyboardModel;
+		keyNavigationWraps: false;
 		delegate: Item {
 			width: parent.width;
 			height: 45;
@@ -94,12 +55,12 @@ Item {
 
 		//TODO: Try something better this hardcode.
 		onDownPressed: {
-			if (keyboardModel.mode != 2 && this.currentIndex == this.count - 3) {
+			if (keyboardModel.mode != KeyboardModel.Special && this.currentIndex == this.count - 3) {
 				if (keyboardProto.currentRow == 3 || keyboardProto.currentRow == 4)
 					keyboardProto.currentRow = 3;
 				if (keyboardProto.currentRow == 5 || keyboardProto.currentRow == 6)
 					keyboardProto.currentRow = 4;
-			} else if (keyboardModel.mode != 2 && this.currentIndex == this.count - 2) {
+			} else if (keyboardModel.mode != KeyboardModel.Special && this.currentIndex == this.count - 2) {
 				if (keyboardProto.currentRow == 0 || keyboardProto.currentRow == 1)
 					keyboardProto.currentRow = 0;
 				if (keyboardProto.currentRow == 2 || keyboardProto.currentRow == 3)
@@ -111,16 +72,12 @@ Item {
 		}
 
 		onUpPressed: {
-			if (keyboardModel.mode != 2 && this.currentIndex == this.count - 1) {
-				if (keyboardProto.currentRow == 0)
-					keyboardProto.currentRow = 0;
+			if (keyboardModel.mode != KeyboardModel.Special && this.currentIndex == this.count - 1) {
 				if (keyboardProto.currentRow == 1)
 					keyboardProto.currentRow = 3;
 				if (keyboardProto.currentRow == 2)
 					keyboardProto.currentRow = 4;
-			} else if (keyboardModel.mode != 2 && this.currentIndex == this.count - 2) {
-				if (keyboardProto.currentRow == 3)
-					keyboardProto.currentRow = 3;
+			} else if (keyboardModel.mode != KeyboardModel.Special && this.currentIndex == this.count - 2) {
 				if (keyboardProto.currentRow == 4)
 					keyboardProto.currentRow = 5;
 			}
