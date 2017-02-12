@@ -1,5 +1,6 @@
 Sprite {
 	signal triggered;
+	signal finished;
 	property int totalFrames;
 	property int currentFrame;
 	property int duration;
@@ -76,11 +77,12 @@ Sprite {
 				if (self._countdown === 0) {
 					clearInterval(self._interval)
 					self.running = false
+					self.finished();
 				}
 				else {
 					--self._countdown;
 					self.currentFrame = ++self.currentFrame % self.totalFrames
-					self.triggered(); 
+					self.triggered();
 				}
 				}, self.interval);
 		}
