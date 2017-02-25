@@ -24,8 +24,9 @@ Item {
 			log("Hls() is not supported. Maybe you forget to include 'hls.js'?")
 			return
 		}
-		
+
 		log("Init hls player...")
+		var Hls = window.Hls
 		this._hls = new Hls()
 		var hls = this._hls
 
