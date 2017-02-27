@@ -9,8 +9,8 @@ Item {
 		_globals.core.Item.prototype._update.apply(this, arguments);
 	}
 
-	play: { this.element.play() }
-	pause: { this.element.pause() }
+	play: { this.element.dom.play() }
+	pause: { this.element.dom.pause() }
 	onAutoPlayChanged: { if (value) this.play() }
 
 	/// returns tag for corresponding element
