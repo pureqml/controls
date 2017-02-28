@@ -19,6 +19,8 @@ BaseInput {
 	}
 
 	constructor: {
-		this.element.on("input", function() { this.value = this.element.dom.value }.bind(this))
+		this.element.on("input", function() { 
+			this.value = this.max ? Math.min(this.max, this.element.dom.value) : this.element.dom.value
+		}.bind(this))
 	}
 }
