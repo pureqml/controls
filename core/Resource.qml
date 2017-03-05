@@ -1,7 +1,9 @@
+/// Object for getting remote resources
 Protocol {
-	property string url;
-	property string data;
+	property string url;	///<resource URL
+	property string data;	///<uploaded from URL data
 
+	/// @private
 	onUrlChanged: {
 		var self = this
 		this.requestXHR({
