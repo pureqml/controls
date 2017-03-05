@@ -1,5 +1,5 @@
 ///COntrol for playing audio
-Item {
+Object {
 	property bool autoPlay: true;	///<autoplay flag, audio start to play immediately after source was changed
 	property string source: "";		///<audio source URL
 
