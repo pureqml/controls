@@ -4,11 +4,13 @@ Object {
 	property string source: "";		///<audio source URL
 
 	///@private
-	function _update(name, value) {
-		switch (name) {
-			case 'source': this.element.dom.src = value; if (this.autoPlay) this.play(); break
-		}
-		_globals.core.Item.prototype._update.apply(this, arguments);
+	onSourceChanged: {
+		if (!this.element)
+			return
+
+		this.element.dom.src = value
+		if (this.autoPlay)
+			this.play()
 	}
 
 	/// play current audio
