@@ -46,7 +46,7 @@ Sprite {
 	}
 
 	onCurrentFrameChanged: {
-		var pw = this.paintedWidth, w = this.width
+		var sw = this.sourceWidth, w = this.width
 		var cols = Math.floor(pw / w)
 		var col = value % cols
 		var row = Math.floor(value / cols)
