@@ -1,12 +1,12 @@
 Sprite {
 	signal triggered;
 	signal finished;
-	property int totalFrames;
+	property int frameCount;
 	property int currentFrame;
 	property int duration;
 	property bool repeat;
 	property bool running;
-	property int interval: duration / totalFrames;
+	property int interval: duration / frameCount;
 
 	/// start animation or continue if paused
 	start: { this.running = true; }
@@ -34,7 +34,7 @@ Sprite {
 	/** @private */
 	function _update(name, value) {
 		switch(name) {
-			case 'totalFrames':
+			case 'frameCount':
 			case 'interval':
 			case 'running':
 			case 'duration':
@@ -67,11 +67,11 @@ Sprite {
 		var self = this;
 		if (self.repeat)
 			self._interval = setInterval(function() { 
-				self.currentFrame = ++self.currentFrame % self.totalFrames
+				self.currentFrame = ++self.currentFrame % self.frameCount
 				self.triggered(); 
 			}, self.interval);
 		else {
-			self._countdown = self.totalFrames - self.currentFrame
+			self._countdown = self.frameCount - self.currentFrame
 
 			self._interval = setInterval(function() {
 				if (self._countdown === 0) {
@@ -81,7 +81,7 @@ Sprite {
 				}
 				else {
 					--self._countdown;
-					self.currentFrame = ++self.currentFrame % self.totalFrames
+					self.currentFrame = ++self.currentFrame % self.frameCount
 					self.triggered();
 				}
 				}, self.interval);
