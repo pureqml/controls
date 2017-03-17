@@ -1,5 +1,5 @@
 ///COntrol for playing audio
-Object {
+Item {
 	property bool autoPlay: true;	///<autoplay flag, audio start to play immediately after source was changed
 	property string source: "";		///<audio source URL
 
@@ -14,7 +14,7 @@ Object {
 	}
 
 	/// play current audio
-	play: { this.element.dom.play() }
+	play: { log("Play audio", this.source); this.element.dom.play() }
 
 	/// pause current audio
 	pause: { this.element.dom.pause() }
