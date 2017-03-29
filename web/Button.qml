@@ -1,8 +1,11 @@
+/// HTML button controls
 Item {
-	property string text;
-	property Font font: Font { }
-	property Border border: Border { }
+	signal clicked;			///< button clicked signal
+	property string text;	///< button inner text
+	property Font font: Font { }	///< button texts font
+	property Border border: Border { }	///< buttons border
 
+	///@private
 	function _update(name, value) {
 		switch (name) {
 			case 'height': this._updateSize(); break
@@ -10,17 +13,26 @@ Item {
 			case 'text': this.element.dom.innerText = value; break;
 		}
 		_globals.core.Item.prototype._update.apply(this, arguments)
+		log(this.element)
 	}
 
-	/// returns tag for corresponding element
+	///@private returns tag for corresponding element
 	function getTag() { return 'button' }
 
+	///@private
 	function registerStyle(style, tag) {
 		style.addRule(tag, "position: absolute; visibility: inherit;")
 	}
 
+	///@private
 	function _updateSize() {
 		var style = { width: this.width, height: this.height }
 		this.style(style)
+	}
+
+	///@private
+	constructor: {
+		var self = this
+		this.element.dom.onclick = function() { self.clicked() }.bind(this)
 	}
 }
