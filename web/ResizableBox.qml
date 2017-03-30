@@ -29,7 +29,7 @@ Rectangle {
 		Rectangle {
 			x: -15; y: -15;
 			width: 24; height: 24;
-			radius: 12; 
+			radius: 12;
 			color: "#607D8B";
 			opacity: parent.hover.value ? 0.9 : 0.2;
 		}

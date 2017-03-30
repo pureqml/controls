@@ -1,6 +1,6 @@
 ///clickable and hoverable rectangle for mouse supportings applications
 Rectangle {
-	property Mixin hoverMixin: HoverMixin {}		///< hover mixin object proveds common API for mouse properties
+	property Mixin hoverMixin: HoverClickMixin {}		///< hover mixin object proveds common API for mouse properties
 	property alias hover: hoverMixin.value;			///< mouse hovered flag
 	property alias clickable: hoverMixin.clickable;	///< flag which enables or disables mouse click event handling
 	property alias hoverable: hoverMixin.enabled;	///< flag which enables or disables mouse hover event handling
@@ -18,8 +18,8 @@ Rectangle {
 			case 'title':
 				this.element.dom.setAttribute('title', value);
 				break;
-			case 'position': 
-				this.style('position', value); 
+			case 'position':
+				this.style('position', value);
 				break
 		}
 		_globals.core.Rectangle.prototype._update.apply(this, arguments);
