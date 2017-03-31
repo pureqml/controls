@@ -15,7 +15,7 @@ Rectangle {
 		y: parent.height;
 		x: parent.width;
 		z: 1;
-		property Mixin hover: HoverMixin { cursor: "se-resize";}
+		property Mixin hover: HoverClickMixin { cursor: "se-resize";}
 		property Mixin drag: DragMixin {
 			bottom: parent.parent.maxHeight;
 			top: parent.parent.minHeight;
