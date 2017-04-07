@@ -7,7 +7,6 @@ Object {
 	ajax(request): {
 		var url = request.url
 		var error = request.error,
-			data = request.data,
 			headers = request.headers,
 			done = request.done,
 			settings = request.settings
