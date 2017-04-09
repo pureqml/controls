@@ -6,7 +6,7 @@ Request {
 	/// @private
 	onUrlChanged: {
 		var self = this
-		this.requestXHR({
+		this.ajax({
 			url: value,
 			done: function(data) { self.data = data.target.responseText }
 		})
