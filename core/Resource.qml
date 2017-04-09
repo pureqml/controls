@@ -1,5 +1,5 @@
 /// Object for getting remote resources
-Protocol {
+Request {
 	property string url;	///<resource URL
 	property string data;	///<uploaded from URL data
 
@@ -7,8 +7,8 @@ Protocol {
 	onUrlChanged: {
 		var self = this
 		this.requestXHR({
-			"url": value,
-			"callback": function(data) { self.data = data.target.responseText }
+			url: value,
+			done: function(data) { self.data = data.target.responseText }
 		})
 	}
 }

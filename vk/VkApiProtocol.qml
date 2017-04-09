@@ -1,6 +1,4 @@
-Protocol {
-	baseUrl: "https://api.vk.com";
-
+Object {
 	wallGet(callback, settings): { this.vkMethodRequest("wall.get", callback, settings) }
 	wallSearch(callback, settings): { this.vkMethodRequest("wall.search", callback, settings) }
 	wallGetComments(callback, settings): { this.vkMethodRequest("wall.getComments", callback, settings) }
@@ -23,7 +21,7 @@ Protocol {
 			document.body.appendChild(script);
 		}
 
-		jsonp(this.baseUrl + "/method/" + method + query, function(data) {
+		jsonp("https://api.vk.com/method/" + method + query, function(data) {
 			callback(data)
 		});
 	}
