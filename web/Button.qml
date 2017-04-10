@@ -4,6 +4,7 @@ Item {
 	property string text;	///< button inner text
 	property Font font: Font { }	///< button texts font
 	property Border border: Border { }	///< buttons border
+	property Paddings paddings: Paddings {}		///< inner text paddings
 
 	///@private
 	function _update(name, value) {
@@ -13,7 +14,6 @@ Item {
 			case 'text': this.element.dom.innerText = value; break;
 		}
 		_globals.core.Item.prototype._update.apply(this, arguments)
-		log(this.element)
 	}
 
 	///@private returns tag for corresponding element
