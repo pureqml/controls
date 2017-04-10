@@ -1,9 +1,10 @@
 /// class controlling internal paddings of the parent element
 Object {
-	property int left;	///< left padding
-	property int right;	///< right padding
-	property int top;	///< top padding
-	property int bottom;	///< bottom padding
+	property int left: all;	///< left padding
+	property int right: all;	///< right padding
+	property int top: all;	///< top padding
+	property int bottom: all;	///< bottom padding
+	property int all;	///< a value for all sides 
 
 	function _update(name, value) {
 		switch(name) {
