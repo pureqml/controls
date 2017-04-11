@@ -1,37 +1,39 @@
+/// sprite image animation item
 Sprite {
-	signal triggered;
-	signal finished;
-	property int frameCount;
-	property int currentFrame;
-	property int duration;
-	property bool repeat;
-	property bool running;
-	property int interval: duration / frameCount;
+	signal finished;			///< animation was ended signal
+	signal triggered;			///< frame changed signal
+	property int frameCount;	///< frames in duration value
+	property int currentFrame;	///< displayed frame index
+	property int duration;		///< animation time interval in milliseconds
+	property int interval: duration / frameCount;	///< read only property, time interval between each frames
+	property bool repeat;		///< repeat animation flag
+	property bool running;		///< animation is running flag
 
 	/// start animation or continue if paused
 	start: { this.running = true; }
 
 	/// restarts animation from the beginning
-	restart: { 
+	restart: {
 		this.currentFrame = 0
 		this.running = true
 	}
 
-	/// pause animation 
+	/// pause animation
 	pause: { this.running = false; }
-	
-	/// stop animation 
+
+	/// stop animation
 	stop: {
 		this.currentFrame = 0
 		this.running = false
 	}
 
+	///@private
 	onCompleted: {
 		if (this.running)
 			this._start()
 	}
 
-	/** @private */
+	///@private
 	function _update(name, value) {
 		switch(name) {
 			case 'frameCount':
@@ -45,9 +47,10 @@ Sprite {
 		_globals.controls.core.Sprite.prototype._update.apply(this, arguments);
 	}
 
+	///@private
 	onCurrentFrameChanged: {
 		var sw = this.sourceWidth, w = this.width
-		var cols = Math.floor(pw / w)
+		var cols = Math.floor(sw / w)
 		var col = value % cols
 		var row = Math.floor(value / cols)
 
@@ -55,6 +58,7 @@ Sprite {
 		this.offsetY = row * this.height
 	}
 
+	///@private
 	function _start() {
 		if (this._interval) {
 			clearInterval(this._interval);
@@ -66,9 +70,9 @@ Sprite {
 
 		var self = this;
 		if (self.repeat)
-			self._interval = setInterval(function() { 
+			self._interval = setInterval(function() {
 				self.currentFrame = ++self.currentFrame % self.frameCount
-				self.triggered(); 
+				self.triggered();
 			}, self.interval);
 		else {
 			self._countdown = self.frameCount - self.currentFrame
