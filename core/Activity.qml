@@ -1,13 +1,16 @@
+/// very usefull for single page applications, aimed to simplify logic between root and children Activities
 Item {
-	property bool active;
-	property bool hasAnyActiveChild: false;
-	property string currentActivity: "";
-	property string name;
-	signal started;
-	signal stopped;
+	property bool active;					///< is current Activity active or not
+	property bool hasAnyActiveChild: false;	///< is 'true' when corresponded activity has active child
+	property string currentActivity: "";	///< displays current active activity name
+	property string name;					///< activity name
+	signal started;		///< activity was started signal
+	signal stopped;		///< activity was stopped signal
 
+	///@private
 	isActivity(obj): { return obj instanceof _globals.core.Activity; }
 
+	/// checking child activities if there is at least one
 	isAnyActiveInContext: {
 		var childrens = this.parent.children;
 		for (var i in childrens)
@@ -17,6 +20,7 @@ Item {
 		return false;
 	}
 
+	/// close all child activities
 	closeAll: {
 		var childrens = this.children;
 		for (var i in childrens)
@@ -24,6 +28,7 @@ Item {
 				childrens[i].stop();
 	}
 
+	/// stop all activities from one common parent
 	closeParentActivities: {
 		var childrens = this.parent.children ? this.parent.children : this.children;
 		for (var i in childrens)
@@ -31,6 +36,7 @@ Item {
 				childrens[i].stop();
 	}
 
+	/// start activity
 	start: {
 		if (this.active)
 			return;
@@ -48,6 +54,7 @@ Item {
 		log("Activity started: ", this.name);
 	}
 
+	/// stop activity
 	stop: {
 		if (!this.active)
 			return;
@@ -62,6 +69,7 @@ Item {
 		log("Activity stopped: ", this.name);
 	}
 
+	///@private
 	onBackPressed: {
 		if (this.active)
 			this.stop();
