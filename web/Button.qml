@@ -3,7 +3,6 @@ Rectangle {
 	signal clicked;			///< button clicked signal
 	property string text;	///< button inner text
 	property Font font: Font { }	///< button texts font
-	property Border border: Border { }	///< buttons border
 	property Paddings paddings: Paddings {}		///< inner text paddings
 	property HoverMixin hover: HoverMixin { cursor: "pointer"; }
 	property color textColor;
