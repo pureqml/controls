@@ -1,5 +1,6 @@
+/// google chart item
 Item {
-	property enum type { Pie, Line, Column };
+	property enum type { Pie, Line, Column };	///< chart type enum Pie, Line or Column
 
 	/**@param data:Object data for chart building
 	@param opt:Object chart displaying properties

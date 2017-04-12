@@ -1,12 +1,13 @@
+/// simple checkbox control with swipable button
 MouseArea {
 	id: checkboxProto;
-	property bool checked: false;
-	property color panelColor: "#ccc";
-	property color checkedColor: "#8BC34A";
-	property color uncheckedColor: "#F44336";
-	height: 40;
-	width: 80;
-	verticalSwipable: false;
+	property bool checked;	///< is checkbox checked or not
+	property color panelColor: "#ccc";	///< panel color
+	property color checkedColor: "#8BC34A";	///< button color if checked
+	property color uncheckedColor: "#F44336";	///< button color if not checked
+	height: 40;	///< @private
+	width: 80;	///< @private
+	verticalSwipable: false;	///< @private
 
 	Rectangle {
 		anchors.fill: parent;
@@ -37,11 +38,13 @@ MouseArea {
 		onTriggered: { checkboxProto.checked = checkboxProto._dx && checkboxProto._dx >= 0 }
 	}
 
+	///@private
 	onHorizontalSwiped(event): {
 		this._dx = event.dx
 		checkboxDelay.restart()
 	}
 
+	///@private
 	onMouseMove: {
 		if (this.pressed) {
 			this._dx = this.mouseX - this.width / 2
