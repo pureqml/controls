@@ -4,8 +4,9 @@ Object {
 	property int right: all;	///< right padding
 	property int top: all;	///< top padding
 	property int bottom: all;	///< bottom padding
-	property int all;	///< a value for all sides 
+	property int all;	///< a value for all sides
 
+	///@private
 	function _update(name, value) {
 		switch(name) {
 			case 'left': this.parent.style('padding-left', value); break;
