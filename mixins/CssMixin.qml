@@ -1,8 +1,10 @@
+// customize parent with class selector
 Object {
-	property string hover;
-	property string generic;
-	property string focus;
+	property string hover;		///< mouse over style
+	property string focus;		///< element with focus style
+	property string generic;	///< any custom style
 
+	///@private
 	onCompleted: {
 		var cn = this.parent.componentName.replace(".", "");
 		if (!_globals[cn]) {
