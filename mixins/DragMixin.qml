@@ -1,18 +1,21 @@
+/// makes parent item dragable
 Object {
-	property bool moved;
-	property bool pressed;
-	property bool enabled: true;
-	property int top;
-	property int left;
-	property int right;
-	property int bottom;
-	property enum direction { Any, Vertical, Horizontal };
+	property bool moved;	///< is moved flag
+	property bool pressed;	///< is mouse pressed flag
+	property bool enabled: true;	///< enable/disable mixin
+	property int top;		///< top border
+	property int left;		///< left border
+	property int right;		///< right border
+	property int bottom;	///< bottom border
+	property enum direction { Any, Vertical, Horizontal };	///< available drag direction
 
+	///@private
 	constructor: {
 		this.element = this.parent.element;
 		this._bindPressed(this.enabled)
 	}
 
+	///@private
 	function _moveHandler(e) {
 		e.preventDefault();
 
@@ -45,6 +48,7 @@ Object {
 		}
 	}
 
+	///@private
 	function _downHandler(e) {
 		e.preventDefault();
 		this.pressed = true
@@ -73,6 +77,7 @@ Object {
 		this._dmMoveBinder.enable(true)
 	}
 
+	///@private
 	function _bindPressed(value) {
 		if (value && !this._dmPressBinder) {
 			this._dmPressBinder = new _globals.core.EventBinder(this.element)
@@ -83,6 +88,7 @@ Object {
 			this._dmPressBinder.enable(value)
 	}
 
+	///@private
 	onEnabledChanged: {
 		this._bindPressed(value)
 	}
