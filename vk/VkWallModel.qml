@@ -1,5 +1,5 @@
 ListModel {
-	VkApiProtocol { id: vkWallProtocol; }
+	VkApi { id: vkApi; }
 
 	_fillImpl(data): {
 		var wall = data.response.wall
@@ -10,6 +10,6 @@ ListModel {
 	fill(settings): {
 		this.clear()
 
-		vkWallProtocol.wallGet(this._fillImpl.bind(this), settings)
+		vkApi.wallGet(this._fillImpl.bind(this), settings)
 	}
 }
