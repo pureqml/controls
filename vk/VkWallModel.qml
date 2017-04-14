@@ -1,14 +1,47 @@
+/// this model wich get data from the 'vkontakte' socail network wall
 ListModel {
+	signal error;
+	property int ownerId;
+
 	VkApi { id: vkApi; }
 
+	///@private
 	_fillImpl(data): {
-		var wall = data.response.wall
-		for (var i in wall)
-			this.append(wall[i])
+		if (data.error) {
+			log("Request error", data.error)
+			this.error(data.error)
+		} else {
+			var wall = data.response.wall
+			var length = wall[0]
+			for (var i = 1; i < length; ++i)
+				this.append(wall[i])
+		}
 	}
 
-	fill(settings): {
+	/// fill model with data from 'ownerId' wall with default parameters
+	fillDefault: {
 		this.clear()
+
+		if (!this.ownerId) {
+			log("Failed to get wall data - owner ID is undefined")
+			return
+		}
+
+		var settings = {
+			extended: 1,
+			count: 100,
+			owner_id: this.ownerId
+		}
+		vkApi.wallGet(this._fillImpl.bind(this), settings)
+	}
+
+	/**@param settings:Object additional request parameters
+	 fill model with data from the wall with customized settings such as count, extended etc.*/
+	fillCustom(settings): {
+		this.clear()
+
+		if (!settings.owner_id && this.ownerId)
+			settings.owner_id = this.ownerId
 
 		vkApi.wallGet(this._fillImpl.bind(this), settings)
 	}
