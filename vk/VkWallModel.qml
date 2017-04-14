@@ -12,8 +12,8 @@ ListModel {
 			this.error(data.error)
 		} else {
 			var wall = data.response.wall
-			var length = wall[0]
-			for (var i = 1; i < length; ++i)
+			// first wall[0] is for total entries count
+			for (var i = 1; i < wall.length; ++i)
 				this.append(wall[i])
 		}
 	}
