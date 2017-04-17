@@ -27,7 +27,7 @@ BaseView {
 		var items = this._items
 
 		if (!items.length) {
-			this.rendered = true
+			this.layoutFinished()
 			return
 		}
 
@@ -128,7 +128,7 @@ BaseView {
 
 		this._items.splice(0, renderedBefore - 1);
 
-		this.rendered = true
+		this.layoutFinished()
 		if (created)
 			this._context._complete()
 	}
@@ -140,7 +140,7 @@ BaseView {
 	/// @internal creates delegate in given item slot
 	function _createDelegate(idx) {
 		log("create", idx)
-		var mapped 
+		var mapped
 		if (idx < 0)
 			mapped = (this.count + (idx % this.count)) % this.count
 		else
