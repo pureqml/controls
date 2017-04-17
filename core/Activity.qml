@@ -8,7 +8,7 @@ Item {
 	signal stopped;		///< activity was stopped signal
 
 	///@private
-	isActivity(obj): { return obj instanceof _globals.core.Activity; }
+	isActivity(obj): { return obj instanceof _globals.controls.core.Activity; }
 
 	/// checking child activities if there is at least one
 	isAnyActiveInContext: {
