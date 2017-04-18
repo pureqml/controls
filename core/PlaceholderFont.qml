@@ -3,6 +3,7 @@ Object {
 	property bool italic;		///< applies italic style
 	property bool bold;			///< applies bold style
 	property bool underline;	///< applies underline style
+	property bool strike;		///< line throw text flag
 	property int pixelSize;		///< font size in pixels
 	property int pointSize;		///< font size in points
 	property int lineHeight;	///< font line height in pixels
@@ -17,6 +18,7 @@ Object {
 			case 'italic': 		this.updateProperty('font-style', value? 'italic': 'normal'); this.parent.parent._updateSize(); break
 			case 'bold': 		this.updateProperty('font-weight', value? 'bold': 'normal'); this.parent.parent._updateSize(); break
 			case 'underline':	this.updateProperty('text-decoration', value? 'underline': ''); this.parent.parent._updateSize(); break
+			case 'strike':		this.updateProperty('text-decoration', value? 'line-through': ''); this.parent._updateSize(); break
 			case 'lineHeight':	this.updateProperty('line-height', value + "px"); this.parent.parent._updateSize(); break;
 			case 'weight':		this.updateProperty('font-weight', value); this.parent.parent._updateSize(); break;
 		}
@@ -46,7 +48,7 @@ Object {
 				this._context.stylesheet._addRule('.' + cls + selector, name + ':' + value)
 				log('added rule for .' + cls + selector)
 			} catch(ex) {
-				log(ex)
+				//log(ex)
 			}
 		}.bind(this))
 	}
