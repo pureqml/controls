@@ -1,0 +1,21 @@
+{
+  "name": "pureqml-controls",
+  "version": "1.0.0",
+  "description": "QML to HTML5 translator, both for mobile and desktop targets",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pureqml/controls"
+  },
+  "bin": {
+    "build": "build"
+  },
+  "bugs": {
+    "url" : "https://github.com/pureqml/controls/issues"
+  },
+  "author": "PureQML team",
+  "license": "MIT",
+  "dependencies": {
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.6"
+  }
+}
