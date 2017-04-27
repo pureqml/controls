@@ -6,9 +6,6 @@
     "type": "git",
     "url": "git://github.com/pureqml/controls"
   },
-  "bin": {
-    "build": "build"
-  },
   "bugs": {
     "url" : "https://github.com/pureqml/controls/issues"
   },
