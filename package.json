@@ -1,7 +1,7 @@
 {
   "name": "pureqml-controls",
   "version": "1.0.0",
-  "description": "QML to HTML5 translator, both for mobile and desktop targets",
+  "description": "Library of the most commonly used QML controls for PureQML qml transpiler. Canvas, YouTube, Google Charts, inputs (native and non-native), mixins, SVG, vk.com, and Yandex components.",
   "repository": {
     "type": "git",
     "url": "git://github.com/pureqml/controls"
