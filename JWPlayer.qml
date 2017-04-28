@@ -36,5 +36,4 @@ Item {
 
 	onWidthChanged: { this.element.dom.width = value; }
 	onHeightChanged: { this.element.dom.height = value; }
-	onVisibleChanged: { this.style('display', (value ? 'initial' : 'none'))}
 }
