@@ -1,5 +1,6 @@
 ///Video paly er based on shaka-player
 Item {
+	width: 640; height: 480;
 	signal error;		///< error occured signal
 	signal finished;	///< video finished signal
 	property string	source;	///< video source URL
@@ -35,6 +36,8 @@ Item {
 
 		var errorCallback = function(event) { log("Error", event) }
 		this._player.addEventListener('error', this.error);
+		this.element.setAttribute('controls', '')
+		this.element.setAttribute('autoplay', '')
 	}
 
 	///@private
@@ -45,4 +48,8 @@ Item {
 			log("Error while loading", err)
 		});
 	}
+
+	onWidthChanged: { this.element.dom.width = value; }
+	onHeightChanged: { this.element.dom.height = value; }
+
 }
