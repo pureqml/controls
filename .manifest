@@ -1,1 +1,1 @@
-{ "package": "controls" }
+{ "package": "controls", "public": true }
