@@ -27,8 +27,14 @@ Item {
 	///@private
 	onSourceChanged: {
 		this._player.setup({
-			file: 'http://content.jwplatform.com/videos/SJnBN5W3-mjpS2Ylx.mp4',
-			volume: 10
+			file: value,
+			volume: 10,
+			title: "My Favorite Video!",
+		    description: "This has lots of kittens in it!"
 		});
 	}
+
+	onWidthChanged: { this.element.dom.width = value; }
+	onHeightChanged: { this.element.dom.height = value; }
+	onVisibleChanged: { this.style('display', (value ? 'initial' : 'none'))}
 }
