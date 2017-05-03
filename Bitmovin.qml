@@ -21,27 +21,37 @@ Item {
 
 	///@private
 	constructor: {
-		this.element.setAttribute('id', 'jwplayer')
+		this.element.setAttribute('id', 'bitmovin')
 
-		this._player = window.jwplayer('jwplayer')
-//		this._player.setup({});
-		this._player.on('all', function (e, x) {
-		    console.log("on all", e, x)
-		})
+		this.conf = {
+			key:       "8ea98414-488b-41cf-ac9b-fdec00b58572",
+			source: {
+				poster:      "//bitmovin-a.akamaihd.net/content/MI201109210084_1/poster.jpg"
+			}
+		};
+
+		this._player = window.bitmovin.player("bitmovin");
 	}
 
 	///@private
 	onSourceChanged: {
-		this._player.setup({
-			file: value,
-			volume: 10,
-			title: "My Favorite Video!",
-		    description: "This has lots of kittens in it!"
+		this.conf.source.hls = value;
+
+		if (this._player.isSetup())
+			this._player.unload()
+
+		this._player.setup(this.conf).then(function(value) {
+			// Success
+			console.log("Successfully created bitmovin player instance");
+		}, function(reason) {
+			// Error!
+			console.log("Error while creating bitmovin player instance");
 		});
+
 	}
 
 	play(state): {
-		this._player.play(state)
+		// this._player.play(state)
 	}
 
 	loadPlaylist(pl): {

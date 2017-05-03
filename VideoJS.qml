@@ -18,25 +18,26 @@ Item {
 	property int	buffered;			///< buffered contetnt in seconds
 	property bool	logsEnabled: recursiveVisible;
 
+	///@private
+	function getTag() { return 'video' }
 
 	///@private
 	constructor: {
-		this.element.setAttribute('id', 'jwplayer')
+		this.element.setAttribute('id', 'videojs')
+		this.element.setAttribute('controls', '')
+		this.element.setAttribute('preload', 'auto')
+		this.element.setAttribute('data-setup', '{}')
+		this.element.setAttribute('class', 'video-js')
 
-		this._player = window.jwplayer('jwplayer')
-//		this._player.setup({});
-		this._player.on('all', function (e, x) {
-		    console.log("on all", e, x)
-		})
+		this._player = window.videojs('videojs')
+
 	}
 
 	///@private
 	onSourceChanged: {
-		this._player.setup({
-			file: value,
-			volume: 10,
-			title: "My Favorite Video!",
-		    description: "This has lots of kittens in it!"
+		this._player.src(value);
+		this._player.ready(function() {
+			log("VIDEOJS ready");
 		});
 	}
 
@@ -44,22 +45,10 @@ Item {
 		this._player.play(state)
 	}
 
-	loadPlaylist(pl): {
-
-		this._player.setup(pl[0])
-
-		var self = this;
-
-		this._player.on('all', function (e, x) {
-			if (e !== "time" && self.logsEnabled)
-			    console.log("JWplayer event", e, x)
-		})
-
-
-
-		this._player.load(pl)
+	onWidthChanged: { 
+		this.element.dom.width = value;
+		if (this._player)
+			this._player.width = value;
 	}
-
-	onWidthChanged: { this.element.dom.width = value; }
 	onHeightChanged: { this.element.dom.height = value; }
 }
