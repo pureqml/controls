@@ -12,6 +12,16 @@ BaseInput {
 		_globals.controls.input.BaseInput.prototype._update.apply(this, arguments);
 	}
 
+	onActiveFocusChanged: {
+		if (value) {
+			this.element.dom.select()
+			var len = this.text.length
+			this.element.dom.setSelectionRange(len, len)
+		} else {
+			this.element.dom.blur()
+		}
+	}
+
 	constructor: {
 		this.element.on("input", function() { this.text = this.element.dom.value }.bind(this))
 	}
