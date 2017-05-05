@@ -42,11 +42,12 @@ Item {
 
 	///@private
 	onSourceChanged: {
-		this._player.load(this.source).then(function() {
-			log('The video has now been loaded!');
-		}).catch(function(err) {
-			log("Error while loading", err)
-		});
+		if (this._player)
+			this._player.load(this.source).then(function() {
+				log('The video has now been loaded!');
+			}).catch(function(err) {
+				log("Error while loading", err)
+			});
 	}
 
 	onWidthChanged: { this.element.dom.width = value; }
