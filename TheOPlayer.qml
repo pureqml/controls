@@ -37,6 +37,12 @@ Item {
 	}
 
 	onSourceChanged: {
+		this._player.source = {
+			sources : [{
+				src : value,
+				type : 'application/x-mpegurl'
+			}]
+		};
 	}
 
 	play(state): {
