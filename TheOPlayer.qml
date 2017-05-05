@@ -25,7 +25,7 @@ Item {
 
 		var element = document.querySelector('.theoplayer-container'); 
 		this._player = new window.THEOplayer.Player(element, { 
-			libraryLocation : '/'
+			libraryLocation : ''
 		});
 
 		this._player.source = {
