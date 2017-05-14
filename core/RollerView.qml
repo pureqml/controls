@@ -150,7 +150,7 @@ BaseView {
 		var row = this.model.get(mapped)
 		row['index'] = idx
 		this._local['model'] = row
-		var item = this.delegate()
+		var item = this.delegate(this)
 		if (idx + this._offset >= 0)
 			this._items[idx + this._offset] = item
 		else {
