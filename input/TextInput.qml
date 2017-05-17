@@ -13,13 +13,10 @@ BaseInput {
 	}
 
 	onActiveFocusChanged: {
-		if (value) {
+		if (value)
 			this.element.dom.select()
-			var len = this.text.length
-			this.element.dom.setSelectionRange(len, len)
-		} else {
+		else
 			this.element.dom.blur()
-		}
 	}
 
 	constructor: {
