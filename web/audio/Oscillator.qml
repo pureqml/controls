@@ -67,7 +67,6 @@ Object {
 			this._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 			this._oscillator = this._audioCtx.createOscillator()
 			this._oscillator.connect(this._audioCtx.destination)
-			this.reset()
 		} else {
 			log("Web Audio API not supported")
 			return
@@ -85,4 +84,6 @@ Object {
 		case this.Triangle:	oscillator.type = 'triangle'
 		}
 	}
+
+	onCompleted: { this.reset() }
 }
