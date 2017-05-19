@@ -1,5 +1,5 @@
 /// Object generates sound and play it via web audio API
-AudioObject {
+Object {
 	property enum type { Sine, Square, Sawtooth, Triangle };	///< signal type enum: Sine, Square, Sawtooth or Triangle
 	property bool playing;	///< is oscillator playing right now
 	property int frequency;	///< signal frequency value
