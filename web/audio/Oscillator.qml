@@ -1,8 +1,9 @@
-Object {
-	property bool playing;
-	property enum type { Sine, Square, Sawtooth, Triangle };
-	property int frequency;
-	property int detune;
+/// Object generates sound and play it via web audio API
+AudioObject {
+	property enum type { Sine, Square, Sawtooth, Triangle };	///< signal type enum: Sine, Square, Sawtooth or Triangle
+	property bool playing;	///< is oscillator playing right now
+	property int frequency;	///< signal frequency value
+	property int detune;	///< representing detuning of oscillation in cents
 
 	Timer {
 		id: timeOutTimer;
@@ -15,6 +16,7 @@ Object {
 		onTriggered: { this.parent.pause() }
 	}
 
+	///@private
 	function _update(name, value) {
 		switch (name) {
 			case 'detune': this._oscillator.frequency.value = value; break
@@ -32,6 +34,7 @@ Object {
 		_globals.core.Item.prototype._update.apply(this, arguments);
 	}
 
+	///< paly generated sound
 	play: {
 		if (this.playing)
 			return
@@ -39,6 +42,7 @@ Object {
 		this.playing = true
 	}
 
+	///< pause generated sound
 	pause: {
 		if (!this.playing)
 			return
@@ -46,13 +50,17 @@ Object {
 		this.playing = false
 	}
 
+	///< play/pause generated sound
 	playPause: { this.playing ? this.pause() : this.play() }
 
+	/**@param ms:int time interval in milliseconds
+	play generated sound 'ms' milliseconds*/
 	playWithTimeout(ms): {
 		this.play()
 		timeOutTimer.start(ms)
 	}
 
+	///@private
 	onPlayingChanged: {
 		if (value)
 			return
@@ -62,6 +70,7 @@ Object {
 		this.reset()
 	}
 
+	///@private
 	constructor: {
 		if (window.AudioContext || window.webkitAudioContext) {
 			this._audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -73,6 +82,7 @@ Object {
 		}
 	}
 
+	///@private
 	reset: {
 		var oscillator = this._oscillator
 		oscillator.frequency.value = this.frequency
@@ -85,5 +95,6 @@ Object {
 		}
 	}
 
+	///@private
 	onCompleted: { this.reset() }
 }
