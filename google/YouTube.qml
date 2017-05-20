@@ -6,16 +6,14 @@ Item {
 	width: 560;		///<@private
 
 	///@private
-	function _update(name, value) {
-		switch (name) {
-			case 'width': this._updateSize(); break
-			case 'height': this._updateSize(); break
-			case 'source': this.element.dom.src = value; break
-			case 'allowFullScreen': this.element.dom.allowFullscreen = value; break
-		}
+	onWidthChanged,
+	onHeightChanged: { this._updateSize(); }
 
-		_globals.core.Item.prototype._update.apply(this, arguments);
-	}
+	///@private
+	onSourceChanged: { this.element.dom.src = value; }
+
+	///@private
+	onAllowFullScreenChanged: { this.element.dom.allowFullscreen = value; }
 
 	///@private
 	function getTag() { return 'iframe' }

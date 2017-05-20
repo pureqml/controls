@@ -12,15 +12,16 @@ Rectangle {
 	height: paintedHeight;
 
 	///@private
-	function _update(name, value) {
-		switch (name) {
-			case 'height': this.style("height", value ); break
-			case 'width': this.style("width", value); break
-			case 'textColor': this.style('color', _globals.core.normalizeColor(value)); break;
-			case 'text': this.element.dom.innerText = value; this._updateSize(); break;
-		}
-		_globals.core.Rectangle.prototype._update.apply(this, arguments)
-	}
+	onTextChanged: { this.element.dom.innerText = value; this._updateSize(); }
+
+	///@private
+	onWidthChanged: { this.style("width", value); }
+
+	///@private
+	onHeightChanged: { this.style("height", value ); }
+
+	///@private
+	onTextColorChanged: { this.style('color', _globals.core.normalizeColor(value)); }
 
 	///@private returns tag for corresponding element
 	function getTag() { return 'button' }

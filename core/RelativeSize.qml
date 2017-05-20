@@ -5,14 +5,7 @@ Object {
 	property real lg: 0;
 	property int globalWidth: context.width;
 
-	function _update(name, value) {
-		switch (name) {
-			case 'globalWidth':
-				this._calculate(); 
-				break
-		}
-		_globals.core.Object.prototype._update.apply(this, arguments);
-	}
+	onGlobalWidthChanged: { this._calculate() }
 
 	function _calculate() {
 		var gw = this.globalWidth;
@@ -26,7 +19,5 @@ Object {
 			this.parent.width = this.parent.parent.width * this.xs / 100
 	}
 
-	onCompleted: {
-		this._calculate();
-	}
+	onCompleted: { this._calculate() }
 }

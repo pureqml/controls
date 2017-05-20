@@ -8,18 +8,13 @@ BaseInput {
 	height: 25;
 	type: "number";
 
-	function _update(name, value) {
-		switch (name) {
-			case 'min': this.element.dom.min = value; break
-			case 'max': this.element.dom.max = value; break
-			case 'step': this.element.dom.step = value; break
-			case 'value': this.element.dom.value = value; break
-		}
-		_globals.controls.input.BaseInput.prototype._update.apply(this, arguments);
-	}
+	onMinChanged: { this.element.dom.min = value; }
+	onMaxChanged: { this.element.dom.max = value; }
+	onStepChanged: { this.element.dom.step = value; }
+	onValueChanged: { this.element.dom.value = value; }
 
 	constructor: {
-		this.element.on("input", function() { 
+		this.element.on("input", function() {
 			this.value = this.max ? Math.min(this.max, this.element.dom.value) : this.element.dom.value
 		}.bind(this))
 	}

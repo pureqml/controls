@@ -5,13 +5,7 @@ BaseInput {
 	height: 30;
 	type: "file";
 
-	function _update(name, value) {
-		switch (name) {
-			case 'filter': this.element.dom.accept = value; break
-		}
-
-		_globals.controls.input.BaseInput.prototype._update.apply(this, arguments);
-	}
+	onFilterChanged: { this.element.dom.accept = value; }
 
 	constructor: {
 		var self = this

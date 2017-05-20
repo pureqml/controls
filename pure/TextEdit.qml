@@ -11,14 +11,6 @@ Rectangle {
 	focus: true;
 	clip: true;
 
-	function _update(name, value) {
-		switch (name) {
-			case 'placeholder': this.element.setAttribute('placeholder', value); break
-		}
-
-		_globals.core.Rectangle.prototype._update.apply(this, arguments);
-	}
-
 	Rectangle {
 		id: cursor;
 		x: innerText.paintedWidth;
@@ -46,4 +38,6 @@ Rectangle {
 		var text = textEditProto.text
 		textEditProto.text = text.slice(0, text.length - 1)
 	}
+
+	onPlaceholderChanged: { this.element.setAttribute('placeholder', value); }
 }

@@ -34,17 +34,13 @@ Sprite {
 	}
 
 	///@private
-	function _update(name, value) {
-		switch(name) {
-			case 'frameCount':
-			case 'interval':
-			case 'running':
-			case 'duration':
-			case 'repeat':
-			case 'status':
-				this._start(); break;
-		}
-		_globals.controls.core.Sprite.prototype._update.apply(this, arguments);
+	onRepeatChanged,
+	onStatusChanged,
+	onRunningChanged,
+	onDurationChanged,
+	onIntervalChanged,
+	onFrameCountChanged: {
+		this._start();
 	}
 
 	///@private

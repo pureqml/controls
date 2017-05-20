@@ -13,15 +13,8 @@ Rectangle {
 	property string title;				///< title attribute property
 
 	/// @private
-	function _update(name, value) {
-		switch (name) {
-			case 'title':
-				this.element.dom.setAttribute('title', value);
-				break;
-			case 'position':
-				this.style('position', value);
-				break
-		}
-		_globals.core.Rectangle.prototype._update.apply(this, arguments);
-	}
+	onTitleChanged: { this.element.dom.setAttribute('title', value); }
+
+	/// @private
+	onPositionChanged: { this.style('position', value); }
 }

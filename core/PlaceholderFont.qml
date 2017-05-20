@@ -10,20 +10,31 @@ Object {
 	property int weight;		///< font weight value
 
 	/// @private
-	function _update(name, value) {
-		switch (name) {
-			case 'family':		this.updateProperty('font-family', value); this.parent.parent._updateSize(); break
-			case 'pointSize':	this.updateProperty('font-size', value + "pt"); this.parent.parent._updateSize(); break
-			case 'pixelSize':	this.updateProperty('font-size', value + "px"); this.parent.parent._updateSize(); break
-			case 'italic': 		this.updateProperty('font-style', value? 'italic': 'normal'); this.parent.parent._updateSize(); break
-			case 'bold': 		this.updateProperty('font-weight', value? 'bold': 'normal'); this.parent.parent._updateSize(); break
-			case 'underline':	this.updateProperty('text-decoration', value? 'underline': ''); this.parent.parent._updateSize(); break
-			case 'strike':		this.updateProperty('text-decoration', value? 'line-through': ''); this.parent._updateSize(); break
-			case 'lineHeight':	this.updateProperty('line-height', value + "px"); this.parent.parent._updateSize(); break;
-			case 'weight':		this.updateProperty('font-weight', value); this.parent.parent._updateSize(); break;
-		}
-		_globals.core.Object.prototype._update.apply(this, arguments);
-	}
+	onBoldChanged: { this.updateProperty('font-weight', value? 'bold': 'normal'); this.parent.parent._updateSize(); }
+
+	/// @private
+	onWeightChanged: { this.updateProperty('font-weight', value); this.parent.parent._updateSize(); }
+
+	/// @private
+	onFamilyChanged: { this.updateProperty('font-family', value); this.parent.parent._updateSize(); }
+
+	/// @private
+	onItalicChanged: { this.updateProperty('font-style', value? 'italic': 'normal'); this.parent.parent._updateSize(); }
+
+	/// @private
+	onStrikeChanged: { this.updateProperty('text-decoration', value? 'line-through': ''); this.parent._updateSize(); }
+
+	/// @private
+	onPointSizeChanged: { this.updateProperty('font-size', value + "pt"); this.parent.parent._updateSize(); }
+
+	/// @private
+	onPixelSizeChanged: { this.updateProperty('font-size', value + "px"); this.parent.parent._updateSize(); }
+
+	/// @private
+	onUnderlineChanged: { this.updateProperty('text-decoration', value? 'underline': ''); this.parent.parent._updateSize(); }
+
+	/// @private
+	onLineHeightChanged: { this.updateProperty('line-height', value + "px"); this.parent.parent._updateSize(); }
 
 	/// @private
 	function getClass() {

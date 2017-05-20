@@ -31,24 +31,26 @@ Item {
 	}
 
 	/// @private
-	function _update(name, value) {
-		switch (name) {
-			case 'type': this.element.dom.type = value; break
-			case 'width': this._updateSize(); break
-			case 'height': this._updateSize(); break
-			case 'color': this.style('color', value); break
-			case 'backgroundColor': this.style('background', value); break
-			case 'horizontalAlignment':
-				switch(value) {
-				case this.AlignLeft:	this.style('text-align', 'left'); break
-				case this.AlignRight:	this.style('text-align', 'right'); break
-				case this.AlignHCenter:	this.style('text-align', 'center'); break
-				case this.AlignJustify:	this.style('text-align', 'justify'); break
-				}
-				break
-		}
+	onWidthChanged,
+	onHeightChanged: { this._updateSize() }
 
-		_globals.core.Item.prototype._update.apply(this, arguments);
+	/// @private
+	onTypeChanged: { this.element.dom.type = value }
+
+	/// @private
+	onColorChanged: { this.style('color', value) }
+
+	/// @private
+	onBackgroundColorChanged: { this.style('background', value) }
+
+	/// @private
+	onHorizontalAlignmentChanged: {
+		switch(value) {
+		case this.AlignLeft:	this.style('text-align', 'left'); break
+		case this.AlignRight:	this.style('text-align', 'right'); break
+		case this.AlignHCenter:	this.style('text-align', 'center'); break
+		case this.AlignJustify:	this.style('text-align', 'justify'); break
+		}
 	}
 
 	/// returns tag for corresponding element

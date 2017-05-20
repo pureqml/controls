@@ -19,14 +19,7 @@ Item {
 	}
 
 	/// @private
-	function _update(name, value) {
-		switch (name) {
-			case 'width':
-			case 'height': this._updateSize(); break
-		}
-
-		_globals.core.Item.prototype._update.apply(this, arguments);
-	}
+	onWidthChanged, onHeightChanged: { this._updateSize(); }
 
 	/// @private
 	function getTag() { return 'select' }

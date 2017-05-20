@@ -6,16 +6,7 @@ Object {
 	property real duration;			///< Read only real property representing the duration, in seconds, of the PCM data stored in the buffer.
 
 	///@private
-	function _update(name, value) {
-		switch (name) {
-			case 'length':
-			case 'channelsCount':
-				this.reset()
-				break
-		}
-
-		_globals.core.Item.prototype._update.apply(this, arguments);
-	}
+	onLengthChanged, onChannelsCountChanged: { this.reset() }
 
 	/// Play audio buffer
 	play: { this._source.start(); }

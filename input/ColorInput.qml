@@ -3,15 +3,9 @@ BaseInput {
 	height: 32;
 	type: "color";
 
-	function _update(name, value) {
-		switch(name) {
-			case 'color': 
-				if (value != this.element.dom.value) 
-					this.element.dom.value = value;
-				break
-		}
-
-		_globals.controls.input.BaseInput.prototype._update.apply(this, arguments);
+	onColorChanged: {
+		if (value != this.element.dom.value)
+			this.element.dom.value = value;
 	}
 
 	constructor: {

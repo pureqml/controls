@@ -17,21 +17,19 @@ Object {
 	}
 
 	///@private
-	function _update(name, value) {
-		switch (name) {
-			case 'detune': this._oscillator.frequency.value = value; break
-			case 'frequency': this._oscillator.detune.value = value; break
-			case 'type':
-				switch(value) {
-				case this.Sine:		oscillator.type = 'sine'; break
-				case this.Square:	oscillator.type = 'square'; break
-				case this.Sawtooth:	oscillator.type = 'sawtooth'; break
-				case this.Triangle:	oscillator.type = 'triangle'; break
-				}
-				break
-		}
+	onDetuneChanged: { this._oscillator.frequency.value = value; }
 
-		_globals.core.Item.prototype._update.apply(this, arguments);
+	///@private
+	onFrequencyChanged: { this._oscillator.detune.value = value; }
+
+	///@private
+	onTypeChanged: {
+		switch(value) {
+		case this.Sine:		oscillator.type = 'sine'; break
+		case this.Square:	oscillator.type = 'square'; break
+		case this.Sawtooth:	oscillator.type = 'sawtooth'; break
+		case this.Triangle:	oscillator.type = 'triangle'; break
+		}
 	}
 
 	///< paly generated sound

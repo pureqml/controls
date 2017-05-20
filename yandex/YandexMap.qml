@@ -3,16 +3,7 @@ Item {
 	property real centerLatitude;
 	property int zoom;
 
-	function _update(name, value) {
-		switch (name) {
-			case 'centerLongitude':
-			case 'centerLatitude':
-			case 'zoom':
-				this._updateCenter()
-				break;
-		}
-		_globals.core.Item.prototype._update.apply(this, arguments);
-	}
+	onCenterLongitudeChanged, onCenterLatitudeChanged, onZoomChanged: { this._updateCenter() }
 
 	constructor: {
 		if (!window.YMaps) {

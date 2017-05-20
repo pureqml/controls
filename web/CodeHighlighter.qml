@@ -8,14 +8,19 @@ Item {
 	width: contentWidth;
 
 	/// @private
-	function _update(name, value) {
-		switch (name) {
-			case 'width':		this._updateSize(); break
-			case 'height':		this._updateSize(); break
-			case 'code':		this._code.dom.innerHTML = value; window.hljs.highlightBlock(this._code.dom); this._updateSize(); break
-			case 'language':	this._code.dom.className = value; window.hljs.highlightBlock(this._code.dom); break
-		}
-		_globals.core.Item.prototype._update.apply(this, arguments);
+	onWidthChanged, onHeightChanged: { this._updateSize(); }
+
+	/// @private
+	onCodeChanged: {
+		this._code.dom.innerHTML = value
+		window.hljs.highlightBlock(this._code.dom)
+		this._updateSize()
+	}
+
+	/// @private
+	onLanguageChanged: {
+		this._code.dom.className = value
+		window.hljs.highlightBlock(this._code.dom)
 	}
 
 	/// @private returns tag for corresponding element

@@ -5,19 +5,13 @@ Object {
 	property Font font: PlaceholderFont { }	///< placeholder font
 
 	///@private
-	constructor: {
-		this._placeholderClass = ''
-	}
+	constructor: { this._placeholderClass = '' }
 
-	/// @private
-	function _update(name, value) {
-		switch (name) {
-			case 'text': this.parent.element.setAttribute('placeholder', value); break
-			case 'color': this.setPlaceholderColor(value); break
-		}
+	///@private
+	onTextChanged: { this.parent.element.setAttribute('placeholder', value) }
 
-		_globals.core.Item.prototype._update.apply(this, arguments);
-	}
+	///@private
+	onColorChanged: { this.setPlaceholderColor(value) }
 
 	///@private
 	function getClass() {

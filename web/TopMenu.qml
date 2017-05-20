@@ -67,14 +67,9 @@ Item {
 	toggleShow: { this.showMenu = !this.showMenu }
 	onWidthChanged: { topMenuProto.hasEnoughSpace = value >= this.content.width }
 
-	function _update(name, value) {
-		switch(name) {
-		case 'content':
-			if (value)
-				value.visible = false
-			break
-		}
-		_globals.core.Item.prototype._update.apply(this, arguments);
+	onContentChanged: {
+		if (value)
+			value.visible = false
 	}
 
 	onCompleted: {

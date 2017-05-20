@@ -3,13 +3,7 @@ BaseInput {
 	width: 150;
 	height: 100;
 
-	function _update(name, value) {
-		switch (name) {
-			case 'text': if (value != this.element.dom.value) this.element.dom.value = value; break
-		}
-
-		_globals.controls.input.BaseInput.prototype._update.apply(this, arguments);
-	}
+	onTextChanged: { if (value != this.element.dom.value) this.element.dom.value = value; }
 
 	/// returns tag for corresponding element
 	function getTag() { return 'textarea' }

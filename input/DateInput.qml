@@ -6,13 +6,8 @@ BaseInput {
 	height: 20;
 	type: "date";
 
-	function _update(name, value) {
-		switch (name) {
-			case 'min': this.element.dom.min = value; break
-			case 'max': this.element.dom.max = value; break
-		}
-		_globals.controls.input.BaseInput.prototype._update.apply(this, arguments);
-	}
+	onMinChanged: { this.element.dom.min = value; }
+	onMaxChanged: { this.element.dom.max = value; }
 
 	constructor: {
 		this.element.on("change", function() { this.value = this.element.dom.value }.bind(this))

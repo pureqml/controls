@@ -14,25 +14,26 @@ Item {
 	}
 
 	/// @private
-	function _update(name, value) {
-		switch (name) {
-			case 'min': this.element.dom.min = value; break
-			case 'max': this.element.dom.max = value; break
-			case 'step': this.element.dom.step = value; break
-			case 'orientation':
-				switch (value) {
-				case this.Horizontal:
-					this.style("appearance", "slider-horizontal")
-					this.element.setAttribute('orient', 'horizontal')
-					break
-				case this.Vertical:
-					this.style("appearance", "slider-vertical")
-					this.element.setAttribute('orient', 'vertical')
-					break
-				}
-		}
+	onMinChanged: { this.element.dom.min = value; }
 
-		_globals.core.Item.prototype._update.apply(this, arguments);
+	/// @private
+	onMaxChanged: { this.element.dom.max = value; }
+
+	/// @private
+	onStepChanged: { this.element.dom.step = value; }
+
+	/// @private
+	onOrientationChanged: {
+		switch (value) {
+		case this.Horizontal:
+			this.style("appearance", "slider-horizontal")
+			this.element.setAttribute('orient', 'horizontal')
+			break
+		case this.Vertical:
+			this.style("appearance", "slider-vertical")
+			this.element.setAttribute('orient', 'vertical')
+			break
+		}
 	}
 
 	/// returns tag for corresponding element
