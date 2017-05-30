@@ -1,8 +1,9 @@
+/// HTML5 search input item
 BaseInput {
-	property string text;
-	width: 100;
-	height: 25;
-	type: "search";
+	property string text;	///< input text string property
+	width: 100;		///<@private
+	height: 25;		///<@private
+	type: "search";	///<@private
 
 	onTextChanged: { if (value != this.element.dom.value) this.element.dom.value = value }
 

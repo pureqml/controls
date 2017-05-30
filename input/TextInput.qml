@@ -1,9 +1,10 @@
+///HTML text input item
 BaseInput {
-	property string text;
-	property bool passwordMode: false;
-	height: 20;
-	width: 173;
-	type: passwordMode ? "password" : "text";
+	property string text;		///< input text string property
+	property bool passwordMode: false;	///< show password chars instead of input text flag property
+	height: 20;	///<@private
+	width: 173;	///<@private
+	type: passwordMode ? "password" : "text";	///<@private
 
 	onTextChanged: { if (value != this.element.dom.value) this.element.dom.value = value; }
 
