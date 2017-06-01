@@ -50,7 +50,7 @@ Item {
 		this.started();
 		this.visible = true;
 		this.active = true;
-		this.forceActiveFocus();
+		this.setFocus();
 		log("Activity started: ", this.name);
 	}
 
@@ -60,8 +60,9 @@ Item {
 			return;
 
 		if (this.parent && this.isActivity(this.parent)) {
-			this.parent.currentActivity = "";
+			this.parent.currentActivity = this.parent.name;
 			this.parent.hasAnyActiveChild = this.isAnyActiveInContext();
+			this.parent.started()
 		}
 
 		this.active = false;
@@ -74,6 +75,6 @@ Item {
 		if (this.active)
 			this.stop();
 		else
-			event.accepted = false;
+			event.accepted = true;
 	}
 }
