@@ -12,28 +12,27 @@ Item {
 
 	/// checking child activities if there is at least one
 	isAnyActiveInContext: {
-		var childrens = this.parent.children;
-		for (var i in childrens)
-			if (this != childrens[i] && this.isActivity(childrens[i]))
-				if (childrens[i].active)
-					return true;
+		var children = this.parent.children;
+		for (var i in children)
+			if (this != children[i] && this.isActivity(children[i]) && children[i].active)
+				return true;
 		return false;
 	}
 
 	/// close all child activities
 	closeAll: {
-		var childrens = this.children;
-		for (var i in childrens)
-			if (this != childrens[i] && this.isActivity(childrens[i]))
-				childrens[i].stop();
+		var children = this.children;
+		for (var i in children)
+			if (this != children[i] && this.isActivity(children[i]))
+				children[i].stop();
 	}
 
 	/// stop all activities from one common parent
 	closeParentActivities: {
-		var childrens = this.parent.children ? this.parent.children : this.children;
-		for (var i in childrens)
-			if (this != childrens[i] && this.isActivity(childrens[i]))
-				childrens[i].stop();
+		var children = this.parent.children ? this.parent.children : this.children;
+		for (var i in children)
+			if (this != children[i] && this.isActivity(children[i]))
+				children[i].stop();
 	}
 
 	/// start activity
@@ -59,13 +58,12 @@ Item {
 		if (!this.active)
 			return;
 
+		this.active = false;
 		if (this.parent && this.isActivity(this.parent)) {
 			this.parent.currentActivity = this.parent.name;
 			this.parent.hasAnyActiveChild = this.isAnyActiveInContext();
 			this.parent.started()
 		}
-
-		this.active = false;
 		this.stopped();
 		log("Activity stopped: ", this.name);
 	}
