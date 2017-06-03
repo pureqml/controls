@@ -74,7 +74,6 @@ Item {
 	onBackPressed: {
 		if (this.active)
 			this.stop();
-		else
-			event.accepted = true;
+		return true
 	}
 }
