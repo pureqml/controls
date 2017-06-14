@@ -52,7 +52,9 @@ BaseView {
 		else
 			item.viewY = pb
 
-		//log("current item", ci, pb)
+		if (this.trace)
+			log("current item", ci, pb)
+
 		var renderedBefore,
 			renderedAfter,
 			plusOne = this.cacheEnable;
@@ -77,7 +79,9 @@ BaseView {
 			else
 				item.viewY = pb
 
-			//log("item before", i, pb)
+			if (this.trace)
+				log("item before", i, pb)
+
 			item.visible = true
 			renderedBefore = i + this._offset
 		}
@@ -102,23 +106,27 @@ BaseView {
 			if (pf >= s)
 				plusOne = false
 
-			//log("item after", i, pf, s)
+			if (this.trace)
+				log("item after", i, pf, s)
 			pf += s + this.spacing
 			item.visible = true
 			renderedAfter = i + this._offset + 1
 		}
 
-		//log("before", renderedBefore, "afer", renderedAfter)
+		if (this.trace)
+			log("before", renderedBefore, "afer", renderedAfter)
 
 		for (var i = 0; i < this._items.length - renderedAfter; ++i) {
-			log("trying to remove from the end", i)
+			if (this.trace)
+				log("trying to remove from the end", i)
 			var item = items.pop()
 			if (item)
 				item.discard()
 		}
 
 		for (var i = 0; i < renderedBefore; ++i) {
-			log("trying to remove from the beginning", i)
+			if (this.trace)
+				log("trying to remove from the beginning", i)
 			var item = items.shift()
 			if (item) {
 				this._offset--
@@ -139,14 +147,16 @@ BaseView {
 
 	/// @internal creates delegate in given item slot
 	function _createDelegate(idx) {
-		log("create", idx)
+		if (this.trace)
+			log("create", idx)
 		var mapped
 		if (idx < 0)
 			mapped = (this.count + (idx % this.count)) % this.count
 		else
 			mapped = idx % this.count
 
-		log("mapped", mapped)
+		if (this.trace)
+			log("mapped", mapped)
 		var row = this.model.get(mapped)
 		row['index'] = idx
 		this._local['model'] = row
@@ -157,7 +167,9 @@ BaseView {
 			this._items.unshift(item)
 			this._offset++
 		}
-		log("_createDelegate", idx, mapped, this._offset)
+
+		if (this.trace)
+			log("_createDelegate", idx, mapped, this._offset)
 		item.view = this
 		this.element.append(item.element)
 		item._local['model'] = row
