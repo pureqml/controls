@@ -44,7 +44,19 @@ BaseView {
 		}
 
 		var itemSize = horizontal ? item.width : item.height
-		var pb = (size - itemSize) / 2
+		var pb = 0
+		switch (this.positionMode)
+		{
+			case this.Center:
+				pb = (size - itemSize) / 2
+				break
+			case this.End:
+				pb = size - itemSize
+				break
+			default:
+				pb = this.x
+				break
+		}
 		var pf = pb + itemSize + this.spacing
 
 		if (horizontal)
