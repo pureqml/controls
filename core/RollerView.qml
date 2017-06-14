@@ -196,37 +196,28 @@ BaseView {
 	}
 
 	onKeyPressed: {
-		if (!this.handleNavigationKeys) {
-			event.accepted = false;
+		if (!this.handleNavigationKeys)
 			return false;
-		}
 
 		var horizontal = this.orientation == this.Horizontal
 		if (horizontal) {
 			if (key == 'Left') {
 				--this.currentIndex;
-				event.accepted = true;
 				return true;
 			} else if (key == 'Right') {
 				++this.currentIndex;
-				event.accepted = true;
 				return true;
 			}
 		} else {
 			if (key == 'Up') {
-				if (!this.currentIndex && !this.keyNavigationWraps) {
-					event.accepted = false;
+				if (!this.currentIndex && !this.keyNavigationWraps)
 					return false;
-				}
 				--this.currentIndex;
 				return true;
 			} else if (key == 'Down') {
-				if (this.currentIndex == this.count - 1 && !this.keyNavigationWraps) {
-					event.accepted = false;
+				if (this.currentIndex == this.count - 1 && !this.keyNavigationWraps)
 					return false;
-				}
 				++this.currentIndex;
-				event.accepted = true;
 				return true;
 			}
 		}
