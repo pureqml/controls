@@ -54,6 +54,9 @@ Item {
 	///play video
 	play(state): { this._player.play(state) }
 
+	///pause video
+	pause: { this.element.dom.pause() }
+
 	///@private
 	toggleAttr(name, value): {
 		if (value)
