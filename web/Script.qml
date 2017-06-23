@@ -3,10 +3,12 @@ Item {
 
 	constructor: {
 		this.element.dom.setAttribute('type', 'text/javascript')
-		this._delayedLoad = new _globals.core.DelayedAction(this._context, function() {
-			this.load()
-		}.bind(this))
-	} ///< @private
+	} 
+
+	/// @private
+	function _delayedLoad() {
+		this._context.delayedAction('script:load', this, this.load())
+	}
 
 	function load() {
 		var source = this.source
@@ -18,8 +20,8 @@ Item {
 		this.element.dom.setAttribute('src', source)
 	}
 
-	onSourceChanged:	{ this._delayedLoad.schedule() }
-	onCompleted:		{ this._delayedLoad.schedule() }
+	onSourceChanged:	{ this._delayedLoad() }
+	onCompleted:		{ this._delayedLoad() }
 
 	function getTag() { return 'script' }
 }
