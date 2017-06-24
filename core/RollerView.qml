@@ -187,9 +187,9 @@ BaseView {
 		item._local['model'] = row
 		var delayedLayout = this._delayedLayout
 		if (this.orientation === this.Horizontal)
-			item.onChanged('width', this._scheduleLayout.bind(this))
+			item.onChanged('width', delayedLayout.schedule.bind(delayedLayout))
 		else
-			item.onChanged('height', this._scheduleLayout.bind(this))
+			item.onChanged('height', delayedLayout.schedule.bind(delayedLayout))
 
 		delete this._local['model']
 		return item
@@ -223,6 +223,6 @@ BaseView {
 		}
 	}
 
-	onOrientationChanged: { this._scheduleLayout() }
-	onCurrentIndexChanged: { this._scheduleLayout() }
+	onOrientationChanged,
+	onCurrentIndexChanged: {this._delayedLayout.schedule() }
 }
