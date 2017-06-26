@@ -185,7 +185,6 @@ BaseView {
 		item.view = this
 		this.element.append(item.element)
 		item._local['model'] = row
-		var delayedLayout = this._delayedLayout
 		if (this.orientation === this.Horizontal)
 			item.onChanged('width', this._scheduleLayout.bind(this))
 		else
