@@ -57,6 +57,14 @@ Item {
 	///pause video
 	pause: { this.element.dom.pause() }
 
+	/**@param value:int seek time in seconds
+	seek video on 'value' seconds respectivly current playback progress*/
+	seek(value): { this.element.dom.currentTime += value }
+
+	/**@param value:int progress time in seconds
+	set video progres to fixed second*/
+	seekTo(value): { this.element.dom.currentTime = value }
+
 	///@private
 	toggleAttr(name, value): {
 		if (value)
