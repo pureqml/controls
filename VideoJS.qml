@@ -38,18 +38,21 @@ Item {
 		this.element.setAttribute('data-setup', '{}')
 		this.element.setAttribute('class', 'video-js')
 
-		var palyer = this.element
+		var player = this.element
 		var self = this
-		palyer.dom.ontimeupdate = function() {
+		player.dom.ontimeupdate = function() {
 			self.waiting = false
 			if (!self.seeking)
-				self.progress = palyer.dom.currentTime
+				self.progress = player.dom.currentTime
 		}.bind(this)
 
-		palyer.dom.ondurationchange = function() {
-			var d = palyer.dom.duration
+		player.dom.ondurationchange = function() {
+			var d = player.dom.duration
 			self.duration = isFinite(d) ? d : 0
 		}.bind(this)
+
+		player.dom.onplay = function() { self.waiting = false; self.paused = player.dom.paused }.bind(this)
+		player.dom.onpause = function() { self.paused = player.dom.paused }.bind(this)
 
 		this._player = window.videojs('videojs')
 	}
@@ -69,6 +72,9 @@ Item {
 
 	///pause video
 	pause: { this.element.dom.pause() }
+
+	///stop video
+	stop: { this.element.dom.pause() }
 
 	/**@param value:int seek time in seconds
 	seek video on 'value' seconds respectivly current playback progress*/
