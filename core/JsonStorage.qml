@@ -13,13 +13,7 @@ LocalStorage {
 	returns JSON proeprty value by name*/
 	getValue(name): {
 		this.name = name
-		var res
-		try {
-			res = JSON.parse(this.value)
-		} catch(e) {
-			res = this.value
-		}
-		return res
+		return this._storage.getItem(this.name)
 	}
 
 	/**@param name:string property name
@@ -27,7 +21,8 @@ LocalStorage {
 	save JSON property 'name' with value 'value'*/
 	setValue(name, value): {
 		this.name = name
-		this.value = JSON.stringify(value)
+		this.init()
+		this._storage.setItem(name, value)
 		this.optionUpdated(name, value)
 	}
 
