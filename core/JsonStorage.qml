@@ -12,12 +12,12 @@ LocalStorage {
 	/**@param name:string property name
 	returns JSON proeprty value by name*/
 	getValue(name): {
-		this.name = name
 		var res
+		var value = this._storage.getItem(name)
 		try {
-			res = JSON.parse(this.value)
+			res = JSON.parse(value)
 		} catch(e) {
-			res = this.value
+			res = value
 		}
 		return res
 	}
