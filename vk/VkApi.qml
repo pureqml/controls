@@ -27,7 +27,13 @@ Object {
 		function jsonp(url, callbackFunc) {
 			var callbackName = 'jsonp_callback_' + Math.round(1000000000 * Math.random());
 			window[callbackName] = function(data) {
-				delete window[callbackName];
+
+				try {
+				  delete window[callbackName];
+				} catch (e) {
+				  window[callbackName] = undefined;
+				}
+				
 				document.body.removeChild(script);
 				callbackFunc(data);
 			};
