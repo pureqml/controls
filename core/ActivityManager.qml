@@ -22,7 +22,7 @@ Item {
 				continue
 
 			children[i].visible = false
-			if (children[i].name == lastIntent.name) {
+			if (children[i].name === lastIntent.name) {
 				log("Init:", lastIntent)
 				children[i].init(lastIntent.intent)
 				children[i].visible = true
