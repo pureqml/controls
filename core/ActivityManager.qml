@@ -1,30 +1,30 @@
 Item {
 	constructor: {
-		this._intentStack = []
+		this._activityStack = []
 	}
 
 	push(name, intent): {
-		this._intentStack.push({ "name": name, "intent": intent })
-		this.initLastIntent()
+		this._activityStack.push({ "name": name, "intent": intent })
+		this.initTopIntent()
 	}
 
 	pop: {
-		this._intentStack.pop()
-		this.initLastIntent()
+		this._activityStack.pop()
+		this.initTopIntent()
 	}
 
-	initLastIntent: {
-		var lastIntent = this._intentStack[this._intentStack.length - 1]
+	initTopIntent: {
+		var topIntent = this._activityStack[this._activityStack.length - 1]
 		var children = this.children
 
 		for (var i = 0; i < children.length; ++i) {
-			if (!children[i].name || !children[i].init)
+			if (!children[i] instanceof _globals.controls.core.Activity)
 				continue
 
 			children[i].visible = false
-			if (children[i].name === lastIntent.name) {
-				log("Init:", lastIntent)
-				children[i].init(lastIntent.intent)
+			if (children[i].name === topIntent.name) {
+				log("Init:", topIntent)
+				children[i].init(topIntent.intent)
 				children[i].visible = true
 				children[i].setFocus()
 			}
