@@ -22,7 +22,6 @@ Item {
 				continue
 
 			children[i].visible = false
-			log("CHILD", children[i])
 			if (children[i].name == lastIntent.name) {
 				log("Init:", lastIntent)
 				children[i].init(lastIntent.intent)
