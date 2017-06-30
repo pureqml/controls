@@ -14,11 +14,12 @@ Object {
 		var xhr = new XMLHttpRequest()
 
 		var self = this
+		var ctx = this._context
 		if (error)
-			xhr.addEventListener('error', function(event) { self.loading = false; log("Error"); error(event) })
+			xhr.addEventListener('error', function(event) { self.loading = false; log("Error"); error(event); ctx._processActions() })
 
 		if (done)
-			xhr.addEventListener('load', function(event) { self.loading = false; done(event) })
+			xhr.addEventListener('load', function(event) { self.loading = false; done(event); ctx._processActions() })
 
 		xhr.open(request.method || 'GET', url);
 
