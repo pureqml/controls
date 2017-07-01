@@ -4,7 +4,8 @@ Item {
 
 	init(intent): { }
 	pop: { this.parent.pop() }
-	push(name, data): { this.parent.push(name, data) }
+	push(name, intent, state): { this.parent.push(name, intent, state) }
+	setState(state): { this.parent.setState(state) }
 
 	onBackPressed: { this.parent.pop() }
 }
