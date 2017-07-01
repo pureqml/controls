@@ -22,7 +22,7 @@ Item {
 		var children = this.children
 
 		for (var i = 0; i < children.length; ++i) {
-			if (!children[i] instanceof _globals.controls.core.Activity)
+			if (!(children[i] instanceof _globals.controls.core.Activity))
 				continue
 
 			children[i].visible = false
