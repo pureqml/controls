@@ -18,20 +18,26 @@ Item {
 	}
 
 	initTopIntent: {
+		if (!this._activityStack.length) {
+			log("Activity stack is empty")
+			return
+		}
+
 		var topActivity = this._activityStack[this._activityStack.length - 1]
 		var children = this.children
 
 		for (var i = 0; i < children.length; ++i) {
-			if (!(children[i] instanceof _globals.controls.core.Activity))
+			var child = children[i]
+			if (!child || !(child instanceof _globals.controls.core.Activity))
 				continue
 
-			children[i].visible = false
-			if (children[i].name === topActivity.name) {
+			child.visible = false
+			if (child.name === topActivity.name) {
 				log("Init:", topActivity)
-				children[i].init(topActivity.intent, topActivity.state)
-				children[i].index = this._activityStack.length - 1
-				children[i].visible = true
-				children[i].setFocus()
+				child.init(topActivity.intent, topActivity.state)
+				child.index = this._activityStack.length - 1
+				child.visible = true
+				child.setFocus()
 			}
 		}
 	}
