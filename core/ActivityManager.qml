@@ -1,15 +1,19 @@
 Item {
+	property int count;
+
 	constructor: {
 		this._activityStack = []
 	}
 
 	push(name, intent, state): {
 		this._activityStack.push({ "name": name, "intent": intent, "state": state })
+		this.count++
 		this.initTopIntent()
 	}
 
 	pop: {
 		this._activityStack.pop()
+		--this.count
 		this.initTopIntent()
 	}
 
