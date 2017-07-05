@@ -6,8 +6,17 @@ BaseView {
 		this._offset = 0
 	}
 
-	function positionViewAtIndex(idx) {
+	function _onReset() {
+		var model = this.model
+		if (this.trace)
+			log("rollerview reset", this._items.length, model.count)
+
+		this._offset = 0
+		this._modelUpdate.reset(model)
+		this._scheduleLayout()
 	}
+
+	function positionViewAtIndex(idx) { }
 
 	function _processUpdates() {
 		this._modelUpdate.apply(this, true) //do not check _items count in apply
@@ -26,7 +35,7 @@ BaseView {
 		var horizontal = this.orientation === this.Horizontal
 		var items = this._items
 
-		if (!items.length) {
+		if (!items.length || !this.count) {
 			this.layoutFinished()
 			return
 		}
@@ -154,18 +163,13 @@ BaseView {
 	}
 
 	/// @internal focuses current item
-	function focusCurrent() {
-	}
+	function focusCurrent() { }
 
 	/// @internal creates delegate in given item slot
 	function _createDelegate(idx) {
 		if (this.trace)
 			log("create", idx)
-		var mapped
-		if (idx < 0)
-			mapped = (this.count + (idx % this.count)) % this.count
-		else
-			mapped = idx % this.count
+		var mapped = idx < 0 ? mapped = (this.count + (idx % this.count)) % this.count : (idx % this.count)
 
 		if (this.trace)
 			log("mapped", mapped)
@@ -173,6 +177,7 @@ BaseView {
 		row['index'] = idx
 		this._local['model'] = row
 		var item = this.delegate(this)
+
 		if (idx + this._offset >= 0)
 			this._items[idx + this._offset] = item
 		else {
