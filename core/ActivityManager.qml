@@ -21,6 +21,16 @@ Item {
 		this._activityStack[idx || this._activityStack.length - 1].state = state
 	}
 
+	clear: {
+		var children = this.children
+		for (var i = 0; i < children.length; ++i) {
+			var child = children[i]
+			if (child && child instanceof _globals.controls.core.Activity)
+				child.visible = false
+		}
+		this._activityStack = []
+	}
+
 	initTopIntent: {
 		if (!this._activityStack.length) {
 			log("Activity stack is empty")
