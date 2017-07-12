@@ -45,13 +45,14 @@ Item {
 			if (!child || !(child instanceof _globals.controls.core.Activity))
 				continue
 
-			child.visible = false
 			if (child.name === topActivity.name) {
 				log("Init:", topActivity)
 				child.init(topActivity.intent, topActivity.state)
 				child.index = this._activityStack.length - 1
 				child.visible = true
 				child.setFocus()
+			} else {
+				child.visible = false
 			}
 		}
 	}
