@@ -49,9 +49,12 @@ Item {
 				log("Init:", topActivity)
 				child.init(topActivity.intent, topActivity.state)
 				child.index = this._activityStack.length - 1
+				child.started()
 				child.visible = true
 				child.setFocus()
 			} else {
+				if (child.visible)
+					child.stopped()
 				child.visible = false
 			}
 		}

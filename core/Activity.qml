@@ -1,4 +1,6 @@
 Item {
+	signal started;
+	signal stopped;
 	property string name;
 	visible: false;
 
