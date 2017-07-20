@@ -45,42 +45,54 @@ BaseView {
 		var created = false
 		var size = horizontal ? w : h
 		var ci = this.currentIndex
-		var item = items[ci + this._offset]
 
+		//HAX!
+		var diff = (ci + this._offset - 3) - (ci < this.count - 3 ? 0 : 2)
+		if (diff > 0) {
+			for (var i = 0; i <= diff; ++i) {
+				var item = items[i]
+				if (item)
+					item.discard()
+			}
+			this._items.splice(0, diff);
+			this._offset = 3 - ci
+		}
+
+		var item = items[ci + this._offset]
 		if (!item) {
 			item = this._createDelegate(ci)
 			created = true
 		}
 
 		var itemSize = horizontal ? item.width : item.height
-		var pb = 0
+		var posBefore = 0
 		switch (this.positionMode)
 		{
 			case this.Center:
-				pb = (size - itemSize) / 2
+				posBefore = (size - itemSize) / 2
 				break
 			case this.End:
-				pb = size - itemSize
+				posBefore = size - itemSize
 				break
 			default:
-				pb = this.x
+				posBefore = this.x
 				break
 		}
-		var pf = pb + itemSize + this.spacing
+		var posAfter = posBefore + itemSize + this.spacing
 
 		if (horizontal)
-			item.viewX = pb
+			item.viewX = posBefore
 		else
-			item.viewY = pb
+			item.viewY = posBefore
 
 		if (this.trace)
-			log("current item", ci, pb)
+			log("current item", ci, posBefore)
 
 		var renderedBefore,
 			renderedAfter,
 			plusOne = this.cacheEnable;
 
-		for (var i = ci - 1; pb > 0 || plusOne; --i) {
+		for (var i = ci - 1; posBefore > 0 || plusOne; --i) {
 			var item = items[i + this._offset]
 
 			if (!item) {
@@ -90,18 +102,18 @@ BaseView {
 
 			var s = (horizontal ? item.width : item.height)
 
-			if (pb <= 0)
+			if (posBefore <= 0)
 				plusOne = false
 
-			pb -= s + this.spacing
+			posBefore -= s + this.spacing
 
 			if (horizontal)
-				item.viewX = pb
+				item.viewX = posBefore
 			else
-				item.viewY = pb
+				item.viewY = posBefore
 
 			if (this.trace)
-				log("item before", i, pb)
+				log("item before", i, posBefore)
 
 			item.visible = true
 			renderedBefore = i + this._offset
@@ -109,7 +121,7 @@ BaseView {
 
 		plusOne = this.cacheEnable;
 
-		for (var i = ci + 1; pf < size || plusOne; ++i) {
+		for (var i = ci + 1; posAfter < size || plusOne; ++i) {
 			var item = items[i + this._offset]
 
 			if (!item) {
@@ -120,16 +132,16 @@ BaseView {
 			var s = (horizontal ? item.width : item.height)
 
 			if (horizontal)
-				item.viewX = pf
+				item.viewX = posAfter
 			else
-				item.viewY = pf
+				item.viewY = posAfter
 
-			if (pf >= s)
+			if (posAfter >= s)
 				plusOne = false
 
 			if (this.trace)
-				log("item after", i, pf, s)
-			pf += s + this.spacing
+				log("item after", i, posAfter, s)
+			posAfter += s + this.spacing
 			item.visible = true
 			renderedAfter = i + this._offset + 1
 		}
