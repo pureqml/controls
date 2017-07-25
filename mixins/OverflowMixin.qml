@@ -3,15 +3,15 @@ Object {
 	property enum value { Visible, Hidden, Scroll, ScrollX, ScrollY };	///< overflow mode value, can be:  Visible, Hidden, Scroll, ScrollX, ScrollY
 
 	/// @internal
-	function _update (name, value) {
+	onValueChanged: {
 		switch(value) {
-			case this.Visible:	
+			case this.Visible:
 				this.parent.style('overflow', 'visible');
 				break;
-			case this.Hidden:	
+			case this.Hidden:
 				this.parent.style('overflow', 'hidden');
 				break;
-			case this.Scroll:	
+			case this.Scroll:
 				this.parent.style('overflow', 'auto');
 				break;
 			case this.ScrollX:
