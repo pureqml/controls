@@ -48,6 +48,8 @@ BaseView {
 
 		//HAX!
 		var diff = (ci + this._offset - 3) - (ci < this.count - 3 ? 0 : 2)
+		var currItem = items[ci + this._offset]
+
 		if (diff > 0) {
 			for (var i = 0; i <= diff; ++i) {
 				var item = items[i]
@@ -56,6 +58,32 @@ BaseView {
 			}
 			this._items.splice(0, diff);
 			this._offset = 3 - ci
+		}
+
+		if (diff == -3) {
+			for (var i = items.length + diff; i < items.length; ++i) {
+				var item = items[i]
+				if (item)
+					item.discard()
+				this._items[i] = null
+			}
+			this._offset = 0
+		}
+
+		if (items[ci + this._offset] != currItem) {
+			var currIdx
+			for (var i = 0; i < items.length; ++i)
+				if (items[i] == currItem)
+					currIdx = i - ci
+			diff = ci + this._offset - currIdx
+			diff = diff == 3 ? 5 : (diff == 5 ? 3 : diff)
+			for (var i = 0; i <= diff; ++i) {
+				var item = items[i]
+				if (item)
+					item.discard()
+				item = null
+			}
+			this._items.splice(0, diff);
 		}
 
 		var item = items[ci + this._offset]
