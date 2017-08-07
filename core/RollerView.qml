@@ -58,6 +58,9 @@ BaseView {
 			}
 			this._items.splice(0, diff);
 			this._offset = 3 - ci
+
+			for (var i = items.length; i < this.count; ++i)
+				this._items.push(null)
 		}
 
 		if (diff == -3) {
