@@ -59,6 +59,13 @@ BaseView {
 			this._items.splice(0, diff);
 			this._offset = 3 - ci
 
+			for (var i = this.count - diff - 1; i < items.length; ++i) {
+				var item = items[i]
+				if (item)
+					item.discard()
+				this._items[i] = null
+			}
+
 			for (var i = items.length; i < this.count; ++i)
 				this._items.push(null)
 		}
