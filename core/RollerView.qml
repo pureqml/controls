@@ -57,15 +57,22 @@ BaseView {
 			} else //currentIndex 0
 				itemPos = pos - item.width / 2
 
+			item.visibleInView = true
+			item.viewX = itemPos
+
 			if (currentIndex == idx && !item.focused) {
 				this.focusChild(item)
 				if (this.contentFollowsCurrentItem)
 					this.positionViewAtIndex(i)
 			}
+		}
 
-			item.visibleInView = true
-
-			item.viewX = itemPos
+		for(; i < n; ++i) {
+			var di = (i & 1)? ((1 - i) / 2 - 1): i / 2
+			var idx = (n + currentIndex + di) % n
+			var item = items[idx]
+			if (item)
+				item.visibleInView = false
 		}
 	}
 
