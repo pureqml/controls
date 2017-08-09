@@ -76,6 +76,18 @@ BaseView {
 		}
 	}
 
+	function next() {
+		var n = this._items.length
+		if (n > 1)
+			this.currentIndex = (this.currentIndex + 1) % n
+	}
+
+	function prev() {
+		var n = this._items.length
+		if (n > 1)
+			this.currentIndex = (this.currentIndex + n - 1) % n
+	}
+
 	onKeyPressed: {
 		if (!this.handleNavigationKeys)
 			return false;
@@ -83,31 +95,40 @@ BaseView {
 		var horizontal = this.orientation == this.Horizontal
 		if (horizontal) {
 			if (key == 'Left') {
-				--this.currentIndex;
+				this.prev()
 				return true;
 			} else if (key == 'Right') {
-				++this.currentIndex;
+				this.next()
 				return true;
 			}
 		} else {
 			if (key == 'Up') {
-				if (!this.currentIndex && !this.keyNavigationWraps)
-					return false;
-				--this.currentIndex;
+				this.prev();
 				return true;
 			} else if (key == 'Down') {
-				if (this.currentIndex == this.count - 1 && !this.keyNavigationWraps)
-					return false;
-				++this.currentIndex;
+				this.next();
 				return true;
 			}
 		}
 	}
 
+	function _scroll(delta) {
+		log('moving index', delta)
+	}
+
 	onOrientationChanged: { this._scheduleLayout() }
+
 	onCurrentIndexChanged: {
 		if (value !== this._oldIndex) {
-			log('currentIndexChanged', value, this._oldIndex)
+			var n = this._items.length
+			var m = n / 2
+			var delta = value - this._oldIndex
+			if (delta > m)
+				delta = delta - n
+			if (delta < -m)
+				delta = delta + n
+			//log('currentIndexChanged', value, this._oldIndex, delta)
+			this._scroll(delta)
 			this._oldIndex = value
 		}
 	}
