@@ -24,6 +24,7 @@ BaseView {
 			this.layoutFinished()
 			return
 		}
+		log('layout')
 
 		var w = this.width
 		var h = this.height
@@ -112,23 +113,33 @@ BaseView {
 		}
 	}
 
-	function _scroll(delta) {
-		log('moving index', delta)
+	function _scroll(currentIndex, oldIndex, delta) {
+		var item = this._items[currentIndex]
+		if (!item || !item.visibleInView) {
+			this._scheduleLayout()
+			return
+		}
+		log('scrolling to ', currentIndex, oldIndex, item.viewX, delta)
+		if (item.viewX < 0 || (item.viewX + item.width) > this.width)
+			this._scheduleLayout()
+		this._updateScrollPositions(delta * 100, 0, false)
 	}
 
 	onOrientationChanged: { this._scheduleLayout() }
 
 	onCurrentIndexChanged: {
-		if (value !== this._oldIndex) {
+		var oldIndex = this._oldIndex
+		if (value !== oldIndex) {
 			var n = this._items.length
 			var m = n / 2
-			var delta = value - this._oldIndex
+			var delta = value - oldIndex
 			if (delta > m)
 				delta = delta - n
 			if (delta < -m)
 				delta = delta + n
-			//log('currentIndexChanged', value, this._oldIndex, delta)
-			this._scroll(delta)
+
+			//log('currentIndexChanged', value, oldIndex, delta)
+			this._scroll(value, oldIndex, delta)
 			this._oldIndex = value
 		}
 	}
