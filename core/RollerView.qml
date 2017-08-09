@@ -74,7 +74,13 @@ BaseView {
 			if (item)
 				item.visibleInView = false
 		}
-		this._updateScrollPositions(0, 0, false)
+
+
+		var animationDuration = this.animationDuration
+		this.animationDuration = 0
+		this.contentX = 0
+		this.content.element.updateStyle()
+		this.animationDuration = animationDuration
 	}
 
 	function next() {
