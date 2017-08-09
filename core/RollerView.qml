@@ -24,7 +24,6 @@ BaseView {
 			this.layoutFinished()
 			return
 		}
-		log('layout')
 
 		var w = this.width
 		var h = this.height
@@ -75,6 +74,7 @@ BaseView {
 			if (item)
 				item.visibleInView = false
 		}
+		this._updateScrollPositions(0, 0, false)
 	}
 
 	function next() {
@@ -113,16 +113,24 @@ BaseView {
 		}
 	}
 
+	function _setContentOffset(offset) {
+		this._layout = this._scheduleLayout = function() { } //I LOVE JS
+		this.contentX = offset
+		delete this._layout
+		delete this._scheduleLayout
+	}
+
 	function _scroll(currentIndex, oldIndex, delta) {
+		var prevItem = this._items[oldIndex]
 		var item = this._items[currentIndex]
-		if (!item || !item.visibleInView) {
+		if (!item || !item.visibleInView || !prevItem || !prevItem.visibleInView) {
 			this._scheduleLayout()
 			return
 		}
 		log('scrolling to ', currentIndex, oldIndex, item.viewX, delta)
 		if (item.viewX < 0 || (item.viewX + item.width) > this.width)
 			this._scheduleLayout()
-		this._updateScrollPositions(delta * 100, 0, false)
+		this._setContentOffset(this.contentX + delta * (prevItem.width + this.spacing))
 	}
 
 	onOrientationChanged: { this._scheduleLayout() }
