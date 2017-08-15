@@ -3,6 +3,7 @@ BaseView {
 
 	constructor: {
 		this._oldIndex = 0
+		this._nextDelta = 0
 	}
 
 	function positionViewAtIndex(idx) { }
@@ -93,13 +94,21 @@ BaseView {
 			if (item)
 				item.visibleInView = false
 		}
+		var nextDelta = this._nextDelta
+		this._nextDelta = 0
+		if (nextDelta === 0)
+			return
 
-
+		//disable animation
 		var animationDuration = this.animationDuration
 		this.animationDuration = 0
-		this.contentX = 0
+		//set offset without layout
+		this._setContentOffset(-nextDelta)
 		this.content.element.updateStyle()
+		//enable animation
 		this.animationDuration = animationDuration
+		//simulate animation to 0
+		this._setContentOffset(0)
 	}
 
 	function next() {
@@ -155,7 +164,8 @@ BaseView {
 		//log('scrolling to ', currentIndex, oldIndex, item.viewX, delta)
 		if (item.viewX < 0 || (item.viewX + item.width) > this.width)
 			this._scheduleLayout()
-		this._setContentOffset(this.contentX + delta * (prevItem.width + this.spacing))
+		this._nextDelta = delta * (prevItem.width + this.spacing)
+		this._setContentOffset(this.contentX + this._nextDelta)
 	}
 
 	onOrientationChanged: { this._scheduleLayout() }
