@@ -36,10 +36,28 @@ BaseView {
 		var prerender = this.prerender * size
 		var leftMargin = -prerender
 		var rightMargin = size + prerender
+		var positionMode = this.positionMode
 
-		var pos = w / 2
+		var currentItem = this._createDelegate(currentIndex)
+
+		var pos
+		switch(positionMode) {
+			case this.Beginning:
+				pos = 0
+				break
+			case this.End:
+				pos = size - currentItem.width
+				break
+			default:
+				//log('unsupported position mode ' + positionMode)
+			case this.Center:
+				pos = (size - currentItem.width) / 2
+				break
+		}
+		currentItem.viewX = pos
+
 		var leftIn = true, rightIn = true
-		for(var i = 0; i < n && leftIn && rightIn; ++i) {
+		for(var i = 0; i < n && leftIn || rightIn; ++i) {
 			var di = (i & 1)? ((1 - i) / 2 - 1): i / 2
 			var idx = (n + currentIndex + di) % n
 			var item = this._createDelegate(idx)
@@ -55,7 +73,8 @@ BaseView {
 				if (itemPos >= rightMargin)
 					rightIn = false
 			} else //currentIndex 0
-				itemPos = pos - item.width / 2
+				itemPos = pos
+			//log(idx, itemPos)
 
 			item.visibleInView = true
 			item.viewX = itemPos
@@ -133,7 +152,7 @@ BaseView {
 			this._scheduleLayout()
 			return
 		}
-		log('scrolling to ', currentIndex, oldIndex, item.viewX, delta)
+		//log('scrolling to ', currentIndex, oldIndex, item.viewX, delta)
 		if (item.viewX < 0 || (item.viewX + item.width) > this.width)
 			this._scheduleLayout()
 		this._setContentOffset(this.contentX + delta * (prevItem.width + this.spacing))
