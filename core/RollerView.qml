@@ -127,7 +127,7 @@ BaseView {
 	function prev() {
 		var n = this._items.length
 		if (n > 1)
-			this.currentIndex = this._getCurrentIndex(1)
+			this.currentIndex = this._getCurrentIndex(-1)
 	}
 
 	onKeyPressed: {
