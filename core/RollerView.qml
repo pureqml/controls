@@ -8,6 +8,13 @@ BaseView {
 
 	function positionViewAtIndex(idx) { }
 
+	function _getCurrentIndex(adj) {
+		var n = this._items.length
+		if (adj === undefined)
+			adj = 0
+		return (((this.currentIndex + adj) % n) + n) % n
+	}
+
 	function _layout() {
 		if (!this.recursiveVisible)
 			return
@@ -30,8 +37,8 @@ BaseView {
 		var h = this.height
 		var created = false
 		var size = horizontal ? w : h
-		var currentIndex = this.currentIndex
 		var n = items.length
+		var currentIndex = this._getCurrentIndex()
 		var spacing = this.spacing
 
 		var prerender = this.prerender * size
@@ -58,18 +65,18 @@ BaseView {
 		currentItem.viewX = pos
 
 		var leftIn = true, rightIn = true
-		for(var i = 0; i < n && leftIn || rightIn; ++i) {
+		for(var i = 0; i < n && (leftIn || rightIn); ++i) {
 			var di = (i & 1)? ((1 - i) / 2 - 1): i / 2
-			var idx = (n + currentIndex + di) % n
+			var idx = this._getCurrentIndex(di)
 			var item = this._createDelegate(idx)
 			var itemPos
 			if (di < 0) {
-				var next = this._createDelegate((idx + 1) % n)
+				var next = this._createDelegate(this._getCurrentIndex(di + 1))
 				itemPos = next.viewX - spacing - item.width
 				if (itemPos < leftMargin)
 					leftIn = false
 			} else if (di > 0) {
-				var prev = this._createDelegate((idx + n - 1) % n)
+				var prev = this._createDelegate(this._getCurrentIndex(di - 1))
 				itemPos = prev.viewX + prev.width + spacing
 				if (itemPos >= rightMargin)
 					rightIn = false
@@ -89,7 +96,7 @@ BaseView {
 
 		for(; i < n; ++i) {
 			var di = (i & 1)? ((1 - i) / 2 - 1): i / 2
-			var idx = (n + currentIndex + di) % n
+			var idx = this._getCurrentIndex(di)
 			var item = items[idx]
 			if (item)
 				item.visibleInView = false
@@ -114,13 +121,13 @@ BaseView {
 	function next() {
 		var n = this._items.length
 		if (n > 1)
-			this.currentIndex = (this.currentIndex + 1) % n
+			this.currentIndex = this._getCurrentIndex(1)
 	}
 
 	function prev() {
 		var n = this._items.length
 		if (n > 1)
-			this.currentIndex = (this.currentIndex + n - 1) % n
+			this.currentIndex = this._getCurrentIndex(1)
 	}
 
 	onKeyPressed: {
