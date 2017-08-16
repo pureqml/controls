@@ -114,7 +114,7 @@ BaseView {
 		this.content.element.updateStyle()
 
 		//update everything
-		this.element.forceLayout()
+		this.content.element.forceLayout()
 		//enable animation
 		this.animationDuration = animationDuration
 		//simulate animation to 0
