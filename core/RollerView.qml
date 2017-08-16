@@ -68,31 +68,43 @@ BaseView {
 
 		var leftIn = true, rightIn = true
 		var prevLeft = 0, prevRight = currentItem.width + spacing
-		//log('layout')
-		for(var i = 0; i < n && (leftIn || rightIn); ++i) {
+		if (this.trace)
+			log('layout', n)
+		for(var i = 0; i < n; ++i) {
+			var item = items[i]
+			if (item)
+				item.__rendered = false
+		}
+
+		for(var i = 0; i < 2 * n && (leftIn || rightIn); ++i) {
 			var di = (i & 1)? ((1 - i) / 2 - 1): i / 2
 			var idx = this._getCurrentIndex(di)
 			var item = this._createDelegate(idx)
 			var itemPos
 			var positioned = false
-			if (di < 0 && leftIn) {
+			if (di < 0 && leftIn && !item.__rendered) {
 				itemPos = prevLeft - spacing - item.width
 				if (itemPos < leftMargin)
 					leftIn = false
 				prevLeft = itemPos
-				positioned = true
-			} else if (di > 0 && rightIn) {
+				item.__rendered = positioned = true
+				if (this.trace)
+					log('positioned (left) ', idx, 'at', itemPos)
+			} else if (di > 0 && rightIn && !item.__rendered) {
 				itemPos = prevRight
 				if (itemPos >= rightMargin)
 					rightIn = false
 				prevRight = itemPos + item.width + spacing
-				positioned = true
+				item.__rendered = positioned = true
+				if (this.trace)
+					log('positioned (right) ', idx, 'at', itemPos)
 			} else if (di === 0) {
 				//currentIndex 0
 				itemPos = pos
-				positioned = true
+				if (this.trace)
+					log('positioned (current) ', idx, 'at', itemPos)
+				item.__rendered = positioned = true
 			}
-			//log(idx, itemPos, 'prev', prevLeft, prevRight)
 
 			if (positioned) {
 				item.visibleInView = true
