@@ -65,24 +65,26 @@ BaseView {
 		currentItem.viewX = pos
 
 		var leftIn = true, rightIn = true
+		var prevLeft = 0, prevRight = currentItem.width + spacing
+		//log('layout')
 		for(var i = 0; i < n && (leftIn || rightIn); ++i) {
 			var di = (i & 1)? ((1 - i) / 2 - 1): i / 2
 			var idx = this._getCurrentIndex(di)
 			var item = this._createDelegate(idx)
 			var itemPos
-			if ((di < 0 && leftIn) || !rightIn) {
-				var next = this._createDelegate(this._getCurrentIndex(di + 1))
-				itemPos = next.viewX - spacing - item.width
+			if (di < 0 && leftIn) {
+				itemPos = prevLeft - spacing - item.width
 				if (itemPos < leftMargin)
 					leftIn = false
-			} else if ((di > 0 && rightIn) || !leftIn) {
-				var prev = this._createDelegate(this._getCurrentIndex(di - 1))
-				itemPos = prev.viewX + prev.width + spacing
+				prevLeft = itemPos
+			} else if (di > 0 && rightIn) {
+				itemPos = prevRight
 				if (itemPos >= rightMargin)
 					rightIn = false
+				prevRight = itemPos + item.width + spacing
 			} else //currentIndex 0
 				itemPos = pos
-			//log(idx, itemPos)
+			//log(idx, itemPos, 'prev', prevLeft, prevRight)
 
 			item.visibleInView = true
 			item.viewX = itemPos
