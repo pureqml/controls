@@ -169,10 +169,14 @@ BaseView {
 			return
 		}
 		//log('scrolling to ', currentIndex, oldIndex, item.viewX, delta)
-		if (item.viewX < 0 || (item.viewX + item.width) > this.width)
+
+		//fixme: allow less frequent layouts
+		//if (item.viewX < 0 || (item.viewX + item.width) > this.width)
 			this._scheduleLayout()
+		//else
+		//	this._setContentOffset(this.contentX + this._nextDelta)
+
 		this._nextDelta = delta * (prevItem.width + this.spacing)
-		this._setContentOffset(this.contentX + this._nextDelta)
 	}
 
 	onOrientationChanged: { this._scheduleLayout() }
