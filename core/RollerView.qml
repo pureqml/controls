@@ -112,6 +112,9 @@ BaseView {
 		//set offset without layout
 		this._setContentOffset(-nextDelta)
 		this.content.element.updateStyle()
+
+		//update everything
+		this.element.forceLayout()
 		//enable animation
 		this.animationDuration = animationDuration
 		//simulate animation to 0
