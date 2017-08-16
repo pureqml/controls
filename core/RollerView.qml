@@ -70,6 +70,7 @@ BaseView {
 		var prevLeft = 0, prevRight = currentItem.width + spacing
 		if (this.trace)
 			log('layout', n)
+
 		for(var i = 0; i < n; ++i) {
 			var item = items[i]
 			if (item)
@@ -118,13 +119,13 @@ BaseView {
 			}
 		}
 
-		for(; i < n; ++i) {
-			var di = (i & 1)? ((1 - i) / 2 - 1): i / 2
-			var idx = this._getCurrentIndex(di)
-			var item = items[idx]
-			if (item)
+		for(var i = 0; i < n; ++i) {
+			var item = items[i]
+			if (item && !item.__rendered)
 				item.visibleInView = false
 		}
+
+
 		var nextDelta = this._nextDelta
 		this._nextDelta = 0
 		if (nextDelta === 0)
