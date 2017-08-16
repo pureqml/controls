@@ -72,27 +72,35 @@ BaseView {
 			var idx = this._getCurrentIndex(di)
 			var item = this._createDelegate(idx)
 			var itemPos
+			var positioned = false
 			if (di < 0 && leftIn) {
 				itemPos = prevLeft - spacing - item.width
 				if (itemPos < leftMargin)
 					leftIn = false
 				prevLeft = itemPos
+				positioned = true
 			} else if (di > 0 && rightIn) {
 				itemPos = prevRight
 				if (itemPos >= rightMargin)
 					rightIn = false
 				prevRight = itemPos + item.width + spacing
-			} else //currentIndex 0
+				positioned = true
+			} else if (di === 0) {
+				//currentIndex 0
 				itemPos = pos
+				positioned = true
+			}
 			//log(idx, itemPos, 'prev', prevLeft, prevRight)
 
-			item.visibleInView = true
-			item.viewX = itemPos
+			if (positioned) {
+				item.visibleInView = true
+				item.viewX = itemPos
 
-			if (currentIndex == idx && !item.focused) {
-				this.focusChild(item)
-				if (this.contentFollowsCurrentItem)
-					this.positionViewAtIndex(i)
+				if (currentIndex == idx && !item.focused) {
+					this.focusChild(item)
+					if (this.contentFollowsCurrentItem)
+						this.positionViewAtIndex(i)
+				}
 			}
 		}
 
