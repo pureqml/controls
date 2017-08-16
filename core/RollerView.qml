@@ -65,7 +65,7 @@ BaseView {
 		currentItem.viewX = pos
 
 		var leftIn = true, rightIn = true
-		for(var i = 0; i < n && (leftIn || rightIn); ++i) {
+		for(var i = 0; i < 2 * n && (leftIn || rightIn); ++i) {
 			var di = (i & 1)? ((1 - i) / 2 - 1): i / 2
 			var idx = this._getCurrentIndex(di)
 			var item = this._createDelegate(idx)
