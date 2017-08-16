@@ -70,12 +70,12 @@ BaseView {
 			var idx = this._getCurrentIndex(di)
 			var item = this._createDelegate(idx)
 			var itemPos
-			if (di < 0) {
+			if ((di < 0 && leftIn) || !rightIn) {
 				var next = this._createDelegate(this._getCurrentIndex(di + 1))
 				itemPos = next.viewX - spacing - item.width
 				if (itemPos < leftMargin)
 					leftIn = false
-			} else if (di > 0) {
+			} else if ((di > 0 && rightIn) || !leftIn) {
 				var prev = this._createDelegate(this._getCurrentIndex(di - 1))
 				itemPos = prev.viewX + prev.width + spacing
 				if (itemPos >= rightMargin)
