@@ -128,22 +128,22 @@ BaseView {
 
 		var nextDelta = this._nextDelta
 		this._nextDelta = 0
-		if (nextDelta === 0)
-			return
+		if (nextDelta !== 0) {
+			//disable animation
+			var animationDuration = this.animationDuration
+			this.animationDuration = 0
+			//set offset without layout
+			this._setContentOffset(-nextDelta)
+			this.content.element.updateStyle()
 
-		//disable animation
-		var animationDuration = this.animationDuration
-		this.animationDuration = 0
-		//set offset without layout
-		this._setContentOffset(-nextDelta)
-		this.content.element.updateStyle()
-
-		//update everything
-		this.content.element.forceLayout()
-		//enable animation
-		this.animationDuration = animationDuration
-		//simulate animation to 0
-		this._setContentOffset(0)
+			//update everything
+			this.content.element.forceLayout()
+			//enable animation
+			this.animationDuration = animationDuration
+			//simulate animation to 0
+			this._setContentOffset(0)
+		}
+		this._context._complete()
 	}
 
 	function next() {
