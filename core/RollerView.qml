@@ -1,25 +1,19 @@
 BaseView {
 	property enum orientation { Vertical, Horizontal };
-	property bool cacheEnable: true;
+	prerender: 1.5; //size of reference item
 
 	constructor: {
-		this._offset = 0
-	}
-
-	function _onReset() {
-		var model = this.model
-		if (this.trace)
-			log("rollerview reset", this._items.length, model.count)
-
-		this._offset = 0
-		this._modelUpdate.reset(model)
-		this._scheduleLayout()
+		this._oldIndex = 0
+		this._nextDelta = 0
 	}
 
 	function positionViewAtIndex(idx) { }
 
-	function _processUpdates() {
-		this._modelUpdate.apply(this, true) //do not check _items count in apply
+	function _getCurrentIndex(adj) {
+		var n = this._items.length
+		if (adj === undefined)
+			adj = 0
+		return (((this.currentIndex + adj) % n) + n) % n
 	}
 
 	function _layout() {
@@ -44,159 +38,124 @@ BaseView {
 		var h = this.height
 		var created = false
 		var size = horizontal ? w : h
-		var ci = this.currentIndex
-		var item = items[ci + this._offset]
+		var n = items.length
+		var currentIndex = this._getCurrentIndex()
+		var spacing = this.spacing
 
-		if (!item) {
-			item = this._createDelegate(ci)
-			created = true
-		}
+		var positionMode = this.positionMode
 
-		var itemSize = horizontal ? item.width : item.height
-		var pb = 0
-		switch (this.positionMode)
-		{
-			case this.Center:
-				pb = (size - itemSize) / 2
+		var currentItem = this._createDelegate(currentIndex)
+
+		var prerender = this.prerender * currentItem.width
+		var leftMargin = -prerender
+		var rightMargin = size + prerender
+
+		var pos
+		switch(positionMode) {
+			case this.Beginning:
+				pos = 0
 				break
 			case this.End:
-				pb = size - itemSize
+				pos = size - currentItem.width
 				break
 			default:
-				pb = this.x
+				//log('unsupported position mode ' + positionMode)
+			case this.Center:
+				pos = (size - currentItem.width) / 2
 				break
 		}
-		var pf = pb + itemSize + this.spacing
+		currentItem.viewX = pos
 
-		if (horizontal)
-			item.viewX = pb
-		else
-			item.viewY = pb
-
+		var leftIn = true, rightIn = true
+		var prevLeft = 0, prevRight = currentItem.width + spacing
 		if (this.trace)
-			log("current item", ci, pb)
+			log('layout', n)
 
-		var renderedBefore,
-			renderedAfter,
-			plusOne = this.cacheEnable;
-
-		for (var i = ci - 1; pb > 0 || plusOne; --i) {
-			var item = items[i + this._offset]
-
-			if (!item) {
-				item = this._createDelegate(i)
-				created = true
-			}
-
-			var s = (horizontal ? item.width : item.height)
-
-			if (pb <= 0)
-				plusOne = false
-
-			pb -= s + this.spacing
-
-			if (horizontal)
-				item.viewX = pb
-			else
-				item.viewY = pb
-
-			if (this.trace)
-				log("item before", i, pb)
-
-			item.visible = true
-			renderedBefore = i + this._offset
-		}
-
-		plusOne = this.cacheEnable;
-
-		for (var i = ci + 1; pf < size || plusOne; ++i) {
-			var item = items[i + this._offset]
-
-			if (!item) {
-				item = this._createDelegate(i)
-				created = true
-			}
-
-			var s = (horizontal ? item.width : item.height)
-
-			if (horizontal)
-				item.viewX = pf
-			else
-				item.viewY = pf
-
-			if (pf >= s)
-				plusOne = false
-
-			if (this.trace)
-				log("item after", i, pf, s)
-			pf += s + this.spacing
-			item.visible = true
-			renderedAfter = i + this._offset + 1
-		}
-
-		if (this.trace)
-			log("before", renderedBefore, "afer", renderedAfter)
-
-		for (var i = 0; i < this._items.length - renderedAfter; ++i) {
-			if (this.trace)
-				log("trying to remove from the end", i)
-			var item = items.pop()
+		for(var i = 0; i < n; ++i) {
+			var item = items[i]
 			if (item)
-				item.discard()
+				item.__rendered = false
 		}
 
-		for (var i = 0; i < renderedBefore; ++i) {
-			if (this.trace)
-				log("trying to remove from the beginning", i)
-			var item = items.shift()
-			if (item) {
-				this._offset--
-				item.discard()
+		for(var i = 0; i < 2 * n && (leftIn || rightIn); ++i) {
+			var di = (i & 1)? ((1 - i) / 2 - 1): i / 2
+			var idx = this._getCurrentIndex(di)
+			var item = this._createDelegate(idx)
+			var itemPos
+			var positioned = false
+			if (di < 0 && leftIn && !item.__rendered) {
+				itemPos = prevLeft - spacing - item.width
+				if (itemPos < leftMargin)
+					leftIn = false
+				prevLeft = itemPos
+				item.__rendered = positioned = true
+				if (this.trace)
+					log('positioned (left) ', idx, 'at', itemPos)
+			} else if (di > 0 && rightIn && !item.__rendered) {
+				itemPos = prevRight
+				if (itemPos >= rightMargin)
+					rightIn = false
+				prevRight = itemPos + item.width + spacing
+				item.__rendered = positioned = true
+				if (this.trace)
+					log('positioned (right) ', idx, 'at', itemPos)
+			} else if (di === 0) {
+				//currentIndex 0
+				itemPos = pos
+				if (this.trace)
+					log('positioned (current) ', idx, 'at', itemPos)
+				item.__rendered = positioned = true
+			}
+
+			if (positioned) {
+				item.visibleInView = true
+				item.viewX = itemPos
+
+				if (currentIndex == idx && !item.focused) {
+					this.focusChild(item)
+					if (this.contentFollowsCurrentItem)
+						this.positionViewAtIndex(i)
+				}
 			}
 		}
 
-		this._items.splice(0, renderedBefore - 1);
+		for(var i = 0; i < n; ++i) {
+			var item = items[i]
+			if (item && !item.__rendered)
+				item.visibleInView = false
+		}
 
-		this.layoutFinished()
-		if (created)
-			this._context._complete()
+
+		var nextDelta = this._nextDelta
+		this._nextDelta = 0
+		if (nextDelta === 0)
+			return
+
+		//disable animation
+		var animationDuration = this.animationDuration
+		this.animationDuration = 0
+		//set offset without layout
+		this._setContentOffset(-nextDelta)
+		this.content.element.updateStyle()
+
+		//update everything
+		this.content.element.forceLayout()
+		//enable animation
+		this.animationDuration = animationDuration
+		//simulate animation to 0
+		this._setContentOffset(0)
 	}
 
-	/// @internal focuses current item
-	function focusCurrent() { }
+	function next() {
+		var n = this._items.length
+		if (n > 1)
+			this.currentIndex = this._getCurrentIndex(1)
+	}
 
-	/// @internal creates delegate in given item slot
-	function _createDelegate(idx) {
-		if (this.trace)
-			log("create", idx)
-		var mapped = idx < 0 ? mapped = (this.count + (idx % this.count)) % this.count : (idx % this.count)
-
-		if (this.trace)
-			log("mapped", mapped)
-		var row = this.model.get(mapped)
-		row['index'] = idx
-		this._local['model'] = row
-		var item = this.delegate(this)
-
-		if (idx + this._offset >= 0)
-			this._items[idx + this._offset] = item
-		else {
-			this._items.unshift(item)
-			this._offset++
-		}
-
-		if (this.trace)
-			log("_createDelegate", idx, mapped, this._offset)
-		item.view = this
-		this.element.append(item.element)
-		item._local['model'] = row
-		if (this.orientation === this.Horizontal)
-			item.onChanged('width', this._scheduleLayout.bind(this))
-		else
-			item.onChanged('height', this._scheduleLayout.bind(this))
-
-		delete this._local['model']
-		return item
+	function prev() {
+		var n = this._items.length
+		if (n > 1)
+			this.currentIndex = this._getCurrentIndex(-1)
 	}
 
 	onKeyPressed: {
@@ -206,27 +165,64 @@ BaseView {
 		var horizontal = this.orientation == this.Horizontal
 		if (horizontal) {
 			if (key == 'Left') {
-				--this.currentIndex;
+				this.prev()
 				return true;
 			} else if (key == 'Right') {
-				++this.currentIndex;
+				this.next()
 				return true;
 			}
 		} else {
 			if (key == 'Up') {
-				if (!this.currentIndex && !this.keyNavigationWraps)
-					return false;
-				--this.currentIndex;
+				this.prev();
 				return true;
 			} else if (key == 'Down') {
-				if (this.currentIndex == this.count - 1 && !this.keyNavigationWraps)
-					return false;
-				++this.currentIndex;
+				this.next();
 				return true;
 			}
 		}
 	}
 
+	function _setContentOffset(offset) {
+		this._layout = this._scheduleLayout = function() { } //I LOVE JS
+		this.contentX = offset
+		delete this._layout
+		delete this._scheduleLayout
+	}
+
+	function _scroll(currentIndex, oldIndex, delta) {
+		var prevItem = this._items[oldIndex]
+		var item = this._items[currentIndex]
+		if (!item || !item.visibleInView || !prevItem || !prevItem.visibleInView) {
+			this._scheduleLayout()
+			return
+		}
+		//log('scrolling to ', currentIndex, oldIndex, item.viewX, delta)
+
+		//fixme: allow less frequent layouts
+		//if (item.viewX < 0 || (item.viewX + item.width) > this.width)
+			this._scheduleLayout()
+		//else
+		//	this._setContentOffset(this.contentX + this._nextDelta)
+
+		this._nextDelta = delta * (prevItem.width + this.spacing)
+	}
+
 	onOrientationChanged: { this._scheduleLayout() }
-	onCurrentIndexChanged: { this._scheduleLayout() }
+
+	onCurrentIndexChanged: {
+		var oldIndex = this._oldIndex
+		if (value !== oldIndex) {
+			var n = this._items.length
+			var m = n / 2
+			var delta = value - oldIndex
+			if (delta > m)
+				delta = delta - n
+			if (delta < -m)
+				delta = delta + n
+
+			//log('currentIndexChanged', value, oldIndex, delta)
+			this._scroll(value, oldIndex, delta)
+			this._oldIndex = value
+		}
+	}
 }
