@@ -24,6 +24,7 @@ Object {
 
 	///@private
 	onTypeChanged: {
+		var oscillator = this._oscillator
 		switch(value) {
 		case this.Sine:		oscillator.type = 'sine'; break
 		case this.Square:	oscillator.type = 'square'; break
