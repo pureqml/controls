@@ -42,10 +42,10 @@ Item {
 
 		this._player.setup(this.conf).then(function(value) {
 			// Success
-			console.log("Successfully created bitmovin player instance");
+			log("Successfully created bitmovin player instance");
 		}, function(reason) {
 			// Error!
-			console.log("Error while creating bitmovin player instance");
+			log("Error while creating bitmovin player instance");
 		});
 
 	}
@@ -62,7 +62,7 @@ Item {
 
 		this._player.on('all', function (e, x) {
 			if (e !== "time" && self.logsEnabled)
-			    console.log("JWplayer event", e, x)
+				log("JWplayer event", e, x)
 		})
 
 

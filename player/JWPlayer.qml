@@ -26,7 +26,7 @@ Item {
 		this._player = window.jwplayer('jwplayer')
 //		this._player.setup({});
 		this._player.on('all', function (e, x) {
-		    console.log("on all", e, x)
+			log("on all", e, x)
 		})
 	}
 
@@ -52,7 +52,7 @@ Item {
 
 		this._player.on('all', function (e, x) {
 			if (e !== "time" && self.logsEnabled)
-			    console.log("JWplayer event", e, x)
+				log("JWplayer event", e, x)
 		})
 
 
