@@ -13,40 +13,17 @@ Item {
 		this.parent.element.append(this.element)
 	}
 
-	/// @internal
-	function _update (name, value) {
-		switch(name) {
-			case 'width':
-				this.style('width', value);
-				this.element.setAttribute('width', value);
-				break;
-
-			case 'height':
-				this.style('height', value - this._topPadding);
-				this.element.setAttribute('height', value);
-				break;
-
-			case 'clip':
-				this.style('overflow', value? 'hidden': 'visible');
-				break;
-
-			case 'x':
-				this.style('left', value);
-				break;
-
-			case 'y':
-				this.style('top', value);
-				break;
-
-
-			case 'box':
-				this.x = value.x
-				this.style('left', value.x);
-				this.y = value.y
-				this.width = value.width
-				this.height = value.height
-				break;
-		}
-		_globals.core.Object.prototype._update.apply(this, arguments);
+	onWidthChanged: {
+		this.style('width', value);
+		this.element.setAttribute('width', value);
 	}
+
+	onHeightChanged: {
+		this.style('height', value - this._topPadding);
+		this.element.setAttribute('height', value);
+	}
+
+	onYChanged: { this.style('top', value); }
+	onXChanged: { this.style('left', value); }
+	onClipChanged: { this.style('overflow', value? 'hidden': 'visible'); }
 }
