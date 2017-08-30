@@ -8,6 +8,7 @@ Item {
 	property Border border: Border {}			///< object holding properties of the border
 	property string type: "text";				///< input type value, must overrie in inheritor
 	property PlaceHolder placeholder: PlaceHolder{}	///< input placeholder object
+	property bool enabled: true;				///< input enabled
 
 	/// @private
 	constructor: {
@@ -51,6 +52,10 @@ Item {
 		case this.AlignHCenter:	this.style('text-align', 'center'); break
 		case this.AlignJustify:	this.style('text-align', 'justify'); break
 		}
+	}
+
+	onEnabledChanged: {
+		this.element.dom.disabled = !value
 	}
 
 	/// returns tag for corresponding element
