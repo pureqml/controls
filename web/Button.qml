@@ -44,6 +44,6 @@ Rectangle {
 	///@private
 	constructor: {
 		var self = this
-		this.element.dom.onclick = function() { self.clicked() }.bind(this)
+		this.element.dom.onclick = function() { self.clicked() }
 	}
 }
