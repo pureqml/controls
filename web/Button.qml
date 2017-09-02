@@ -12,7 +12,7 @@ Rectangle {
 	height: paintedHeight;
 
 	///@private
-	onTextChanged: { this.element.dom.innerText = value; this._updateSize(); }
+	onTextChanged: { this.element.setHtml(value, this); this._updateSize(); }
 
 	///@private
 	onWidthChanged: { this.style("width", value); }
