@@ -1,3 +1,3 @@
-TableElement {
+Repeater {
 	function getTag() { return 'tr' }
 }
