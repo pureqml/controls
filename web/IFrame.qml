@@ -10,6 +10,6 @@ Item {
 
 	constructor: {
 		var self = this
-		this.element.dom.onload = function() { self.source = this.src; self.loaded() }
+		this.element.on('load', function() { self.source = this.src; self.loaded() })
 	}
 }
