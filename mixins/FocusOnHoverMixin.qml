@@ -1,11 +1,8 @@
-Item {
-	anchors.fill: parent;
-	property Mixin hoverClickMixin: HoverClickMixin {
-		cursor: "pointer";
+HoverClickMixin {
+	cursor: "pointer";
 
-		onValueChanged: {
-			if (value)
-				this.parent.setFocus()
-		}
+	onValueChanged: {
+		if (value)
+			this.parent.setFocus()
 	}
 }
