@@ -4,6 +4,8 @@ Item {
 	property string name;
 	visible: false;
 
+	onVisibleChanged: {	this.style('display', value ? 'block' : 'none'); }
+
 	init(intent): { }
 	pop: { this.parent.pop() }
 	push(name, intent, state): { this.parent.push(name, intent, state) }
