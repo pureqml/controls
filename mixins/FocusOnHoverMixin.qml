@@ -1,4 +1,4 @@
-HoverClickMixin {
+HoverMixin {
 	cursor: "pointer";
 
 	onValueChanged: {
