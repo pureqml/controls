@@ -27,7 +27,7 @@ Item {
 		for (var i = 0; i < children.length; ++i) {
 			var child = children[i]
 			if (child && child instanceof _globals.controls.core.Activity)
-				child.visible = false
+				child.stop()
 		}
 		this._activityStack = []
 	}
@@ -53,14 +53,11 @@ Item {
 					state.lastActivity = this.currentActicity
 				child.init(topActivity.intent, state)
 				child.index = this._activityStack.length - 1
-				child.started()
-				child.visible = true
+				child.start()
 				child.setFocus()
 				this.currentActicity = child.name
 			} else {
-				if (child.visible)
-					child.stopped()
-				child.visible = false
+				child.stop()
 			}
 		}
 	}
