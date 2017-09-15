@@ -39,32 +39,65 @@ Item {
 		this.element.setAttribute('class', 'video-js')
 
 		var player = this.element
+		var dom = player.dom
 		var self = this
-		player.dom.ontimeupdate = function() {
+		player.on('play', function() { self.waiting = false; self.paused = dom.paused }.bind(this))
+		player.on('error', function() { log("Player error occured"); self.error() }.bind(this))
+		player.on('pause', function() { self.paused = dom.paused }.bind(this))
+		player.on('ended', function() { self.finished() }.bind(this))
+		player.on('seeked', function() { log("seeked"); self.seeking = false; this.waiting = false }.bind(this))
+		player.on('canplay', function() { log("canplay", dom.readyState); this.ready = dom.readyState }.bind(this))
+		player.on('seeking', function() { log("seeking"); self.seeking = true; this.waiting = true }.bind(this))
+		player.on('waiting', function() { log("waiting"); self.waiting = true }.bind(this))
+		player.on('stalled', function() { log("Was stalled", dom.networkState); }.bind(this))
+		player.on('emptied', function() { log("Was emptied", dom.networkState); }.bind(this))
+		player.on('volumechange', function() { self.muted = dom.muted }.bind(this))
+		player.on('canplaythrough', function() { log("ready to play"); }.bind(this))
+
+		player.on('timeupdate', function() {
 			self.waiting = false
 			if (!self.seeking)
-				self.progress = player.dom.currentTime
-		}.bind(this)
+				self.progress = dom.currentTime
+		}.bind(this))
 
-		player.dom.ondurationchange = function() {
-			var d = player.dom.duration
+		player.on('durationchange', function() {
+			var d = dom.duration
 			self.duration = isFinite(d) ? d : 0
-		}.bind(this)
+		}.bind(this))
 
-		player.dom.onplay = function() { self.waiting = false; self.paused = player.dom.paused }.bind(this)
-		player.dom.onpause = function() { self.paused = player.dom.paused }.bind(this)
+		player.on('progress', function() {
+			var last = dom.buffered.length - 1
+			self.waiting = false
+			if (last >= 0)
+				self.buffered = dom.buffered.end(last) - dom.buffered.start(last)
+		}.bind(this))
 
 		this._player = window.videojs('videojs')
 	}
 
+	endsWith(str, tail): {
+		return str.indexOf(tail) == str.length - tail.length
+	}
+
 	onSourceChanged: {
-		this._player.src({
-			src: value,
-			type: 'application/x-mpegURL'
-		});
+		var url = value
+		var media = { 'src': url }
+		if (url) {
+			var urlLower = url.toLowerCase()
+			if (this.endsWith(urlLower, '.m3u8') || this.endsWith(urlLower, '.m3u'))
+				media.type = 'application/x-mpegURL'
+		}
+
+		this._player.src(media);
 
 		var self = this
-		this._player.ready(function() { log("VideoJS ready", value); self.play() }.bind(this))
+		self.ready = false
+		this._player.ready(function() {
+			log("VideoJS ready")
+			self.ready = true
+			if (self.autoPlay)
+				self.play()
+		}.bind(this))
 	}
 
 	///play video
