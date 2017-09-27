@@ -1,5 +1,6 @@
 Item {
 	property int count;
+	property bool keepLastActivity: true;
 	property string currentActicity;
 
 	constructor: {
@@ -13,9 +14,13 @@ Item {
 	}
 
 	pop: {
-		this._activityStack.pop()
-		--this.count
-		this.initTopIntent()
+		if ((this.keepLastActivity && this.count > 1) || (!this.keepLastActivity && this.count > 0)) {
+			this._activityStack.pop()
+			--this.count
+			this.initTopIntent()
+		} else {
+			log("No activity to pop")
+		}
 	}
 
 	setState(state, idx): {
