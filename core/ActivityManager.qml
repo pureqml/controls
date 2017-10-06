@@ -27,6 +27,10 @@ Item {
 		this._activityStack[idx || this._activityStack.length - 1].state = state
 	}
 
+	setIntent(intent, idx): {
+		this._activityStack[idx || this._activityStack.length - 1].intent = intent
+	}
+
 	clear: {
 		var children = this.children
 		for (var i = 0; i < children.length; ++i) {

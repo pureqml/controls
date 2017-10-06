@@ -4,13 +4,13 @@ Item {
 	property string name;
 	visible: false;
 
-	start: { 
+	start: {
 		this.style('display', 'block')
 		this.visible = true
 		this.started()
 	}
 
-	stop: { 
+	stop: {
 		this.style('display', 'none')
 		this.visible = false
 		this.stopped()
@@ -20,6 +20,7 @@ Item {
 	pop: { this.parent.pop() }
 	push(name, intent, state): { this.parent.push(name, intent, state) }
 	setState(state): { this.parent.setState(state) }
+	setIntent(state): { this.parent.setIntent(state) }
 	clear: { this.parent.clear() }
 
 	onBackPressed: { this.parent.pop() }
