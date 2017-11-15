@@ -23,5 +23,5 @@ Item {
 	setIntent(state): { this.parent.setIntent(state) }
 	clear: { this.parent.clear() }
 
-	onBackPressed: { this.parent.pop() }
+	onBackPressed: { this.parent.pop(); return true }
 }
