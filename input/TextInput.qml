@@ -8,13 +8,6 @@ BaseInput {
 
 	onTextChanged: { if (value != this.element.dom.value) this.element.dom.value = value; }
 
-	onActiveFocusChanged: {
-		if (value)
-			this.element.dom.select()
-		else
-			this.element.dom.blur()
-	}
-
 	constructor: {
 		this.element.on("input", function() { this.text = this.element.dom.value }.bind(this))
 	}

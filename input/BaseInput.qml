@@ -20,7 +20,7 @@ Item {
 	/// @private
 	onActiveFocusChanged: {
 		if (value)
-			this.element.dom.select()
+			this.focusBrowser()
 		else
 			this.element.dom.blur()
 	}
@@ -71,4 +71,18 @@ Item {
 		var style = { width: this.width, height: this.height }
 		this.style(style)
 	}
+
+	function focusBrowser() {
+		focusTimer.restart()
+	}
+
+	Timer {
+		id: focusTimer;
+		interval: 100;
+		onTriggered: {
+			this.parent.element.dom.focus()
+			this.parent.element.dom.select()
+		}
+	}
+
 }
