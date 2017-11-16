@@ -13,8 +13,8 @@ Item {
 	/// @private
 	constructor: {
 		this._placeholderClass = ''
-		this.element.on("focus", function() { this.activeFocus = true; }.bind(this))
-		this.element.on("blur", function() { this.activeFocus = false; }.bind(this))
+		this.element.on("focus", function() { this.forceActiveFocus(); }.bind(this))
+		this.element.on("blur", function() { this.forceActiveFocus(); }.bind(this))
 	}
 
 	/// @private
