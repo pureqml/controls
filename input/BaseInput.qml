@@ -22,13 +22,13 @@ Item {
 		if (value)
 			this.focusBrowser()
 		else
-			this.element.dom.blur()
+			this.blurBrowser()
 	}
 
 	/// @private
 	onRecursiveVisibleChanged: {
 		if (!value)
-			this.element.dom.blur()
+			this.blurBrowser()
 	}
 
 	/// @private
@@ -74,6 +74,11 @@ Item {
 
 	function focusBrowser() {
 		focusTimer.restart()
+	}
+
+	function blurBrowser() {
+		focusTimer.stop()
+		this.element.dom.blur()
 	}
 
 	Timer {
