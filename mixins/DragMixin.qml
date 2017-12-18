@@ -75,6 +75,8 @@ BaseMixin {
 			}.bind(this))
 		}
 		this._dmMoveBinder.enable(true)
+
+		this.stopPropagation(e)
 	}
 
 	///@private
