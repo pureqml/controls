@@ -1,5 +1,5 @@
 /// mixin provides touch swipe events
-Object {
+BaseMixin {
 	signal touchMove;			///< @private
 	signal touchStart;			///< @private
 	signal verticalSwiped;		///< emitted on vertical swipe

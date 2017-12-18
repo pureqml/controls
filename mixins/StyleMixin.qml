@@ -1,4 +1,4 @@
-Object {
+BaseMixin {
 	/// @internal
 	function _update (name, value) {
 		this.parent.style(name, value);

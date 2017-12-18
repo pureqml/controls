@@ -1,5 +1,5 @@
 ///setup position mode of its parent
-Object {
+BaseMixin {
 	property enum value { Absolute, Fixed, Relative, Static };	///< position mode value can be: Absolute, Fixed, Relative, Static
 
 	onValueChanged (name, value): {

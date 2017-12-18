@@ -1,5 +1,5 @@
 ///This object controls how the text is allowed to be selected
-Object {
+BaseMixin {
 	property enum value { None, Text, All };	///< text selection mode enumeration
 
 	///@private

@@ -1,5 +1,5 @@
 ///setup parents overflow mode
-Object {
+BaseMixin {
 	property enum value { Visible, Hidden, Scroll, ScrollX, ScrollY };	///< overflow mode value, can be:  Visible, Hidden, Scroll, ScrollX, ScrollY
 
 	/// @internal

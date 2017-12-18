@@ -1,5 +1,5 @@
 /// makes parent item dragable
-Object {
+BaseMixin {
 	property bool moved;	///< is moved flag
 	property bool pressed;	///< is mouse pressed flag
 	property bool enabled: true;	///< enable/disable mixin

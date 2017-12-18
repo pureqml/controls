@@ -1,5 +1,5 @@
 // customize parent with class selector
-Object {
+BaseMixin {
 	property string rules;
 
 	///@private
