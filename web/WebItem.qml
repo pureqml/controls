@@ -13,8 +13,5 @@ Rectangle {
 	property string title;				///< title attribute property
 
 	/// @private
-	onTitleChanged: { this.element.dom.setAttribute('title', value); }
-
-	/// @private
 	onPositionChanged: { this.style('position', value); }
 }
