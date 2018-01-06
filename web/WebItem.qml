@@ -10,7 +10,6 @@ Rectangle {
 	color: "transparent";				///< background color
 	hoverMixin.cursor: "pointer";
 	property string position;			///< position mode property
-	property string title;				///< title attribute property
 
 	/// @private
 	onPositionChanged: { this.style('position', value); }
