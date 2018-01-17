@@ -10,26 +10,21 @@ SvgBase {
 	function getTag() { return 'line' }
 
 	/// @internal
-	function _update (name, value) {
-		switch(name) {
-			case 'color': 
-			case 'width':
-				this.element.setAttribute('style', 'stroke:' + _globals.core.normalizeColor(this.color) + ';stroke-width:' + this.width +';')
-				break;
+	onColorChanged,
+	onWidthChanged: {
+		this.element.setAttribute('style', 'stroke:' + _globals.core.normalizeColor(this.color) + ';stroke-width:' + this.width +';')
+	}
 
-			case 'x1':
-				this.element.setAttribute('x1', value);
-				break;
-			case 'x2':
-				this.element.setAttribute('x2', value);
-				break;
-			case 'y1':
-				this.element.setAttribute('y1', value);
-				break;
-			case 'y2':
-				this.element.setAttribute('y2', value);
-				break;
-		}
-		_globals.core.Object.prototype._update.apply(this, arguments);
+	onX1Changed: {
+		this.element.setAttribute('x1', value)
+	}
+	onX2Changed: {
+		this.element.setAttribute('x2', value)
+	}
+	onY1Changed: {
+		this.element.setAttribute('y1', value)
+	}
+	onY2Changed: {
+		this.element.setAttribute('y2', value)
 	}
 }

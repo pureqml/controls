@@ -27,15 +27,7 @@ Object {
 
 	function externalTarget() { return false }
 
-	/// @internal
-	function _update (name, value) {
-		switch(name) {
-			case 'target':
-				value.element.append(this.element)
-				break;
-		}
-		_globals.core.Object.prototype._update.apply(this, arguments);
-	}
+	onTargetChanged: { value.element.remove(); value.element.append(this.element) }
 
 	function style(name, style) {
 		var element = this.element

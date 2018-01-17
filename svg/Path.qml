@@ -10,27 +10,23 @@ SvgBase {
 	/// returns tag for corresponding element
 	function getTag() { return 'path' }
 
-	/// @internal
-	function _update (name, value) {
-		switch(name) {
-			case 'color':
-				this.element.setAttribute('stroke', _globals.core.normalizeColor(value))
-				break;
-			case 'fill':
-				this.element.setAttribute('fill', value)
-				break;
-			case 'width':
-				this.element.setAttribute('stroke-width', value)
-				break;
+	onColorChanged: {
+		this.element.setAttribute('stroke', _globals.core.normalizeColor(value))
+	}
 
-			case 'x1':
-			case 'x2':
-			case 'y1':
-			case 'y2':
-				this.element.setAttribute('d', this.buildPath());
-				break;
-		}
-		_globals.controls.svg.SvgBase.prototype._update.apply(this, arguments);
+	onFillChanged: {
+		this.element.setAttribute('fill', value)
+	}
+
+	onWidthChanged: {
+		this.element.setAttribute('stroke-width', value)
+	}
+
+	onX1Changed,
+	onX2Changed,
+	onY1Changed,
+	onY2Changed: {
+		this.element.setAttribute('d', this.buildPath())
 	}
 
 	function buildPath() {
