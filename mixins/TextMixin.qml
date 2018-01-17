@@ -1,5 +1,5 @@
 Text {
-	constructor: { parent.__forward_text = 'text' }
+	constructor: { parent.setPropertyForwardingTarget('text', 'text') }
 	anchors.fill: parent;
 	verticalAlignment: Text.AlignVCenter;
 	horizontalAlignment: Text.AlignHCenter;
