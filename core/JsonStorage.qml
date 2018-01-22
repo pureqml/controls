@@ -13,7 +13,7 @@ LocalStorage {
 	returns JSON proeprty value by name*/
 	getValue(name): {
 		var res
-		var value = this._storage.getItem(name)
+		var value = this.getItem(name)
 		try {
 			res = JSON.parse(value)
 		} catch(e) {
