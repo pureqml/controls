@@ -6,7 +6,7 @@ Object {
 			if (this.element)
 				throw new Error('double ctor call')
 
-			this.createElement(this.getTag(), this.externalTarget())
+			this._createElement(this.getTag(), this.externalTarget())
 		} //no parent == top level element, skip
 	}
 
