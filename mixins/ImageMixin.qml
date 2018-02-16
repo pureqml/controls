@@ -4,7 +4,7 @@ Image {
 	height: 100%;	///< @private
 
 	///@private
-	function createElement(tag) {
+	function _createElement(tag) {
 		this.element = this.parent.element;
 	}
 }

@@ -8,7 +8,7 @@ Item {
 	}
 
 	/// specialized implementation of element creation in a certain namespace.
-	function createElement(tag) {
+	function _createElement(tag) {
 		this._attachElement(new _globals.html5.html.Element(this._context, document.createElementNS('http://www.w3.org/2000/svg', tag)))
 	}
 

@@ -4,7 +4,7 @@ Text {
 	verticalAlignment: Text.AlignVCenter;
 	horizontalAlignment: Text.AlignHCenter;
 
-	function createElement(tag) {
+	function _createElement(tag) {
 		this.element = this.parent.element;
 	}
 }
