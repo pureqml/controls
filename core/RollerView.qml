@@ -27,9 +27,6 @@ BaseView {
 	}
 
 	function _layout(noPrerender) {
-		if (!this.recursiveVisible)
-			return
-
 		var model = this.model;
 		if (!model)
 			return
