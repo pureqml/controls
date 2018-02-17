@@ -115,6 +115,8 @@ BaseView {
 			} else if (di === 0) {
 				//currentIndex 0
 				itemPos = pos
+				prevLeft = itemPos
+				prevRight = itemPos + item.width + spacing
 				if (this.trace)
 					log('positioned (current) ', idx, 'at', itemPos)
 				item.__rendered = positioned = true
