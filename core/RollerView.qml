@@ -8,6 +8,7 @@ BaseView {
 	}
 
 	function positionViewAtIndex(idx) { }
+	content.cssDelegateAlwaysVisibleOnAcceleratedSurfaces: false;
 
 	function _getCurrentIndex(adj) {
 		var n = this._items.length
