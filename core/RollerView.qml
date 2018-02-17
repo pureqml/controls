@@ -16,6 +16,16 @@ BaseView {
 		return (((this.currentIndex + adj) % n) + n) % n
 	}
 
+	/// @private creates delegate in given item slot
+	function _createDelegate(idx) {
+		var item = _globals.core.BaseView.prototype._createDelegate.apply(this, arguments)
+		if (this.orientation === this.Horizontal)
+			item.onChanged('width', this._scheduleLayout.bind(this))
+		else
+			item.onChanged('height', this._scheduleLayout.bind(this))
+		return item
+	}
+
 	function _layout(noPrerender) {
 		if (!this.recursiveVisible)
 			return
