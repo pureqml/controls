@@ -26,6 +26,11 @@ BaseView {
 
 		this.count = model.count
 
+		if (!this.recursiveVisible) {
+			this.layoutFinished()
+			return
+		}
+
 		var horizontal = this.orientation === this.Horizontal
 		var items = this._items
 
