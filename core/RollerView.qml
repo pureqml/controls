@@ -16,7 +16,7 @@ BaseView {
 		return (((this.currentIndex + adj) % n) + n) % n
 	}
 
-	function _layout() {
+	function _layout(noPrerender) {
 		if (!this.recursiveVisible)
 			return
 
@@ -46,7 +46,7 @@ BaseView {
 
 		var currentItem = this._createDelegate(currentIndex)
 
-		var prerender = this.prerender * currentItem.width
+		var prerender = noPrerender? 0: this.prerender * currentItem.width
 		var leftMargin = -prerender
 		var rightMargin = size + prerender
 
