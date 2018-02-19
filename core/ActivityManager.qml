@@ -1,7 +1,7 @@
 Item {
 	property int count;
 	property bool keepLastActivity: true;
-	property string currentActicity;
+	property string currentActivity;
 
 	constructor: {
 		this._activityStack = []
@@ -59,12 +59,12 @@ Item {
 				log("Init:", topActivity)
 				var state = topActivity.state || {}
 				if (!state.lastActivity)
-					state.lastActivity = this.currentActicity
+					state.lastActivity = this.currentActivity
 				child.init(topActivity.intent, state)
 				child.index = this._activityStack.length - 1
 				child.start()
 				child.setFocus()
-				this.currentActicity = child.name
+				this.currentActivity = child.name
 			} else {
 				child.stop()
 			}
