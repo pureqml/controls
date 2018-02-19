@@ -157,7 +157,7 @@ BaseView {
 			//simulate animation to 0
 			this._setContentOffset(0)
 		}
-		this._context._complete()
+		this._context.scheduleComplete()
 	}
 
 	function next() {
