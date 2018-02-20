@@ -1,6 +1,5 @@
 BaseView {
 	property enum orientation { Vertical, Horizontal };
-	prerender: 1.5; //size of reference item
 
 	constructor: {
 		this._oldIndex = 0
@@ -59,7 +58,7 @@ BaseView {
 
 		var currentItem = this._createDelegate(currentIndex)
 
-		var prerender = noPrerender? 0: this.prerender * currentItem.width
+		var prerender = noPrerender? 0: this.prerender * size
 		var leftMargin = -prerender
 		var rightMargin = size + prerender
 
