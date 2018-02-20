@@ -98,7 +98,7 @@ BaseView {
 			var positioned = false
 			if (di < 0 && leftIn && !item.__rendered) {
 				itemPos = prevLeft - spacing - item.width
-				if (itemPos < leftMargin)
+				if (itemPos + item.width < leftMargin)
 					leftIn = false
 				prevLeft = itemPos
 				item.__rendered = positioned = true
