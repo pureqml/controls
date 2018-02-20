@@ -1,5 +1,6 @@
 BaseView {
-	property enum orientation { Vertical, Horizontal }: Horizontal; //vertical is not working yet
+	property enum orientation { Vertical, Horizontal }: Horizontal; //vertical was not widely tested
+	preload: 0;
 
 	constructor: {
 		this._oldIndex = 0
