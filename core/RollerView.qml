@@ -80,8 +80,9 @@ BaseView {
 
 		var leftIn = true, rightIn = true
 		var prevLeft = 0, prevRight = currentItem.width + spacing
+
 		if (this.trace)
-			log('layout', n)
+			log("layout " + n + " into " + w + "x" + h + " @ " + this.content.x + "," + this.content.y + ", prerender: " + prerender + ", range: " + leftMargin + ":" + rightMargin)
 
 		for(var i = 0; i < n; ++i) {
 			var item = items[i]
