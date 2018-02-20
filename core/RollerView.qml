@@ -222,6 +222,8 @@ BaseView {
 			this._scheduleLayout()
 			return
 		}
+
+		var horizontal = this.orientation === this.Horizontal
 		//log('scrolling to ', currentIndex, oldIndex, item.viewX, delta)
 
 		//fixme: allow less frequent layouts
