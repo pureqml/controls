@@ -83,7 +83,7 @@ BaseView {
 		else
 			currentItem.viewY = pos
 
-		var leftIn = true, rightIn = true
+		var leftInPrerender = true, rightInPrerender = true, leftInView = true, rightInView = true
 		var prevLeft = 0, prevRight = currentItemSize + spacing
 
 		if (this.trace)
@@ -95,17 +95,30 @@ BaseView {
 				item.__rendered = false
 		}
 
-		for(var i = 0; i < 2 * n && (leftIn || rightIn); ++i) {
+		for(var i = 0; i < (2 * n) && (leftInPrerender || rightInPrerender); ++i) {
 			var di = (i & 1)? ((1 - i) / 2 - 1): i / 2
 			var idx = this._getCurrentIndex(di)
 			var item = this._createDelegate(idx)
 			var itemSize = horizontal? item.width: item.height
 			var itemPos
 			var positioned = false
+
+			//view has priority, so render items, as prerender == 0 first
+			var leftIn, rightIn
+			if (leftInView || rightInView) {
+				leftIn = leftInView
+				rightIn = rightInView
+			} else {
+				leftIn = leftInPrerender
+				rightIn = rightInPrerender
+			}
+
 			if (di < 0 && leftIn && !item.__rendered) {
 				itemPos = prevLeft - spacing - itemSize
 				if (itemPos + itemSize < leftMargin)
-					leftIn = false
+					leftInPrerender = false
+				if (itemPos + itemSize < 0)
+					leftInView = false
 				prevLeft = itemPos
 				item.__rendered = positioned = true
 				if (this.trace)
@@ -113,7 +126,9 @@ BaseView {
 			} else if (di > 0 && rightIn && !item.__rendered) {
 				itemPos = prevRight
 				if (itemPos >= rightMargin)
-					rightIn = false
+					rightInPrerender = false
+				if (itemPos >= size)
+					rightInView = false
 				prevRight = itemPos + itemSize + spacing
 				item.__rendered = positioned = true
 				if (this.trace)
