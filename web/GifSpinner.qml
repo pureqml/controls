@@ -1,13 +1,11 @@
 Image {
-	property bool running;
-	visible: running;
 	source: "res/spinner.gif";
 
 	start: {
-		this.running = true;
+		this.visible = true;
 	}
 
 	stop: {
-		this.running = false;
+		this.visible = false;
 	}
 }
