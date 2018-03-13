@@ -1,5 +1,5 @@
 Rectangle {
-	width: 400;
+	width: 600;
 	height: debugInfoContent.contentHeight;
 	anchors.top: parent.top;
 	anchors.left: parent.left;
@@ -20,11 +20,11 @@ Rectangle {
 
 		DebugInfoItem {
 			label: "LayoutType:";
-			value: context.system.layoutType == System.MobileS ? "MobileS" : 
-				context.system.layoutType == System.MobileM ? "MobileM" : 
-				context.system.layoutType == System.Tablet ? "Tablet" : 
-				context.system.layoutType == System.Laptop ? "Laptop" : 
-				context.system.layoutType == System.LaptopL ? "LaptopL" : 
+			value: context.system.layoutType == System.MobileS ? "MobileS" :
+				context.system.layoutType == System.MobileM ? "MobileM" :
+				context.system.layoutType == System.Tablet ? "Tablet" :
+				context.system.layoutType == System.Laptop ? "Laptop" :
+				context.system.layoutType == System.LaptopL ? "LaptopL" :
 				context.system.layoutType == System.MobileL ? "MobileL" : "Laptop4K";
 		}
 
@@ -85,6 +85,11 @@ Rectangle {
 		DebugInfoItem {
 			label: "Orientation:";
 			value: context.system.portrait ? "Portrait" : "Landscape";
+		}
+
+		DebugInfoItem {
+			label: "Agent:";
+			value: context.system.userAgent;
 		}
 	}
 }
