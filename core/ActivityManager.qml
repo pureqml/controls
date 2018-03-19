@@ -7,6 +7,16 @@ Item {
 		this._activityStack = []
 	}
 
+	replaceTopActivity(name, intent, state): {
+		if (this.count > 0) {
+			this._activityStack.pop()
+			this._activityStack.push({ "name": name, "intent": intent, "state": state })
+			this.initTopIntent()
+		} else {
+			log("No activity to pop")
+		}
+	}
+
 	push(name, intent, state): {
 		this._activityStack.push({ "name": name, "intent": intent, "state": state })
 		this.count++

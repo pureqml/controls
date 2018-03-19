@@ -19,6 +19,7 @@ Item {
 	init(intent): { }
 	pop: { this.parent.pop() }
 	push(name, intent, state): { this.parent.push(name, intent, state) }
+	replaceTopActivity(name, intent, state): { this.parent.replaceTopActivity(name, intent, state) }
 	setState(state): { this.parent.setState(state) }
 	setIntent(state): { this.parent.setIntent(state) }
 	clear: { this.parent.clear() }
