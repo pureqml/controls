@@ -7,7 +7,6 @@ MouseArea {
 	property color uncheckedColor: "#F44336";	///< button color if not checked
 	height: 40;	///< @private
 	width: 80;	///< @private
-	verticalSwipable: false;	///< @private
 
 	Rectangle {
 		anchors.fill: parent;
@@ -40,7 +39,10 @@ MouseArea {
 
 	///@private
 	onHorizontalSwiped(event): {
-		this._dx = event.dx
+		var box = this.toScreen()
+		var touch = event.touches[0]
+		var x = touch.pageX - box[0]
+		this._dx = x - this._startX
 		checkboxDelay.restart()
 	}
 
