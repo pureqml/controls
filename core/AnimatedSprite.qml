@@ -65,15 +65,16 @@ Sprite {
 			return;
 
 		var self = this;
+
 		if (self.repeat)
-			self._interval = setInterval(function() {
+			self._interval = setInterval(this._context.wrapNativeCallback(function() {
 				self.currentFrame = ++self.currentFrame % self.frameCount
 				self.triggered();
-			}, self.interval);
+			}), self.interval);
 		else {
 			self._countdown = self.frameCount - self.currentFrame
 
-			self._interval = setInterval(function() {
+			self._interval = setInterval(this._context.wrapNativeCallback(function() {
 				if (self._countdown === 0) {
 					clearInterval(self._interval)
 					self.running = false
@@ -84,7 +85,7 @@ Sprite {
 					self.currentFrame = ++self.currentFrame % self.frameCount
 					self.triggered();
 				}
-				}, self.interval);
+				}), self.interval);
 		}
 	}
 }
