@@ -9,7 +9,13 @@ Request {
 			var self = this
 			this.ajax({
 				url: url,
-				done: function(data) { self.data = data.target.responseText },
+				done: function(data) {
+					var target = data.target
+					if (target.status >= 400)
+						self.error(data)
+					else
+						self.data = target.responseText
+				},
 				error: function(err) { self.error(err) }
 			})
 		} else {
