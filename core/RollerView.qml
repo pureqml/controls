@@ -114,6 +114,8 @@ BaseView {
 		var positionLeft = function() {
 			var idx = view._getCurrentIndex(nextLeftIndex--)
 			var item = view._createDelegate(idx)
+			if (item.__rendered)
+				return false
 
 			var itemSize = horizontal? item.width: item.height
 			var itemPos = prevLeft - spacing - itemSize
@@ -127,11 +129,14 @@ BaseView {
 			positionItem(idx, item, itemPos)
 			if (view.trace)
 				log('positioned (left) ', idx, 'at', itemPos)
+			return true
 		}
 
 		var positionRight = function() {
 			var idx = view._getCurrentIndex(nextRightIndex++)
 			var item = view._createDelegate(idx)
+			if (item.__rendered)
+				return false
 
 			var itemSize = horizontal? item.width: item.height
 			var itemPos = prevRight
@@ -145,6 +150,7 @@ BaseView {
 			positionItem(idx, item, itemPos)
 			if (view.trace)
 				log('positioned (right) ', idx, 'at', itemPos)
+			return true
 		}
 
 		positionRight() //first element
