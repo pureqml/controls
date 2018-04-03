@@ -95,7 +95,8 @@ BaseView {
 				item.__rendered = false
 		}
 
-		for(var i = 0; i < (2 * n) && (leftInPrerender || rightInPrerender); ++i) {
+		var n2 = 2 * n - 1
+		for(var i = 0; i < n2 && (leftInPrerender || rightInPrerender); ++i) {
 			var di = (i & 1)? ((1 - i) / 2 - 1): i / 2
 			var idx = this._getCurrentIndex(di)
 			var item = this._createDelegate(idx)
