@@ -149,19 +149,17 @@ BaseView {
 
 		positionRight() //first element
 
-		var n2 = 2 * n
-
-		while(nextRightIndex - nextLeftIndex < n2 && (leftInView || rightInView)) {
-			if (leftInView)
+		while((leftInView && nextLeftIndex > -n) || (rightInView && nextRightIndex < n)) {
+			if (leftInView && nextLeftIndex > -n)
 				positionLeft()
-			if (rightInView)
+			if (rightInView && nextRightIndex < n)
 				positionRight()
 		}
 
-		while(nextRightIndex - nextLeftIndex < n2 && (leftInPrerender || rightInPrerender)) {
-			if (leftInPrerender)
+		while((leftInPrerender && nextLeftIndex > -n) || (rightInPrerender && nextRightIndex < n)) {
+			if (leftInPrerender && nextLeftIndex > -n)
 				positionLeft()
-			if (rightInPrerender)
+			if (rightInPrerender && nextRightIndex < n)
 				positionRight()
 		}
 
