@@ -112,17 +112,19 @@ BaseView {
 		}
 
 		var positionLeft = function() {
-			var idx = view._getCurrentIndex(nextLeftIndex--)
+			var idx = view._getCurrentIndex(nextLeftIndex)
 			var item = view._createDelegate(idx)
 			if (item.__rendered)
 				return false
 
+			--nextLeftIndex
+
 			var itemSize = horizontal? item.width: item.height
 			var itemPos = prevLeft - spacing - itemSize
 
-			if (itemPos + itemSize < leftMargin)
+			if (itemPos + itemSize <= leftMargin)
 				leftInPrerender = false
-			if (itemPos + itemSize < 0)
+			if (itemPos + itemSize <= 0)
 				leftInView = false
 			prevLeft = itemPos
 			item.__rendered = true
@@ -133,10 +135,12 @@ BaseView {
 		}
 
 		var positionRight = function() {
-			var idx = view._getCurrentIndex(nextRightIndex++)
+			var idx = view._getCurrentIndex(nextRightIndex)
 			var item = view._createDelegate(idx)
 			if (item.__rendered)
 				return false
+
+			++nextRightIndex
 
 			var itemSize = horizontal? item.width: item.height
 			var itemPos = prevRight
@@ -155,18 +159,18 @@ BaseView {
 
 		positionRight() //first element
 
-		while((leftInView && nextLeftIndex > -n) || (rightInView && nextRightIndex < n)) {
-			if (leftInView && nextLeftIndex > -n)
-				positionLeft()
-			if (rightInView && nextRightIndex < n)
-				positionRight()
+		while(leftInView || rightInView) {
+			if (leftInView && !positionLeft())
+				leftInView = false
+			if (rightInView && !positionRight())
+					rightInView = false
 		}
 
-		while((leftInPrerender && nextLeftIndex > -n) || (rightInPrerender && nextRightIndex < n)) {
-			if (leftInPrerender && nextLeftIndex > -n)
-				positionLeft()
-			if (rightInPrerender && nextRightIndex < n)
-				positionRight()
+		while(leftInPrerender || rightInPrerender) {
+			if (leftInPrerender && !positionLeft())
+				leftInPrerender = false
+			if (rightInPrerender && !positionRight())
+					rightInPrerender = false
 		}
 
 		for(var i = 0; i < n; ++i) {
