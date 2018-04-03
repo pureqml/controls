@@ -46,6 +46,7 @@ BaseView {
 			return
 		}
 
+		var view = this
 		var w = this.width
 		var h = this.height
 		var created = false
@@ -60,8 +61,10 @@ BaseView {
 		var currentItemSize = horizontal? currentItem.width: currentItem.height
 
 		var prerender = noPrerender? 0: this.prerender * size
-		var leftMargin = -prerender
-		var rightMargin = size + prerender
+		var leftViewMargin = -currentItemSize
+		var rightViewMargin = size + currentItemSize
+		var leftMargin = leftViewMargin - prerender
+		var rightMargin = rightViewMargin + prerender
 
 		var pos
 		switch(positionMode) {
@@ -83,9 +86,6 @@ BaseView {
 		else
 			currentItem.viewY = pos
 
-		var leftInPrerender = true, rightInPrerender = true, leftInView = true, rightInView = true
-		var prevLeft = 0, prevRight = currentItemSize + spacing
-
 		if (this.trace)
 			log("layout " + n + " into " + w + "x" + h + " @ " + this.content.x + "," + this.content.y + ", prerender: " + prerender + ", range: " + leftMargin + ":" + rightMargin)
 
@@ -95,68 +95,84 @@ BaseView {
 				item.__rendered = false
 		}
 
-		var n2 = 2 * n - 1
-		for(var i = 0; i < n2 && (leftInPrerender || rightInPrerender); ++i) {
-			var di = (i & 1)? ((1 - i) / 2 - 1): i / 2
-			var idx = this._getCurrentIndex(di)
-			var item = this._createDelegate(idx)
+		var leftInPrerender = true, rightInPrerender = true, leftInView = true, rightInView = true
+		var prevRight = pos, prevLeft = pos
+		var nextLeftIndex = -1, nextRightIndex = 0
+
+		var positionItem = function(idx, item, itemPos) {
+			item.visibleInView = true
+			if (horizontal)
+				item.viewX = itemPos
+			else
+				item.viewY = itemPos
+
+			if (currentIndex == idx && !item.focused) {
+				view.focusChild(item)
+				if (view.contentFollowsCurrentItem)
+					view.positionViewAtIndex(i)
+			}
+		}
+
+		var positionLeft = function() {
+			var idx = view._getCurrentIndex(nextLeftIndex)
+			var item = view._createDelegate(idx)
+			if (item.__rendered)
+				return false
+
+			--nextLeftIndex
+
 			var itemSize = horizontal? item.width: item.height
-			var itemPos
-			var positioned = false
+			var itemPos = prevLeft - spacing - itemSize
 
-			//view has priority, so render items, as prerender == 0 first
-			var leftIn, rightIn
-			if (leftInView || rightInView) {
-				leftIn = leftInView
-				rightIn = rightInView
-			} else {
-				leftIn = leftInPrerender
-				rightIn = rightInPrerender
-			}
+			if (itemPos + itemSize <= leftMargin)
+				leftInPrerender = false
+			if (itemPos + itemSize <= leftViewMargin)
+				leftInView = false
+			prevLeft = itemPos
+			item.__rendered = true
+			positionItem(idx, item, itemPos)
+			if (view.trace)
+				log('positioned (left) ', idx, 'at', itemPos)
+			return true
+		}
 
-			if (di < 0 && leftIn && !item.__rendered) {
-				itemPos = prevLeft - spacing - itemSize
-				if (itemPos + itemSize < leftMargin)
-					leftInPrerender = false
-				if (itemPos + itemSize < 0)
-					leftInView = false
-				prevLeft = itemPos
-				item.__rendered = positioned = true
-				if (this.trace)
-					log('positioned (left) ', idx, 'at', itemPos)
-			} else if (di > 0 && rightIn && !item.__rendered) {
-				itemPos = prevRight
-				if (itemPos >= rightMargin)
-					rightInPrerender = false
-				if (itemPos >= size)
+		var positionRight = function() {
+			var idx = view._getCurrentIndex(nextRightIndex)
+			var item = view._createDelegate(idx)
+			if (item.__rendered)
+				return false
+
+			++nextRightIndex
+
+			var itemSize = horizontal? item.width: item.height
+			var itemPos = prevRight
+
+			if (itemPos >= rightMargin)
+				rightInPrerender = false
+			if (itemPos >= rightViewMargin)
+				rightInView = false
+			prevRight = itemPos + itemSize + spacing
+			item.__rendered = true
+			positionItem(idx, item, itemPos)
+			if (view.trace)
+				log('positioned (right) ', idx, 'at', itemPos)
+			return true
+		}
+
+		positionRight() //first element
+
+		while(leftInView || rightInView) {
+			if (leftInView && !positionLeft())
+				leftInView = false
+			if (rightInView && !positionRight())
 					rightInView = false
-				prevRight = itemPos + itemSize + spacing
-				item.__rendered = positioned = true
-				if (this.trace)
-					log('positioned (right) ', idx, 'at', itemPos)
-			} else if (di === 0) {
-				//currentIndex 0
-				itemPos = pos
-				prevLeft = itemPos
-				prevRight = itemPos + itemSize + spacing
-				if (this.trace)
-					log('positioned (current) ', idx, 'at', itemPos)
-				item.__rendered = positioned = true
-			}
+		}
 
-			if (positioned) {
-				item.visibleInView = true
-				if (horizontal)
-					item.viewX = itemPos
-				else
-					item.viewY = itemPos
-
-				if (currentIndex == idx && !item.focused) {
-					this.focusChild(item)
-					if (this.contentFollowsCurrentItem)
-						this.positionViewAtIndex(i)
-				}
-			}
+		while(leftInPrerender || rightInPrerender) {
+			if (leftInPrerender && !positionLeft())
+				leftInPrerender = false
+			if (rightInPrerender && !positionRight())
+					rightInPrerender = false
 		}
 
 		for(var i = 0; i < n; ++i) {
