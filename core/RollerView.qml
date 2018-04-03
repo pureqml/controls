@@ -61,8 +61,10 @@ BaseView {
 		var currentItemSize = horizontal? currentItem.width: currentItem.height
 
 		var prerender = noPrerender? 0: this.prerender * size
-		var leftMargin = -prerender
-		var rightMargin = size + prerender
+		var leftViewMargin = -currentItemSize
+		var rightViewMargin = size + currentItemSize
+		var leftMargin = leftViewMargin - prerender
+		var rightMargin = rightViewMargin + prerender
 
 		var pos
 		switch(positionMode) {
@@ -124,7 +126,7 @@ BaseView {
 
 			if (itemPos + itemSize <= leftMargin)
 				leftInPrerender = false
-			if (itemPos + itemSize <= 0)
+			if (itemPos + itemSize <= leftViewMargin)
 				leftInView = false
 			prevLeft = itemPos
 			item.__rendered = true
@@ -147,7 +149,7 @@ BaseView {
 
 			if (itemPos >= rightMargin)
 				rightInPrerender = false
-			if (itemPos >= size)
+			if (itemPos >= rightViewMargin)
 				rightInView = false
 			prevRight = itemPos + itemSize + spacing
 			item.__rendered = true
