@@ -10,7 +10,7 @@ LocalStorage {
 	}
 
 	/**@param name:string property name
-	returns JSON proeprty value by name*/
+	returns JSON propeprty value by name*/
 	getValue(name): {
 		var res
 		var value = this.getItem(name)
