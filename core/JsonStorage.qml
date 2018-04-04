@@ -12,14 +12,10 @@ LocalStorage {
 	/**@param name:string property name
 	returns JSON propeprty value by name*/
 	getValue(name): {
-		var res
 		var value = this.getItem(name)
-		try {
-			res = JSON.parse(value)
-		} catch(e) {
-			res = value
-		}
-		return res
+		try { return value && JSON.parse(value) }
+		catch (e) { if (e.name != 'SyntaxError') throw e }
+		return value
 	}
 
 	/**@param name:string property name
