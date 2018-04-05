@@ -33,12 +33,34 @@ Item {
 		}
 	}
 
-	setState(state, idx): {
-		this._activityStack[idx || this._activityStack.length - 1].state = state
+	findActivity(name): {
+		var activities = this.children.filter(function(element) { return element instanceof _globals.controls.core.Activity && element.name == name })
+		if (activities && activities.length) {
+			return activities[0].intent
+		} else {
+			log("Activity for name", name, "not found")
+			return null
+		}
 	}
 
-	setIntent(intent, idx): {
-		this._activityStack[idx || this._activityStack.length - 1].intent = intent
+	setState(state, name): {
+		if (!name) {
+			this._activityStack[this._activityStack.length - 1].state = state
+		} else {
+			var activity = this.findActivity(name)
+			if (activity)
+				activity.state = state
+		}
+	}
+
+	setIntent(intent, name): {
+		if (!name) {
+			this._activityStack[this._activityStack.length - 1].intent = intent
+		} else {
+			var activity = this.findActivity(name)
+			if (activity)
+				activity.intent = intent
+		}
 	}
 
 	clear: {
