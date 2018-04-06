@@ -23,6 +23,16 @@ Item {
 		this.initTopIntent()
 	}
 
+	closeAll: {
+		if (this.count <= 1)
+			return
+
+		var children = this.children
+		this.count = 1
+		this._activityStack.slice(0, 1)
+		this.initTopIntent()
+	}
+
 	pop: {
 		if ((this.keepLastActivity && this.count > 1) || (!this.keepLastActivity && this.count > 0)) {
 			this._activityStack.pop()
