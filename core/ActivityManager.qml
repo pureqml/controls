@@ -23,13 +23,17 @@ Item {
 		this.initTopIntent()
 	}
 
-	closeAll: {
-		if (this.count <= 1)
-			return
+	closeAllExcept(name): {
+		var activity = this.findActivity(name)
 
-		var children = this.children
-		this.count = 1
-		this._activityStack.slice(0, 1)
+		if (activity) {
+			this.count = 1
+			this._activityStack = [this._activityStack[activity.index]]
+		} else {
+			log("Activity", name, "not found, close all")
+			this.count = 0
+			this._activityStack = []
+		}
 		this.initTopIntent()
 	}
 
@@ -46,7 +50,7 @@ Item {
 	findActivity(name): {
 		var activities = this.children.filter(function(element) { return element instanceof _globals.controls.core.Activity && element.name == name })
 		if (activities && activities.length) {
-			return activities[0].intent
+			return activities[0]
 		} else {
 			log("Activity for name", name, "not found")
 			return null
