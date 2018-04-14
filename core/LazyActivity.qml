@@ -11,5 +11,4 @@ Item {
 			loader.component = this.component
 		return loader.item
 	}
-	onCompleted: { log('LAZY ACTIVITY') }
 }
