@@ -1,3 +1,5 @@
+//@using { controls.core.Activity }
+//@using { controls.core.LazyActivity }
 Item {
 	property int count;
 	property bool keepLastActivity: true;
