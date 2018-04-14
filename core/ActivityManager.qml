@@ -48,7 +48,9 @@ Item {
 	}
 
 	findActivity(name): {
-		var activities = this.children.filter(function(element) { return element instanceof _globals.controls.core.Activity && element.name == name })
+		var activities = this.children.filter(function(element) {
+			return element instanceof _globals.controls.core.Activity && element.name == name
+		})
 		if (activities && activities.length) {
 			return activities[0]
 		} else {
