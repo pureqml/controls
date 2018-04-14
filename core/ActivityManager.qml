@@ -59,11 +59,27 @@ Item {
 		}
 	}
 
+	createActivity(name): {
+		var activity = this.findActivity(name)
+		if (activity)
+			return activity
+		var activities = this.children.filter(function(element) {
+			return element instanceof _globals.controls.core.LazyActivity && element.name == name
+		})
+		if (activities && activities.length) {
+			activity = activities[0]
+			return activity.getItem()
+		} else {
+			log("Activity for name", name, "not found")
+			return null
+		}
+	}
+
 	setState(state, name): {
 		if (!name) {
 			this._activityStack[this._activityStack.length - 1].state = state
 		} else {
-			var activity = this.findActivity(name)
+			var activity = this.createActivity(name)
 			if (activity)
 				activity.state = state
 		}
@@ -73,7 +89,7 @@ Item {
 		if (!name) {
 			this._activityStack[this._activityStack.length - 1].intent = intent
 		} else {
-			var activity = this.findActivity(name)
+			var activity = this.createActivity(name)
 			if (activity)
 				activity.intent = intent
 		}
