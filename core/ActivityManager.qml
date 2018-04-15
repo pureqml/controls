@@ -116,6 +116,7 @@ Item {
 		var topActivity = this._activityStack[this._activityStack.length - 1]
 		var children = this.children
 
+		log('initTopIntent: ' + topActivity.name)
 		for (var i = 0; i < children.length; ++i) {
 			var child = children[i]
 			if (!child || !(child instanceof _globals.controls.core.BaseActivity))
