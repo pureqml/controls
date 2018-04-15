@@ -1,6 +1,4 @@
 BaseActivity {
-	visible: false;
-
 	start: {
 		this.style('display', 'block')
 		this.visible = true

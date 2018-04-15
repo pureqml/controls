@@ -1,6 +1,7 @@
 Item {
 	property string name;
 	property Item manager: parent;
+	visible: false;
 
 	signal started;
 	signal stopped;

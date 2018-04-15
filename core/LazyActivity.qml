@@ -32,8 +32,11 @@ BaseActivity {
 
 	start: {
 		this.createItem().start()
+		this.visible = true
 	}
+
 	stop: {
+		this.visible = false
 		var item = this.getItem()
 		if (item)
 			item.stop()
