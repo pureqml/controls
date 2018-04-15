@@ -1,7 +1,8 @@
+///time selecting input
 BaseInput {
-	property string max;
-	property string min;
-	property string value;
+	property string max;	///< maximum time value
+	property string min;	///< minimal time value
+	property string value;	///< current value
 	width: 75;
 	height: 20;
 	type: "time";

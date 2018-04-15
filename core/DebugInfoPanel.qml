@@ -1,3 +1,4 @@
+///panel with system info within (OS, platform, vendor, layout type etc.)
 Rectangle {
 	width: 600;
 	height: debugInfoContent.contentHeight;

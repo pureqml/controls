@@ -1,8 +1,9 @@
+///number input
 BaseInput {
-	property float max;
-	property float min;
-	property float step;
-	property float value;
+	property float max;		///< maximum number value
+	property float min;		///< minimum number value
+	property float step;	///< number step value
+	property float value;	///< number value
 	horizontalAlignment: BaseInput.AlignHCenter;
 	width: 50;
 	height: 25;

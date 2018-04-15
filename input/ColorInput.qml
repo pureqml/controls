@@ -1,3 +1,4 @@
+///color selecting input
 BaseInput {
 	width: 80;
 	height: 32;

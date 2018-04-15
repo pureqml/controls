@@ -1,9 +1,10 @@
+///range input
 Item {
-	property int value;
-	property int min: 0;
-	property int max: 100;
-	property int step: 1;
-	property enum orientation { Horizontal, Vertical };
+	property int value;		///< current value
+	property int min: 0;	///< minimal range value
+	property int max: 100;	///< maximum range value
+	property int step: 1;	///< range step
+	property enum orientation { Horizontal, Vertical };	///< range position orientation
 	height: 30;
 
 	/// @private

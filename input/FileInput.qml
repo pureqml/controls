@@ -1,6 +1,7 @@
+///file selected input
 BaseInput {
-	property string value;
-	property string filter;
+	property string value;		///< selected filename
+	property string filter;		///< filter for file selecting
 	width: 250;
 	height: 30;
 	type: "file";

@@ -1,5 +1,6 @@
+///email input
 TextInput {
-	property bool valid;
+	property bool valid;	///< is typed email valid or not flag
 	type: "email";
 
 	onTextChanged: {
