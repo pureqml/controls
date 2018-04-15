@@ -1,16 +1,17 @@
 Item {
 	property string name;
+	property Item manager: parent;
 
 	signal started;
 	signal stopped;
 
 	init(intent): { }
-	pop: { this.parent.pop() }
-	push(name, intent, state): { this.parent.push(name, intent, state) }
-	replaceTopActivity(name, intent, state): { this.parent.replaceTopActivity(name, intent, state) }
-	setState(state, name): { this.parent.setState(state, name) }
-	setIntent(state, name): { this.parent.setIntent(state, name) }
-	clear: { this.parent.clear() }
+	pop: { this.manager.pop() }
+	push(name, intent, state): { this.manager.push(name, intent, state) }
+	replaceTopActivity(name, intent, state): { this.manager.replaceTopActivity(name, intent, state) }
+	setState(state, name): { this.manager.setState(state, name) }
+	setIntent(state, name): { this.manager.setIntent(state, name) }
+	clear: { this.manager.clear() }
 
-	onBackPressed: { this.parent.pop(); return true }
+	onBackPressed: { this.manager.pop(); return true }
 }

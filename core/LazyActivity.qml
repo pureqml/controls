@@ -10,6 +10,7 @@ BaseActivity {
 		if (!item) {
 			loader.source = this.component
 			item = loader.item
+			item.manager = this.parent
 			if (!item)
 				throw new Error("can't create component " + this.component)
 
