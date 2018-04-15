@@ -70,7 +70,7 @@ Item {
 		})
 		if (activities && activities.length) {
 			activity = activities[0]
-			return activity.getItem()
+			return activity.createItem()
 		} else {
 			log("Activity for name", name, "not found")
 			return null
@@ -118,7 +118,7 @@ Item {
 
 		for (var i = 0; i < children.length; ++i) {
 			var child = children[i]
-			if (!child || !(child instanceof _globals.controls.core.Activity))
+			if (!child || !(child instanceof _globals.controls.core.BaseActivity))
 				continue
 
 			if (child.name === topActivity.name) {

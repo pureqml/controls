@@ -1,14 +1,40 @@
-Item {
-	property string name;
+BaseActivity {
 	property string component;
 
 	Loader {
 		id : loader;
 	}
 
-	function getItem() {
-		if (!loader.item)
-			loader.component = this.component
+	function createItem() {
+		var item = loader.item
+		if (!item) {
+			loader.source = this.component
+			item = loader.item
+			if (!item)
+				throw new Error("can't create component " + this.component)
+
+			var activity = this
+			item.on('started', function() { activity.started() })
+			item.on('stopped', function() { activity.stopped() })
+		}
 		return loader.item
+	}
+
+	function getItem() {
+		return loader.item
+	}
+
+	function init() {
+		_globals.controls.core.BaseActivity.prototype.init.apply(this, arguments)
+		this.createItem()
+	}
+
+	start: {
+		this.createItem().start()
+	}
+	stop: {
+		var item = this.getItem()
+		if (item)
+			item.stop()
 	}
 }
