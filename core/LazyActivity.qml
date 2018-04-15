@@ -1,8 +1,10 @@
 BaseActivity {
 	property string component;
+	anchors.fill: manager;
 
 	Loader {
 		id : loader;
+		anchors.fill: parent.manager;
 	}
 
 	function createItem() {
@@ -10,6 +12,8 @@ BaseActivity {
 		if (!item) {
 			loader.source = this.component
 			item = loader.item
+			item.anchors.fill = this
+			this._context._processActions() //we have to process all actions before starting setting up items
 			item.manager = this.manager
 			if (!item)
 				throw new Error("can't create component " + this.component)
