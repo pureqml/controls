@@ -51,14 +51,17 @@ Item {
 
 	findActivity(name): {
 		var activities = this.children.filter(function(element) {
-			return element instanceof _globals.controls.core.Activity && element.name == name
+			return element instanceof _globals.controls.core.BaseActivity && element.name == name
 		})
-		if (activities && activities.length) {
-			return activities[0]
-		} else {
+
+		var activity = null
+		if (activities && activities.length)
+			activity = activities[0].getActivity()
+
+		if (!activity)
 			log("Activity for name", name, "not found")
-			return null
-		}
+
+		return activity
 	}
 
 	createActivity(name): {
@@ -70,7 +73,7 @@ Item {
 		})
 		if (activities && activities.length) {
 			activity = activities[0]
-			return activity.createItem()
+			return activity.createActivity()
 		} else {
 			log("Activity for name", name, "not found")
 			return null

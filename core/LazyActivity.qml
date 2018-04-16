@@ -7,7 +7,7 @@ BaseActivity {
 		anchors.fill: parent.manager;
 	}
 
-	function createItem() {
+	function createActivity() {
 		var item = loader.item
 		if (!item) {
 			loader.source = this.component
@@ -25,25 +25,25 @@ BaseActivity {
 		return loader.item
 	}
 
-	function getItem() {
+	function getActivity() {
 		return loader.item
 	}
 
 	function init() {
 		_globals.controls.core.BaseActivity.prototype.init.apply(this, arguments)
-		var activity = this.createItem()
+		var activity = this.createActivity()
 		if (activity)
 			activity.init.apply(activity, arguments)
 	}
 
 	start: {
-		this.createItem().start()
+		this.createActivity().start()
 		this.visible = true
 	}
 
 	stop: {
 		this.visible = false
-		var item = this.getItem()
+		var item = this.getActivity()
 		if (item)
 			item.stop()
 	}

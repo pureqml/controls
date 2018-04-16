@@ -10,4 +10,8 @@ BaseActivity {
 		this.visible = false
 		this.stopped()
 	}
+
+	function getActivity() {
+		return this
+	}
 }
