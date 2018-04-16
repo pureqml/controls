@@ -1,3 +1,4 @@
+///item for displaying code with syntax highlighting powered by highlight.js
 Item {
 	property int contentWidth;		///< content width
 	property int contentHeight;		///< content height

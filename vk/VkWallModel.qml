@@ -1,7 +1,7 @@
-/// this model wich get data from the 'vkontakte' socail network wall
+/// this model get data from the 'vkontakte' social network wall
 ListModel {
-	signal error;
-	property int ownerId;
+	signal error;			///< any error during requestoccured signal
+	property int ownerId;	///< user ID  of the owner of the wall
 
 	VkApi { id: vkApi; }
 

@@ -1,11 +1,11 @@
-/// this mixin provides mouse hover events handling
+/// this mixin provides mouse hover and click events handling
 Object {
 	property bool enabled: true;				///< enable/disable mixin
 	property bool clickable: true;
 	property bool activeHoverEnabled: false;
 	property bool value;
 	property bool activeHover: false;
-	property string cursor;
+	property string cursor;					///< cursor over the parent item type name
 
 	constructor: {
 		this.element = this.parent.element;
@@ -19,6 +19,7 @@ Object {
 		this.parent.style('cursor', value)
 	}
 
+	///@private
 	function _bindClick(value) {
 		if (value && !this._hmClickBinder) {
 			this._hmClickBinder = new _globals.core.EventBinder(this.element)
@@ -28,7 +29,7 @@ Object {
 			this._hmClickBinder.enable(value)
 	}
 
-
+	///@private
 	function _bindHover(value) {
 		if (value && !this._hmHoverBinder) {
 			this._hmHoverBinder = new _globals.core.EventBinder(this.parent.element)
@@ -39,6 +40,7 @@ Object {
 			this._hmHoverBinder.enable(value)
 	}
 
+	///@private
 	function _bindActiveHover(value) {
 		if (value && !this._hmActiveHoverBinder) {
 			this._hmActiveHoverBinder = new _globals.core.EventBinder(this.parent.element)
