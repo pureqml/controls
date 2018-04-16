@@ -6,7 +6,7 @@ Item {
 	signal started;
 	signal stopped;
 
-	init(intent): { }
+	init(intent, state): { }
 	pop: { this.manager.pop() }
 	push(name, intent, state): { this.manager.push(name, intent, state) }
 	replaceTopActivity(name, intent, state): { this.manager.replaceTopActivity(name, intent, state) }
