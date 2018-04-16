@@ -33,7 +33,7 @@ BaseActivity {
 		_globals.controls.core.BaseActivity.prototype.init.apply(this, arguments)
 		var activity = this.createItem()
 		if (activity)
-			activity.init.apply(this, arguments)
+			activity.init.apply(activity, arguments)
 	}
 
 	start: {
