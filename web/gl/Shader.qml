@@ -5,7 +5,7 @@ Object {
 			return
 		}
 
-		this._gl = gl = this.parent.gl
+		this._gl = this.parent.gl
 	}
 
 	createImpl(sourceCode, type): {
