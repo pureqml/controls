@@ -8,6 +8,9 @@ Object {
 		this._gl = this.parent.gl
 	}
 
+	/**@param {string} sourceCode - shader source code
+	@param {string} type - shader type to create
+	shader creation function implementaion*/
 	createImpl(sourceCode, type): {
 		var gl = this._gl
 		var shader = gl.createShader(type)

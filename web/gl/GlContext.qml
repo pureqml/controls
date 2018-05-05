@@ -1,5 +1,6 @@
+/// Canvas with initialized WebGl indeside
 Canvas {
-	signal drawScene;
+	signal drawScene;	///< triggered on scene rendering with time delta argument
 
 	constructor: {
 		var names = ["webgl", "experimental-webgl", "webkit-3d", "moz-webgl"]
@@ -16,6 +17,7 @@ Canvas {
 		this.gl = gl
 	}
 
+	/// @private
 	render(now): {
 		now *= 0.001
 		var deltaTime = now - this.then
@@ -29,6 +31,7 @@ Canvas {
 		this.gl.viewport(0, 0, this.width, this.height)
 	}
 
+	/// @private
 	onCompleted: {
 		this.then = 0
 		requestAnimationFrame(this.render.bind(this))

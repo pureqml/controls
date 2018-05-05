@@ -1,6 +1,7 @@
+///object for sharing URL in corresponded social network
 Object {
-	property enum socailNetwork { GPlus, Facebook, Vk, Twitter };
-	property string url;
+	property enum socailNetwork { GPlus, Facebook, Vk, Twitter };	///< social network name
+	property string url;	///< URL you want to share
 
 	onSocailNetworkChanged: {
 		switch(value) {
@@ -11,6 +12,7 @@ Object {
 		}
 	}
 
+	///load URL
 	open: {
 		if (!this.url) {
 			log("url is undefined!")
@@ -19,6 +21,7 @@ Object {
 		window.open(this.href + this.url + '%2Fauth%2Flogin')
 	}
 
+	///set location to corresponded URL
 	redirect: {
 		if (!this.url) {
 			log("url is undefined!")
