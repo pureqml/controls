@@ -21,7 +21,7 @@ Rectangle {
 	onHeightChanged: { this.style("height", value ); }
 
 	///@private
-	onTextColorChanged: { this.style('color', _globals.core.normalizeColor(value)); }
+	onTextColorChanged: { this.style('color', _globals.core.Color.normalize(value)); }
 
 	///@private returns tag for corresponding element
 	function getTag() { return 'button' }

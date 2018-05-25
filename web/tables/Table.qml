@@ -5,7 +5,7 @@ TableElement {
 	property Object headerModel: ListModel { }
 	property Color textColor;
 
-	onTextColorChanged: { this.style('color', _globals.core.normalizeColor(value)) }
+	onTextColorChanged: { this.style('color', _globals.core.Color.normalize(value)) }
 
 	TableHeader {
 		model: parent.headerModel;

@@ -11,7 +11,7 @@ SvgBase {
 	function getTag() { return 'path' }
 
 	onColorChanged: {
-		this.element.setAttribute('stroke', _globals.core.normalizeColor(value))
+		this.element.setAttribute('stroke', _globals.core.Color.normalize(value))
 	}
 
 	onFillChanged: {

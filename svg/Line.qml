@@ -12,7 +12,7 @@ SvgBase {
 	/// @internal
 	onColorChanged,
 	onWidthChanged: {
-		this.element.setAttribute('style', 'stroke:' + _globals.core.normalizeColor(this.color) + ';stroke-width:' + this.width +';')
+		this.element.setAttribute('style', 'stroke:' + _globals.core.Color.normalize(this.color) + ';stroke-width:' + this.width +';')
 	}
 
 	onX1Changed: {
