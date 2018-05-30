@@ -27,7 +27,7 @@ BaseView {
 	}
 
 	function _layout(noPrerender) {
-		var model = this.model;
+		var model = this._attached;
 		if (!model)
 			return
 
