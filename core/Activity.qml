@@ -1,12 +1,16 @@
 BaseActivity {
+	property bool handleDisplay;
+
 	start: {
-		this.style('display', 'block')
+		if (this.handleDisplay)
+			this.style('display', 'block')
 		this.visible = true
 		this.started()
 	}
 
 	stop: {
-		this.style('display', 'none')
+		if (this.handleDisplay)
+			this.style('display', 'none')
 		this.visible = false
 		this.stopped()
 	}
