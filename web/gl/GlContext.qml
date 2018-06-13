@@ -32,7 +32,7 @@ Canvas {
 	}
 
 	/// @private
-	onCompleted: {
+	startRender: {
 		this.then = 0
 		requestAnimationFrame(this.render.bind(this))
 	}
