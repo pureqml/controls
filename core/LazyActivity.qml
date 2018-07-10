@@ -1,12 +1,14 @@
+///this activity instanciate only when init method is called
 BaseActivity {
-	property string component;
-	anchors.fill: manager;
+	property string component;	///< path to activity source
+	anchors.fill: manager;		///< activities manager
 
 	Loader {
 		id : loader;
 		anchors.fill: parent.manager;
 	}
 
+	///create activity
 	function createActivity() {
 		var item = loader.item
 		if (!item) {
@@ -25,10 +27,12 @@ BaseActivity {
 		return loader.item
 	}
 
+	///get activity item
 	function getActivity() {
 		return loader.item
 	}
 
+	///Initialize activity
 	function init() {
 		_globals.controls.core.BaseActivity.prototype.init.apply(this, arguments)
 		var activity = this.createActivity()
@@ -36,11 +40,13 @@ BaseActivity {
 			activity.init.apply(activity, arguments)
 	}
 
+	///Start activity lazy way
 	start: {
 		this.createActivity().start()
 		this.visible = true
 	}
 
+	///Stop activity
 	stop: {
 		this.visible = false
 		var item = this.getActivity()
