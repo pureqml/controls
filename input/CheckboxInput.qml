@@ -1,5 +1,6 @@
+/// web browser checkbox
 BaseInput {
-	property bool checked: false;
+	property bool checked: false;	///< checked flag value
 	height: 20;
 	width: 20;
 	type: "checkbox";

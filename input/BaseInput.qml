@@ -61,6 +61,7 @@ Item {
 	/// returns tag for corresponding element
 	function getTag() { return 'input' }
 
+	/// @private
 	function registerStyle(style) {
 		style.addRule('input', "position: absolute; visibility: inherit; border-style: solid; border-width: 0px; box-sizing: border-box;")
 		style.addRule('input:focus', "outline: none;")
@@ -72,10 +73,12 @@ Item {
 		this.style(style)
 	}
 
+	/// focus browser
 	function focusBrowser() {
 		focusTimer.restart()
 	}
 
+	/// blur browser
 	function blurBrowser() {
 		focusTimer.stop()
 		this.element.dom.blur()
@@ -84,10 +87,10 @@ Item {
 	Timer {
 		id: focusTimer;
 		interval: 100;
+
 		onTriggered: {
 			this.parent.element.dom.focus()
 			this.parent.element.dom.select()
 		}
 	}
-
 }
