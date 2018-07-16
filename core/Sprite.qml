@@ -1,7 +1,8 @@
+/// base sprite object
 Image {
-	property int offsetX;
-	property int offsetY;
-	fillMode: Image.Tile;
+	property int offsetX;	///< sprite horizontal offset
+	property int offsetY;	///< sprite vertical offset
+	fillMode: Image.Tile;	///< sprite image filling mode
 
 	onOffsetYChanged,
 	onOffsetXChanged: {

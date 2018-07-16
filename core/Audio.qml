@@ -14,7 +14,7 @@ Item {
 	}
 
 	/// play current audio
-	play: { log("Play audio", this.source); this.element.dom.play() }
+	play: { this.element.dom.play() }
 
 	/// pause current audio
 	pause: { this.element.dom.pause() }

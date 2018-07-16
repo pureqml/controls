@@ -17,5 +17,4 @@ Rectangle {
 
 		Behavior on width { Animation { duration: 300; } }
 	}
-
 }
