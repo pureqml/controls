@@ -15,7 +15,11 @@ PageStack {
 		if (!c)
 			return
 
-		this.contentHeight = c.height;
-		this.contentWidth = c.width;
+		var page = c.getPage();
+		if (!page)
+			return
+
+		this.contentHeight = page.height;
+		this.contentWidth = page.width;
 	}
 }

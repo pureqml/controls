@@ -4,22 +4,26 @@ Item {
 	anchors.fill: manager;
 
 	Loader {
-		id: loader;
+		id: pageLoader;
 		anchors.fill: parent.manager;
 	}
 
 	///create page
 	function createPage() {
-		var item = loader.item
+		var item = pageLoader.item
 		if (!item) {
-			loader.source = this.component
-			item = loader.item
+			pageLoader.source = this.component
+			item = pageLoader.item
 			item.anchors.fill = this
 			this._context._processActions()
 			item.manager = this.manager
 			if (!item)
 				throw new Error("can't create component " + this.component)
 		}
-		return loader.item
+		return pageLoader.item
+	}
+
+	function getPage() {
+		return pageLoader.item
 	}
 }
