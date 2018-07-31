@@ -26,4 +26,10 @@ Item {
 	function getPage() {
 		return pageLoader.item
 	}
+
+	onActiveFocusChanged: {
+		var item = pageLoader.item
+		if (item && value)
+			item.setFocus()
+	}
 }

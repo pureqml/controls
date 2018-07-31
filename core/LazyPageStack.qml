@@ -4,22 +4,27 @@ PageStack {
 		if (this.trace)
 			log('laying out ' + this.count + ' children in ' + this.width + 'x' + this.height)
 
+		var currentLazyPage = this.children[this.currentIndex]
+		if (!currentLazyPage)
+			return
+
+		var page = currentLazyPage.getPage() ? currentLazyPage.getPage() : currentLazyPage.createPage()
+		this._currentPage = page
+
 		for (var i = 0; i < this.count; ++i) {
-			if (i === this.currentIndex) {
-				var activity = this.children[this.currentIndex].createPage()
-				activity.visibleInView = true
+			var currentPage = this.children[i].getPage()
+			if (currentPage) {
+				currentPage.visible  = i === this.currentIndex
+				currentPage.visibleInView  = i === this.currentIndex
 			}
 		}
 
-		var c = this.children[this.currentIndex];
-		if (!c)
-			return
+		this.contentHeight = page ? page.height : 0;
+		this.contentWidth = page ? page.width : 0;
+	}
 
-		var page = c.getPage();
-		if (!page)
-			return
-
-		this.contentHeight = page.height;
-		this.contentWidth = page.width;
+	chooseCurrentPage: {
+		if (this._currentPage)
+			this._currentPage.setFocus()
 	}
 }
