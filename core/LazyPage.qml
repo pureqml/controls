@@ -1,6 +1,7 @@
+/// Page for LazyPageStack
 Item {
-	property string component;
-	property Item manager: parent;
+	property string component;		///< page component path
+	property Item manager: parent;	///< reference to PageStack item
 	anchors.fill: manager;
 
 	Loader {
@@ -23,6 +24,7 @@ Item {
 		return pageLoader.item
 	}
 
+	///get page content item
 	function getPage() {
 		return pageLoader.item
 	}

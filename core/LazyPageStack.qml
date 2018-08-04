@@ -1,4 +1,6 @@
+/// PageStack which pages will be initialized only after opening. Wrap your pages in LazyPage component.
 PageStack {
+	///@private
 	function _layout() {
 		this.count = this.children.length;
 		if (this.trace)
@@ -23,6 +25,7 @@ PageStack {
 		this.contentWidth = page ? page.width : 0;
 	}
 
+	///set focus on current LazyPage content
 	chooseCurrentPage: {
 		if (this._currentPage)
 			this._currentPage.setFocus()
