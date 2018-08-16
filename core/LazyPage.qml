@@ -1,5 +1,6 @@
 /// Page for LazyPageStack
 Item {
+	property string name;			///< page name
 	property string component;		///< page component path
 	property Item manager: parent;	///< reference to PageStack item
 	anchors.fill: manager;
