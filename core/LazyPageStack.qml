@@ -18,8 +18,10 @@ PageStack {
 			this.children[i].element.dom.style.display = (i === this.currentIndex) ? 'block' : 'none';
 			var currentPage = this.children[i].getPage()
 			if (currentPage) {
-				currentPage.visible  = i === this.currentIndex
-				currentPage.visibleInView  = i === this.currentIndex
+				currentPage.visible = i === this.currentIndex
+				currentPage.visibleInView = i === this.currentIndex
+				if (currentPage.init)
+					currentPage.init(currentPage.intent, currentPage.state)
 			}
 		}
 
@@ -46,6 +48,14 @@ PageStack {
 				return i
 		}
 		return -1
+	}
+
+	setState(state): {
+		if (this.count === 0)
+			throw new Error("There is no activity in stack")
+
+		var currentPage = this.children[this.currentIndex].getPage()
+		currentPage.state = state
 	}
 
 	///set focus on current LazyPage content
