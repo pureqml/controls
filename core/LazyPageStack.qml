@@ -20,7 +20,7 @@ PageStack {
 			if (currentPage) {
 				currentPage.visible = i === this.currentIndex
 				currentPage.visibleInView = i === this.currentIndex
-				if (currentPage.init)
+				if (currentPage.visible && currentPage.init)
 					currentPage.init(currentPage.intent, currentPage.state)
 			}
 		}
