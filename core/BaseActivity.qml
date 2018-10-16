@@ -50,6 +50,9 @@ Item {
 	/// Pop current top activity from manager stack
 	pop: { this.manager.pop() }
 
+	/// Pop current top activity from manager stack and send state to the top activity
+	popWithState(state): { this.manager.popWithState(state) }
+
 	///@private
 	onBackPressed: { this.manager.pop(); return true }
 }

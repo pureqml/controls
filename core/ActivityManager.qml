@@ -49,6 +49,17 @@ Item {
 		}
 	}
 
+	popWithState(state): {
+		if ((this.keepLastActivity && this.count > 1) || (!this.keepLastActivity && this.count > 0)) {
+			this._activityStack.pop()
+			--this.count
+			this.setState(state)
+			this.initTopIntent()
+		} else {
+			log("No activity to pop")
+		}
+	}
+
 	findActivity(name): {
 		var activities = this.children.filter(function(element) {
 			return element instanceof _globals.controls.core.BaseActivity && element.name == name
