@@ -38,6 +38,12 @@ Item {
 	setState(state, name): { this.manager.setState(state, name) }
 
 	/**
+	 * Close all activities in manager except activity with corresponded name
+	 * @param {string} name - activity name
+	 */
+	closeAllExcept(name): { this.manager.closeAllExcept(name) }
+
+	/**
 	 * Change activity intent
 	 * @param {object} state - init activity state
 	 * @param {string} name - activity name
