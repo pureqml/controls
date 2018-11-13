@@ -30,7 +30,7 @@ Item {
 
 		if (activity) {
 			this.count = 1
-			this._activityStack = [this._activityStack[activity.index]]
+			this._activityStack = [activity]
 		} else {
 			log("Activity", name, "not found, close all")
 			this.count = 0
