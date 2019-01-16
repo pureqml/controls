@@ -5,7 +5,7 @@ Text {
 	verticalAlignment: Text.AlignVCenter;
 	horizontalAlignment: Text.AlignHCenter;
 
-	constructor: { parent.setPropertyForwardingTarget('text', 'text') }
+	prototypeConstructor: { TextMixinPrototype.defaultProperty = 'text' }
 
 	function _createElement(tag) {
 		this.element = this.parent.element;
