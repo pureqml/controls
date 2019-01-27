@@ -39,10 +39,20 @@ Item {
 		this.initTopIntent()
 	}
 
-	pop: {
+	pop(count): {
 		if ((this.keepLastActivity && this.count > 1) || (!this.keepLastActivity && this.count > 0)) {
-			this._activityStack.pop()
-			--this.count
+			var popActivitiesCount = 1
+			if (count === undefined)
+				popActivitiesCount = 1
+			else if (count > this.count - 1 && this.keepLastActivity)
+				popActivitiesCount = this.count - 1
+			else if (count > this.count && !this.keepLastActivity)
+				popActivitiesCount = this.count
+			else
+				popActivitiesCount = count
+
+			this._activityStack.splice(-popActivitiesCount, popActivitiesCount)
+			this.count -= popActivitiesCount
 			this.initTopIntent()
 		} else {
 			log("No activity to pop")

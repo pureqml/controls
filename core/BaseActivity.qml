@@ -54,7 +54,7 @@ Item {
 	clear: { this.manager.clear() }
 
 	/// Pop current top activity from manager stack
-	pop: { this.manager.pop() }
+	pop(count): { this.manager.pop(count) }
 
 	/// Pop current top activity from manager stack and send state to the top activity
 	popWithState(state): { this.manager.popWithState(state) }
