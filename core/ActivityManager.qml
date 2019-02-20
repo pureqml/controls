@@ -36,7 +36,8 @@ Item {
 			this.count = 0
 			this._activityStack = []
 		}
-		this.initTopIntent()
+		if (this.currentActivity != name)
+			this.initTopIntent()
 	}
 
 	pop(count): {
