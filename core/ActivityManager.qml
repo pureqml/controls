@@ -124,7 +124,7 @@ Item {
 
 	isActivityInStack(name): {
 		var activities = this._activityStack.filter(function(element) {
-			return element instanceof _globals.controls.core.BaseActivity && element.name == name
+			return element.name == name
 		})
 		return activities && activities.length > 0
 	}
