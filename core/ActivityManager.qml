@@ -60,6 +60,21 @@ Item {
 		}
 	}
 
+	removeActivity(name): {
+		if (name == this.currentActivity) {
+			this.pop()
+		} else {
+			var index = this._activityStack.findIndex(function(element) {
+				return element.name == name
+			})
+			if (index < 0) {
+				log("Activity", name, "not found")
+				return
+			}
+			this._activityStack.splice(index, 1)
+		}
+	}
+
 	popWithState(state): {
 		if ((this.keepLastActivity && this.count > 1) || (!this.keepLastActivity && this.count > 0)) {
 			this._activityStack.pop()
