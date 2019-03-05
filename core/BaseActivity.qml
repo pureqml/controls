@@ -44,6 +44,12 @@ Item {
 	closeAllExcept(name): { this.manager.closeAllExcept(name) }
 
 	/**
+	 * Remove activity from stack by its name
+	 * @param {string} name - activity name
+	 */
+	removeActivity(name): { this.manager.removeActivity(name) }
+
+	/**
 	 * Change activity intent
 	 * @param {object} state - init activity state
 	 * @param {string} name - activity name
