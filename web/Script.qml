@@ -7,7 +7,7 @@ Item {
 
 	/// @private
 	function _delayedLoad() {
-		this._context.delayedAction('script:load', this, this.load())
+		this._context.delayedAction('script:load', this, this.load)
 	}
 
 	function load() {
