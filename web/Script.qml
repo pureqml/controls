@@ -1,16 +1,17 @@
 Item {
 	property string source; ///< source to load script from
 
-	signal loaded; ///< signal emitted when script loaded
+	property bool loaded; ///< script was loaded
 
 	constructor: {
 		this.element.dom.setAttribute('type', 'text/javascript')
-		this._onLoad = this._context.wrapNativeCallback(this.loaded.bind(this))
+		this._onLoad = this._context.wrapNativeCallback(function() { this.loaded = true }.bind(this))
 		this.element.dom.addEventListener('load', this._onLoad)
 	}
 
 	///@private
 	function discard() {
+		this.loaded = false;
 		this.removeEventListener('load', this._onLoad)
 		_globals.core.Item.prototype.discard.call(this)
 	}
@@ -21,6 +22,7 @@ Item {
 	}
 
 	function load() {
+		this.loaded = false
 		var source = this.source
 		if (!source)
 			return
