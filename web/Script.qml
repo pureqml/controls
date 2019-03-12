@@ -5,12 +5,23 @@ Item {
 
 	constructor: {
 		this.element.dom.setAttribute('type', 'text/javascript')
-		this._onLoad = this._context.wrapNativeCallback(this.loaded.bind(this))
+		this._onLoad = this._context.wrapNativeCallback(function() {
+			this._loaded = true
+			this.loaded.bind(this)
+		}.bind(this))
+		this._loaded = false
 		this.element.dom.addEventListener('load', this._onLoad)
+	}
+
+	function on (name, callback) {
+		_globals.core.Item.prototype.on.call(this, name, callback)
+		if (this._loaded && name === 'loaded')
+			callback()
 	}
 
 	///@private
 	function discard() {
+		this._loaded = false
 		this.removeEventListener('load', this._onLoad)
 		_globals.core.Item.prototype.discard.call(this)
 	}
@@ -21,6 +32,7 @@ Item {
 	}
 
 	function load() {
+		this._loaded = false
 		var source = this.source
 		if (!source)
 			return
