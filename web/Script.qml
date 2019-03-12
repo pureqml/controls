@@ -5,7 +5,7 @@ Item {
 
 	constructor: {
 		this.element.dom.setAttribute('type', 'text/javascript')
-		this._onLoad = this.loaded.bind(this)
+		this._onLoad = this._context.wrapNativeCallback(this.loaded.bind(this))
 		this.element.dom.addEventListener('load', this._onLoad)
 	}
 
