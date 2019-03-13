@@ -1,8 +1,10 @@
 ///base activity control
 Item {
+	property bool active;			///< active at the moment
 	property string name;			///< activity name
 	property Item manager: parent;	///< activities manager
-	visible: false;					///< @private
+
+	visible: active;
 
 	signal started;		///< activity started signal
 	signal stopped;		///< activity stopped signal

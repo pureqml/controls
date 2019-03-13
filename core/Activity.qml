@@ -2,13 +2,13 @@
 BaseActivity {
 	///start activity
 	start: {
-		this.visible = true
+		this.active = true
 		this.started()
 	}
 
 	///stop activity
 	stop: {
-		this.visible = false
+		this.active = false
 		this.stopped()
 	}
 
