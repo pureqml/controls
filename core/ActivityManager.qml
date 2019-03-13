@@ -64,9 +64,13 @@ Item {
 		if (name == this.currentActivity) {
 			this.pop()
 		} else {
-			var index = this._activityStack.findIndex(function(element) {
-				return element.name == name
-			})
+			var index = -1
+			for (var i = 0; i < this._activityStack.length; ++i) {
+				if (this._activityStack[i].name == name) {
+					index = i
+					break
+				}
+			}
 			if (index < 0) {
 				log("Activity", name, "not found")
 				return
