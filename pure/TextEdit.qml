@@ -1,6 +1,6 @@
 Rectangle {
 	id: textEditProto;
-	property Paddings paddings: Paddings {}
+	property lazy paddings: Paddings {}
 	property string placeholder;
 	property alias horizontalAlignment: innerText.horizontalAlignment;
 	property alias backgroundColor: color;

@@ -1,7 +1,7 @@
 ///base class for all inputs
 Item {
 	property enum horizontalAlignment { AlignLeft, AlignRight, AlignHCenter, Justify };	///< inner text alignment
-	property Paddings paddings: Paddings {}		///< inner text paddings
+	property lazy paddings: Paddings {}		///< inner text paddings
 	property Color color: "#000";				///< text color
 	property Color backgroundColor: "#fff";		///< background color
 	property Font font: Font {}					///< object holding properties of text font
