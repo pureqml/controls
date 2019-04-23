@@ -34,6 +34,7 @@ Rectangle {
 	///@private
 	function _updateSize() {
 		this.style({ width: 'auto', height: 'auto'}) //no need to reset it to width, it's already there
+		this.element.updateStyle()
 
 		this.paintedWidth = this.element.dom.scrollWidth
 		this.paintedHeight = this.element.dom.scrollHeight
