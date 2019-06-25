@@ -159,6 +159,15 @@ Item {
 	}
 
 	initTopIntent: {
+		try {
+			this._initTopIntent()
+		} catch(ex) {
+			log('initTopIntent failed:', ex)
+			this.pop()
+		}
+	}
+
+	_initTopIntent: {
 		if (!this._activityStack.length) {
 			log("Activity stack is empty")
 			return
