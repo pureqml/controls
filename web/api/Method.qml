@@ -13,7 +13,7 @@ Object {
 		var callback 	= args[nargs + 0]
 		var error 		= args[nargs + 1]
 
-		api.call(this.path, callback, error, this.type, data, this.headers()) //fixme: add headers
+		api.call(this.path, callback, error, this.type, data, this.headers())
 	}
 
 	function headers() {
