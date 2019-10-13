@@ -23,9 +23,7 @@ Object {
 	function args() {
 	}
 
-	onTypeChanged,
-	onNameChanged,
-	onPathChanged: {
+	onNameChanged: {
 		this.parent._registerMethod(this.name, this)
 	}
 }
