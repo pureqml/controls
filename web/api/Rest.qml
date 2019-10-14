@@ -21,7 +21,6 @@ Object {
 	}
 
 	function headers(headers) {
-		return headers
 	}
 
 	function _call(name, callback, error, method, data, head) {
@@ -32,7 +31,9 @@ Object {
 			headers["Content-Type"] = "application/json"
 		}
 
-		headers = this.headers(headers)
+		var newHeaders = this.headers(headers)
+		if (newHeaders !== undefined)
+			headers = newHeaders
 
 		var url = name
 		var self = this
