@@ -49,8 +49,7 @@ Object {
 					log("Error in request", res)
 					if (error)
 						error(res)
-					else
-						self.error({"url": url, "method": method, "response": res})
+					self.error({"url": url, "method": method, "response": res})
 					return
 				}
 
@@ -70,8 +69,7 @@ Object {
 			error: function(res) {
 				if (error)
 					error(res)
-				else
-					self.error({"url": url, "method": method, "response": res})
+				self.error({"url": url, "method": method, "response": res})
 			}
 		})
 	}
