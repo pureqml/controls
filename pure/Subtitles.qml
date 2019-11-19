@@ -39,6 +39,8 @@ Resource {
 		var endTime = 0
 		var blockNumber = 0
 		var text = ""
+		if (!value)
+			return
 		for (var i in lines) {
 			var line = lines[i].trim()
 			if (line == "") {
