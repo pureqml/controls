@@ -7,6 +7,7 @@ Object {
 		var nargs = this.args.length
 		if (args.length < nargs + 2)
 			throw new Error("not enough arguments for method " + this.name)
+		nargs = args.length - 2
 
 		var argsargs 	= Array.prototype.slice.call(args, 0, nargs)
 		var data 		= this.args.apply(this, argsargs)
