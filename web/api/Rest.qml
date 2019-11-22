@@ -75,8 +75,13 @@ Object {
 	}
 
 	function call(name, callback, error, method, data, head) {
-		if (name.indexOf('://') < 0)
-			name = this.baseUrl + name
+		if (name.indexOf('://') < 0) {
+			var baseUrl = this.baseUrl
+			if (baseUrl[baseUrl.length - 1] === '/')
+				name = baseUrl + name
+			else
+				name = baseUrl + '/' + name
+		}
 		this._call(name, callback, error, method, JSON.stringify(data), head)
 	}
 
