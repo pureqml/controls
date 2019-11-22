@@ -17,14 +17,26 @@ Object {
 		var newHeaders  = this.headers(headers)
 		if (newHeaders !== undefined)
 			headers = newHeaders
+		var path = this.pathArgs(this.path, argsargs)
 
-		api.call(this.path, callback, error, this.type, data, headers)
+		api.call(path, callback, error, this.type, data, headers)
 	}
 
 	function headers(headers) {
 	}
 
 	function args() {
+	}
+
+	function pathArgs(path, args) {
+		var path = this.path
+		var re = /\{(\w+)\}/g
+		var index = 0
+		path = path.replace(re, function(m) {
+			return (index < args.length)? args[index++]: ''
+		})
+
+		return path
 	}
 
 	onNameChanged: {
