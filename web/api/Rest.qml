@@ -77,7 +77,7 @@ Object {
 	function call(name, callback, error, method, data, head) {
 		if (name.indexOf('://') < 0) {
 			var baseUrl = this.baseUrl
-			if (baseUrl[baseUrl.length - 1] === '/')
+			if (baseUrl[baseUrl.length - 1] === '/' || name[0] === '/')
 				name = baseUrl + name
 			else
 				name = baseUrl + '/' + name
