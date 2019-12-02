@@ -22,5 +22,7 @@ Rectangle {
 		var target = this.target
 		this.connectOnChanged(target, this.updatePositionProperty, this._updatePos.bind(this))
 		this.connectOnChanged(target, "count", this._updatePos.bind(this))
+		this.connectOnChanged(target, "activeFocus", this._updatePos.bind(this))
+		this._updatePos()
 	}
 }
