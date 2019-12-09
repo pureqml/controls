@@ -1,10 +1,11 @@
 Rectangle {
-	property Object target;
-	property string updatePositionProperty: "currentIndex";
+	property Object target;	///< target view for highlighter
+	property string updatePositionProperty: "currentIndex";	///< which property must changed to update highlighter position
 	width: 100;
 	height: 100;
 	color: "#fff";
 
+	///@private
 	function _updatePos() {
 		var target = this.target
 		var item = target.getItemPosition(target[this.updatePositionProperty])
