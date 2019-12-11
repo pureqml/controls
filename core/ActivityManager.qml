@@ -1,14 +1,18 @@
 //@using { controls.core.Activity }
 //@using { controls.core.LazyActivity }
 Item {
-	property int count;
-	property bool keepLastActivity: true;
-	property string currentActivity;
+	property int count;						///< activities count
+	property bool keepLastActivity: true;	///< allow to keep last activity on screen or not
+	property string currentActivity;		///< current active activity name
 
 	constructor: {
 		this._activityStack = []
 	}
 
+	/**@param name:string activity name to replace
+	@param intent:Object activity initial data object
+	@param state:Object activity initial state object
+	replace current top activity with new one*/
 	replaceTopActivity(name, intent, state): {
 		if (this.count > 0) {
 			this._activityStack.pop()
@@ -19,12 +23,18 @@ Item {
 		}
 	}
 
+	/**@param name:string activity name to push
+	@param intent:Object activity initial data object
+	@param state:Object activity initial state object
+	push new activity to the top*/
 	push(name, intent, state): {
 		this._activityStack.push({ "name": name, "intent": intent, "state": state })
 		this.count++
 		this.initTopIntent()
 	}
 
+	/**@param name:string activity name that must stay
+	close all activities in stack except 'name' activity*/
 	closeAllExcept(name): {
 		var activity = this.findActivity(name)
 
@@ -40,6 +50,8 @@ Item {
 			this.initTopIntent()
 	}
 
+	/**@param count:int activities count to pop from stack
+	pop top 'count' activities from the stack top*/
 	pop(count): {
 		if ((this.keepLastActivity && this.count > 1) || (!this.keepLastActivity && this.count > 0)) {
 			var popActivitiesCount = 1
@@ -60,6 +72,8 @@ Item {
 		}
 	}
 
+	/**@param name:string activity name to be removed from stack
+	remove 'name' activity from stack*/
 	removeActivity(name): {
 		if (name == this.currentActivity) {
 			this.pop()
@@ -79,6 +93,8 @@ Item {
 		}
 	}
 
+	/**@param state:Object activity initial state object
+	pop top activity and send 'state' to the next activity*/
 	popWithState(state): {
 		if ((this.keepLastActivity && this.count > 1) || (!this.keepLastActivity && this.count > 0)) {
 			this._activityStack.pop()
@@ -90,6 +106,8 @@ Item {
 		}
 	}
 
+	/**@param name:string activity name to find
+	find 'name' activity in stack*/
 	findActivity(name): {
 		var activities = this.children.filter(function(element) {
 			return element instanceof _globals.controls.core.BaseActivity && element.name == name
@@ -105,6 +123,7 @@ Item {
 		return activity
 	}
 
+	///@private
 	createActivity(name): {
 		var activity = this.findActivity(name)
 		if (activity)
@@ -121,6 +140,9 @@ Item {
 		}
 	}
 
+	/**@param state:Object new state for corresponded activity
+	@param name:string activity that state will be changed
+	set state of 'name' activity*/
 	setState(state, name): {
 		if (!name) {
 			this._activityStack[this._activityStack.length - 1].state = state
@@ -131,6 +153,9 @@ Item {
 		}
 	}
 
+	/**@param intent:Object new intent for corresponded activity
+	@param name:string activity that state will be changed
+	set intent of 'name' activity*/
 	setIntent(intent, name): {
 		if (!name) {
 			this._activityStack[this._activityStack.length - 1].intent = intent
@@ -141,6 +166,8 @@ Item {
 		}
 	}
 
+	/**@param name:string activity that state will be changed
+	check is 'name' activity in stack or not*/
 	isActivityInStack(name): {
 		var activities = this._activityStack.filter(function(element) {
 			return element.name == name
@@ -148,6 +175,7 @@ Item {
 		return activities && activities.length > 0
 	}
 
+	///clear activities stack
 	clear: {
 		var children = this.children
 		for (var i = 0; i < children.length; ++i) {
@@ -158,6 +186,7 @@ Item {
 		this._activityStack = []
 	}
 
+	///@private
 	initTopIntent: {
 		try {
 			this._initTopIntent()
@@ -167,6 +196,7 @@ Item {
 		}
 	}
 
+	///@private
 	_initTopIntent: {
 		if (!this._activityStack.length) {
 			log("Activity stack is empty")
