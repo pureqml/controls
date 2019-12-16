@@ -1,6 +1,6 @@
 Resource {
-	property real progress;
-	property string text;
+	property real progress;		///< bind player progress with this property
+	property string text;		///< current subttile text will be changed on corresponded time
 
 	onProgressChanged: {
 		var blocks = this._textBlocks
@@ -26,6 +26,7 @@ Resource {
 			this.text = ""
 	}
 
+	///turn subtitles off
 	turnOff: {
 		this._textBlocks = null
 		this.text = ""
@@ -71,6 +72,7 @@ Resource {
 		this._textBlocks = textBlocks
 	}
 
+	///@private
 	getTimeDuration(str): {
 		var parts = str.split(":")
 		var res = 0
