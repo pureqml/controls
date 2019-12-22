@@ -12,8 +12,10 @@ Rectangle {
 		var horizontal = target.orientation ===  _globals.core.ListView.prototype.Horizontal
 		if (horizontal) {
 			this.x = target.x + item[0]
+			this.y = target.y
 			this.width = item[2]
 		} else {
+			this.x = target.x
 			this.y = target.y + item[1]
 			this.height = item[3]
 		}
