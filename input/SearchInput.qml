@@ -5,9 +5,11 @@ BaseInput {
 	height: 25;		///<@private
 	type: "search";	///<@private
 
-	onTextChanged: { if (value != this.element.dom.value) this.element.dom.value = value }
+	onTextChanged: { this._updateValue(value) }
 
 	constructor: {
-		this.element.on("input", function() { this.text = this.element.dom.value }.bind(this))
+		this.element.on("input", function() {
+			this.text = this._getValue()
+		}.bind(this))
 	}
 }

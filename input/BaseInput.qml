@@ -84,6 +84,22 @@ Item {
 		this.element.blur()
 	}
 
+	/// gets element native value
+	function _getValue() {
+		return this.element.getAttribute('value')
+	}
+
+	/// sets element native value
+	function _setValue(value) {
+		this.element.setAttribute('value', value)
+	}
+
+	/// @private
+	function _updateValue(value) {
+		if (value !== this._getValue())
+			this._setValue(value)
+	}
+
 	Timer {
 		id: focusTimer;
 		interval: 100;

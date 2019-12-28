@@ -7,8 +7,12 @@ BaseInput {
 	height: 20;
 	type: "time";
 
-	onMinChanged: { this.element.dom.min = value; }
-	onMaxChanged: { this.element.dom.max = value; }
+	onMinChanged: { this.element.setAttribute('min', value) }
+	onMaxChanged: { this.element.setAttribute('max', value) }
 
-	constructor: { this.element.on("change", function() { this.value = this.element.dom.value }.bind(this)) }
+	constructor: {
+		this.element.on("change", function() {
+			this.value = this._getValue()
+		}.bind(this))
+	}
 }

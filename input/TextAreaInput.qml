@@ -3,7 +3,9 @@ BaseInput {
 	width: 150;
 	height: 100;
 
-	onTextChanged: { if (value != this.element.dom.value) this.element.dom.value = value; }
+	onTextChanged: {
+		this._updateValue(value)
+	}
 
 	/// returns tag for corresponding element
 	function getTag() { return 'textarea' }
@@ -14,6 +16,8 @@ BaseInput {
 	}
 
 	constructor: {
-		this.element.on("input", function() { this.text = this.element.dom.value }.bind(this))
+		this.element.on("input", function() {
+			this.text = this._getValue()
+		}.bind(this))
 	}
 }

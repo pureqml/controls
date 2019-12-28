@@ -2,8 +2,8 @@ WebItem {
 	property string href;
 	property string target;
 
-	onHrefChanged: { this.element.dom.setAttribute('href', value); }
-	onTargetChanged: { this.element.dom.setAttribute('target', value); }
+	onHrefChanged: { this.element.setAttribute('href', value); }
+	onTargetChanged: { this.element.setAttribute('target', value); }
 
 	function getTag() { return 'a' }
 

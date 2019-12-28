@@ -5,8 +5,7 @@ BaseInput {
 	type: "color";
 
 	onColorChanged: {
-		if (value != this.element.dom.value)
-			this.element.dom.value = value;
+		this._updateValue(value)
 	}
 
 	constructor: {

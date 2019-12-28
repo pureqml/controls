@@ -4,7 +4,7 @@ Item {
 	signal loaded; ///< signal emitted when script loaded
 
 	constructor: {
-		this.element.dom.setAttribute('type', 'text/javascript')
+		this.element.setAttribute('type', 'text/javascript')
 		this._onLoad = this._context.wrapNativeCallback(function() {
 			this._loaded = true
 			this.loaded.bind(this)
@@ -39,7 +39,7 @@ Item {
 
 		log('loading script from ' + source)
 
-		this.element.dom.setAttribute('src', source)
+		this.element.setAttribute('src', source)
 	}
 
 	onSourceChanged:	{ this._delayedLoad() }
