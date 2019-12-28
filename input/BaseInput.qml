@@ -36,7 +36,7 @@ Item {
 	onHeightChanged: { this._updateSize() }
 
 	/// @private
-	onTypeChanged: { this.element.dom.type = value }
+	onTypeChanged: { this.element.setAttribute('type', value) }
 
 	/// @private
 	onColorChanged: { this.style('color', value) }
@@ -55,7 +55,7 @@ Item {
 	}
 
 	onEnabledChanged: {
-		this.element.dom.disabled = !value
+		this.element.setAttribute('disabled', !value)
 	}
 
 	/// returns tag for corresponding element
@@ -81,7 +81,7 @@ Item {
 	/// blur browser
 	function blurBrowser() {
 		focusTimer.stop()
-		this.element.dom.blur()
+		this.element.blur()
 	}
 
 	Timer {
@@ -89,8 +89,7 @@ Item {
 		interval: 100;
 
 		onTriggered: {
-			this.parent.element.dom.focus()
-			this.parent.element.dom.select()
+			this.parent.element.focus()
 		}
 	}
 }
