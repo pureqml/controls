@@ -2,6 +2,8 @@
 ListModel {
 	signal error;			///< any error during requestoccured signal
 	property int ownerId;	///< user ID  of the owner of the wall
+	property string version: 5.00;	///< VK api version
+	property string accessToken;	///< VK API access token
 
 	VkApi { id: vkApi; }
 
@@ -30,6 +32,8 @@ ListModel {
 		var settings = {
 			extended: 1,
 			count: 100,
+			access_token: this.accessToken,
+			v: this.version,
 			owner_id: this.ownerId
 		}
 		vkApi.wallGet(this._fillImpl.bind(this), settings)

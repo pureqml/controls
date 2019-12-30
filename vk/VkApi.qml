@@ -33,7 +33,7 @@ Object {
 				} catch (e) {
 				  window[callbackName] = undefined;
 				}
-				
+
 				document.body.removeChild(script);
 				callbackFunc(data);
 			};
