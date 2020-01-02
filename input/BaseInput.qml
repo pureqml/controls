@@ -6,7 +6,7 @@ Item {
 	property Color backgroundColor: "#fff";		///< background color
 	property Font font: Font {}					///< object holding properties of text font
 	property Border border: Border {}			///< object holding properties of the border
-	property string type: "text";				///< input type value, must overrie in inheritor
+	property string type: "text";				///< input type value, must override in inheriting component
 	property PlaceHolder placeholder: PlaceHolder{}	///< input placeholder object
 	property bool enabled: true;				///< input enabled
 
