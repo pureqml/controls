@@ -9,7 +9,8 @@ Item {
 	property string type: "text";				///< input type value, must override in inheriting component
 	property PlaceHolder placeholder: PlaceHolder{}	///< input placeholder object
 	property bool enabled: true;				///< input enabled
-	property string inputMode;					///< inputtype
+	property string inputMode;					///< inputmode attribute, numeric keyboard, etc
+	property string autocomplete;				///< autocomplete variants (username, current-password, etc)
 
 	/// @private
 	constructor: {
@@ -57,6 +58,10 @@ Item {
 
 	onEnabledChanged: {
 		this.element.setAttribute('disabled', !value)
+	}
+
+	onAutocompleteChanged: {
+		this.element.setAttribute('autocomplete', value)
 	}
 
 	/// returns tag for corresponding element
