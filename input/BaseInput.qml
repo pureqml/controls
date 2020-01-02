@@ -9,6 +9,7 @@ Item {
 	property string type: "text";				///< input type value, must override in inheriting component
 	property PlaceHolder placeholder: PlaceHolder{}	///< input placeholder object
 	property bool enabled: true;				///< input enabled
+	property string inputMode;					///< inputtype
 
 	/// @private
 	constructor: {
@@ -98,6 +99,10 @@ Item {
 	function _updateValue(value) {
 		if (value !== this._getValue())
 			this._setValue(value)
+	}
+
+	onInputModeChanged: {
+		this.element.setAttribute('inputmode', value)
 	}
 
 	Timer {
