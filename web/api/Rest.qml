@@ -11,7 +11,7 @@ Object {
 	}
 
 	onError(url, method, response): {
-		if (!window.navigator.onLine || response && response.target && response.target.status === 0 && response.target.response === "") {
+		if ((typeof window !== 'undefined' && !window.navigator.onLine) || response && response.target && response.target.status === 0 && response.target.response === "") {
 			this.internetConnectionLost({ "url": url, "method": method, "response": response })
 		}
 	}
