@@ -18,8 +18,10 @@ Item {
 			this._activityStack.pop()
 			this._activityStack.push({ "name": name, "intent": intent, "state": state })
 			this.initTopIntent()
+			return true
 		} else {
 			log("No activity to pop")
+			return false
 		}
 	}
 
@@ -67,8 +69,10 @@ Item {
 			this._activityStack.splice(-popActivitiesCount, popActivitiesCount)
 			this.count -= popActivitiesCount
 			this.initTopIntent()
+			return true
 		} else {
 			log("No activity to pop")
+			return false
 		}
 	}
 
@@ -101,8 +105,10 @@ Item {
 			--this.count
 			this.setState(state)
 			this.initTopIntent()
+			return true
 		} else {
 			log("No activity to pop")
+			return false
 		}
 	}
 
