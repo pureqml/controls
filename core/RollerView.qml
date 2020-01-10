@@ -1,14 +1,16 @@
 BaseView {
 	property enum orientation { Vertical, Horizontal }: Horizontal; //vertical was not widely tested
+	content.cssDelegateAlwaysVisibleOnAcceleratedSurfaces: false;
 
 	constructor: {
 		this._oldIndex = 0
 		this._nextDelta = 0
 	}
 
+	/// @private
 	function positionViewAtIndex(idx) { }
-	content.cssDelegateAlwaysVisibleOnAcceleratedSurfaces: false;
 
+	/// @private
 	function _getCurrentIndex(adj) {
 		var n = this._items.length
 		if (adj === undefined)
@@ -26,6 +28,7 @@ BaseView {
 		return item
 	}
 
+	/// @private
 	function _layout(noPrerender) {
 		var model = this._attached;
 		if (!model)
@@ -201,12 +204,14 @@ BaseView {
 		this._context.scheduleComplete()
 	}
 
+	/// @private
 	function next() {
 		var n = this._items.length
 		if (n > 1)
 			this.currentIndex = this._getCurrentIndex(1)
 	}
 
+	/// @private
 	function prev() {
 		var n = this._items.length
 		if (n > 1)
@@ -237,6 +242,7 @@ BaseView {
 		}
 	}
 
+	/// @private
 	function _setContentOffset(offset) {
 		this._layout = this._scheduleLayout = function() { } //I LOVE JS
 		if (this.orientation === this.Horizontal)
@@ -247,6 +253,7 @@ BaseView {
 		delete this._scheduleLayout
 	}
 
+	/// @private
 	function _scroll(currentIndex, oldIndex, delta) {
 		var prevItem = this._items[oldIndex]
 		var item = this._items[currentIndex]

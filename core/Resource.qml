@@ -4,6 +4,7 @@ Request {
 	property string data;	///<uploaded from URL data
 	signal error;			///<error signal
 
+	/// @private
 	function load(url) {
 		if (url) {
 			var self = this
