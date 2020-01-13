@@ -17,13 +17,13 @@ Item {
 	}
 
 	/// @private
-	onMinChanged: { this.element.setAttribute('min', value) }
+	onMinChanged: { this.element.setProperty('min', value) }
 
 	/// @private
-	onMaxChanged: { this.element.setAttribute('max', value) }
+	onMaxChanged: { this.element.setProperty('max', value) }
 
 	/// @private
-	onStepChanged: { this.element.setAttribute('step', value) }
+	onStepChanged: { this.element.setProperty('step', value) }
 
 	/// @private
 	onOrientationChanged: {

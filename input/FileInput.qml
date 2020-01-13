@@ -6,7 +6,7 @@ BaseInput {
 	height: 30;
 	type: "file";
 
-	onFilterChanged: { this.element.setAttribute('accept', value) }
+	onFilterChanged: { this.element.setProperty('accept', value) }
 
 	constructor: {
 		var self = this

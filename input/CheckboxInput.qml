@@ -6,12 +6,12 @@ BaseInput {
 	type: "checkbox";
 
 	onCheckedChanged: {
-		this.element.setAttribute('checked', value)
+		this.element.setProperty('checked', value)
 	}
 
 	constructor: {
 		this.element.on("change", function() {
-			this.checked = this.element.getAttribute('checked')
+			this.checked = this.element.getProperty('checked')
 		}.bind(this))
 	}
 }

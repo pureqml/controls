@@ -9,9 +9,9 @@ BaseInput {
 	height: 25;
 	type: "number";
 
-	onMinChanged: { this.element.setAttribute('min', value) }
-	onMaxChanged: { this.element.setAttribute('max', value) }
-	onStepChanged: { this.element.setAttribute('step', value) }
+	onMinChanged: { this.element.setProperty('min', value) }
+	onMaxChanged: { this.element.setProperty('max', value) }
+	onStepChanged: { this.element.setProperty('step', value) }
 	onValueChanged: { this._setValue(value) }
 
 	constructor: {

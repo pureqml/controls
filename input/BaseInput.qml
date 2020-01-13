@@ -92,12 +92,12 @@ Item {
 
 	/// gets element native value
 	function _getValue() {
-		return this.element.getAttribute('value')
+		return this.element.getProperty('value')
 	}
 
 	/// sets element native value
 	function _setValue(value) {
-		this.element.setAttribute('value', value)
+		this.element.setProperty('value', value)
 	}
 
 	/// @private
