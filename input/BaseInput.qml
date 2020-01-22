@@ -16,7 +16,7 @@ Item {
 	constructor: {
 		this._placeholderClass = ''
 		this.element.on("focus", function() { this.forceActiveFocus(); }.bind(this))
-		this.element.on("blur", function() { this.forceActiveFocus(); }.bind(this))
+		this.element.on("blur", function() { /* fixme: remove focus from current input */ }.bind(this))
 	}
 
 	/// @private
