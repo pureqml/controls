@@ -11,12 +11,14 @@ Item {
 	property bool enabled: true;				///< input enabled
 	property string inputMode;					///< inputmode attribute, numeric keyboard, etc
 	property string autocomplete;				///< autocomplete variants (username, current-password, etc)
+	signal change; 								///< emit signal when input loses focus or IME closes
 
 	/// @private
 	constructor: {
 		this._placeholderClass = ''
 		this.element.on("focus", function() { this.forceActiveFocus(); }.bind(this))
 		this.element.on("blur", function() { /* fixme: remove focus from current input */ }.bind(this))
+		this.element.on("change", function() { this.change() }.bind(this))
 	}
 
 	/// @private
