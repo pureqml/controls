@@ -10,7 +10,7 @@ Item {
 	/// @private
 	constructor: {
 		this.element.setAttribute('type', 'range')
-		this.element._setValue(0)
+		this._setValue(0)
 		this.element.on("input", function() {
 			this.value = this._getValue()
 		}.bind(this))
@@ -41,4 +41,15 @@ Item {
 
 	/// returns tag for corresponding element
 	function getTag() { return 'input' }
+
+	/// gets element native value
+	function _getValue() {
+		return this.element.getProperty('value')
+	}
+
+	/// sets element native value
+	function _setValue(value) {
+		this.element.setProperty('value', value)
+	}
+
 }
