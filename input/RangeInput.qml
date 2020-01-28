@@ -51,5 +51,4 @@ Item {
 	function _setValue(value) {
 		this.element.setProperty('value', value)
 	}
-
 }
