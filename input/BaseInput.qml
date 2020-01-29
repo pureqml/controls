@@ -9,6 +9,7 @@ Item {
 	property string type: "text";				///< input type value, must override in inheriting component
 	property PlaceHolder placeholder: PlaceHolder{}	///< input placeholder object
 	property bool enabled: true;				///< input enabled
+	property bool nativeFocus: manifest.useNativeFocusForInput; ///< use native focus for input (may trigger IME)
 	property string inputMode;					///< inputmode attribute, numeric keyboard, etc
 	property string autocomplete;				///< autocomplete variants (username, current-password, etc)
 	signal change; 								///< emit signal when input loses focus or IME closes
@@ -83,11 +84,17 @@ Item {
 
 	/// focus browser
 	function focusBrowser() {
+		if (!this.nativeFocus)
+			return
+
 		focusTimer.restart()
 	}
 
 	/// blur browser
 	function blurBrowser() {
+		if (!this.nativeFocus)
+			return
+
 		focusTimer.stop()
 		this.element.blur()
 	}
