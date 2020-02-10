@@ -16,7 +16,7 @@ BaseMixin {
 	onValueChanged: { this._updateValue() }
 
 	constructor: {
-		this._prefixedName = window.Modernizr.prefixedCSS('user-select')
+		this._prefixedName = (typeof window !== 'undefined')? window.Modernizr.prefixedCSS('user-select'): 'user-select'
 		this._updateValue()
 	}
 }

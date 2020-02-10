@@ -14,11 +14,8 @@ BaseMixin {
 	function _bindTouch(value) {
 		if (value && !this._touchBinder) {
 			this._touchBinder = new _globals.core.EventBinder(this.parent.element)
-
-			if ('ontouchstart' in window)
-				this._touchBinder.on('touchstart', function(event) { this.touchStart(event) }.bind(this))
-			if ('ontouchmove' in window)
-				this._touchBinder.on('touchmove', function(event) { this.touchMove(event) }.bind(this))
+			this._touchBinder.on('touchstart', 	function(event) { this.touchStart(event) }.bind(this))
+			this._touchBinder.on('touchmove', 	function(event) { this.touchMove(event) }.bind(this))
 		}
 		if (this._touchBinder)
 			this._touchBinder.enable(value)

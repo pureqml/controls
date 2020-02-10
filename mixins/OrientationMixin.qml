@@ -13,7 +13,7 @@ BaseMixin {
 
 	/// @private
 	function _bindOrientation(value) {
-		if (value && !this._orientationBinder) {
+		if (value && !this._orientationBinder && this._context.window) {
 			var self = this
 			this._context.window.on("deviceorientation", function(e) {
 				self.absolute = e.absolute

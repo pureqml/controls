@@ -5,6 +5,7 @@ Text {
 	font.family: "Material Icons";			///< @private
 
 	constructor: {
-		_globals.html5.html.loadExternalStylesheet("https://fonts.googleapis.com/icon?family=Material+Icons")
+		if (_globals.html5 && _globals.html5.html)
+			_globals.html5.html.loadExternalStylesheet("https://fonts.googleapis.com/icon?family=Material+Icons")
 	}
 }
