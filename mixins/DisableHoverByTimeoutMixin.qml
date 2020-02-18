@@ -1,8 +1,8 @@
-/// this mixin turn off hover and activeHover by timeout and could be used for SmartTV's with autohiding cursor
+/// this mixin turns off hover and activeHover by timeout and could be used for SmartTV's with autohiding cursor
 Object {
 	id: hoverMixinProto;
 	property bool value;			///< is 'true' if item if hovered, 'false' otherwise
-	property bool enabled: true;	///< enable/disable mixin
+	property bool enabled: true;		///< enable/disable mixin
 	property string cursor;			///< mouse cursor
 	property int timeout: 5000;		///< timeout delay
 	property int mouseX;
