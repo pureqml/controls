@@ -1,22 +1,22 @@
 /// this mixin turn off hover and activeHover by timeout and could be used for SmartTV's with autohiding cursor
 Object {
-    id: hoverMixinProto;
+	id: hoverMixinProto;
 	property bool value;			///< is 'true' if item if hovered, 'false' otherwise
 	property bool enabled: true;	///< enable/disable mixin
 	property string cursor;			///< mouse cursor
-	property int timeout: 5000;     ///< timeout delay
-    property int mouseX;
-    property int mouseY;
-    signal mouseMove;
+	property int timeout: 5000;		///< timeout delay
+	property int mouseX;
+	property int mouseY;
+	signal mouseMove;
 
-    Timer {
-        id: disableHoverTimer;
-        interval: parent.timeout;
+	Timer {
+		id: disableHoverTimer;
+		interval: parent.timeout;
 
-        onTriggered: {
-            hoverMixinProto._setHover(false)
-        }
-    }
+		onTriggered: {
+			hoverMixinProto._setHover(false)
+		}
+	}
 
 	/// @private
 	constructor: {
@@ -26,20 +26,20 @@ Object {
 		this._bindMove(this.enabled)
 	}
 
-    /// @private
-    function _updatePosition(event) {
-        var parent = this.parent
-        var x = event.offsetX
-        var y = event.offsetY
-        if (x >= 0 && y >= 0 && x < parent.width && y < parent.height) {
-            this.mouseX = x
-            this.mouseY = y
-            this.mouseMove(x, y)
-            return true
-        }
-        else
-            return false
-    }
+	/// @private
+	function _updatePosition(event) {
+		var parent = this.parent
+		var x = event.offsetX
+		var y = event.offsetY
+		if (x >= 0 && y >= 0 && x < parent.width && y < parent.height) {
+			this.mouseX = x
+			this.mouseY = y
+			this.mouseMove(x, y)
+			return true
+		}
+		else
+			return false
+	}
 
 	///@private
 	function _bindHover(value) {
@@ -59,24 +59,24 @@ Object {
 	}
 
 	/// @private
-    function _bindMove(value) {
-        if (value && !this._mouseMoveBinder) {
-            this._mouseMoveBinder = new $core.EventBinder(this.element)
-            this._mouseMoveBinder.on('mousemove', function(event) {
-                if (!this._updatePosition(event))
-                    event.preventDefault()
-            }.bind(this))
-        }
-        if (this._mouseMoveBinder)
-            this._mouseMoveBinder.enable(value)
-    }
+	function _bindMove(value) {
+		if (value && !this._mouseMoveBinder) {
+			this._mouseMoveBinder = new $core.EventBinder(this.element)
+			this._mouseMoveBinder.on('mousemove', function(event) {
+				if (!this._updatePosition(event))
+					event.preventDefault()
+			}.bind(this))
+		}
+		if (this._mouseMoveBinder)
+			this._mouseMoveBinder.enable(value)
+	}
 
-    /// @private
-    function _setHover(value) {
-        hoverMixinProto.parent.hover = value
-        if (hoverMixinProto.parent.activeHoverEnabled)
-            hoverMixinProto.parent.activeHover = value
-    }
+	/// @private
+	function _setHover(value) {
+		hoverMixinProto.parent.hover = value
+		if (hoverMixinProto.parent.activeHoverEnabled)
+			hoverMixinProto.parent.activeHover = value
+	}
 
 	/// @private
 	onCursorChanged: {
@@ -85,19 +85,19 @@ Object {
 
 	/// @private
 	onEnabledChanged: {
-	    this._bindHover(value)
-	    this._bindMove(value)
-    }
+		this._bindHover(value)
+		this._bindMove(value)
+	}
 
-    /// @private
-    onValueChanged: {
-        if (value)
-            disableHoverTimer.restart()
-    }
+	/// @private
+	onValueChanged: {
+		if (value)
+			disableHoverTimer.restart()
+	}
 
-    /// @private
-    onMouseMove: {
-        this._setHover(true)
-        disableHoverTimer.restart()
-    }
+	/// @private
+	onMouseMove: {
+		this._setHover(true)
+		disableHoverTimer.restart()
+	}
 }
