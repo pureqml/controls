@@ -1,9 +1,6 @@
 /// this mixin turns off hover and activeHover by timeout and could be used for SmartTV's with autohiding cursor
-Object {
+HoverClickMixin {
 	id: hoverMixinProto;
-	property bool value;			///< is 'true' if item if hovered, 'false' otherwise
-	property bool enabled: true;		///< enable/disable mixin
-	property string cursor;			///< mouse cursor
 	property int timeout: 5000;		///< timeout delay
 	property int mouseX;
 	property int mouseY;
@@ -20,9 +17,6 @@ Object {
 
 	/// @private
 	constructor: {
-		this.element = this.parent.element
-		this.parent.style('cursor', this.cursor)
-		this._bindHover(this.enabled)
 		this._bindMove(this.enabled)
 	}
 
@@ -41,23 +35,6 @@ Object {
 			return false
 	}
 
-	///@private
-	function _bindHover(value) {
-		if (value && !this._hmHoverBinder) {
-			this._hmHoverBinder = new $core.EventBinder(this.parent.element)
-
-			if (this._context.backend.capabilities.mouseEnterLeaveSupported) {
-				this._hmHoverBinder.on('mouseenter', function() { this.value = true }.bind(this))
-				this._hmHoverBinder.on('mouseleave', function() { this.value = false }.bind(this))
-			} else {
-				this._hmHoverBinder.on('mouseover', function() { this.value = true }.bind(this))
-				this._hmHoverBinder.on('mouseout', function() { this.value = false }.bind(this))
-			}
-		}
-		if (this._hmHoverBinder)
-			this._hmHoverBinder.enable(value)
-	}
-
 	/// @private
 	function _bindMove(value) {
 		if (value && !this._mouseMoveBinder) {
@@ -73,19 +50,13 @@ Object {
 
 	/// @private
 	function _setHover(value) {
-		hoverMixinProto.parent.hover = value
-		if (hoverMixinProto.parent.activeHoverEnabled)
-			hoverMixinProto.parent.activeHover = value
-	}
-
-	/// @private
-	onCursorChanged: {
-		this.parent.style('cursor', value)
+		this.value = value
+		if (this.activeHoverEnabled)
+			this.activeHover = value
 	}
 
 	/// @private
 	onEnabledChanged: {
-		this._bindHover(value)
 		this._bindMove(value)
 	}
 
