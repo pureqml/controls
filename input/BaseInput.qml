@@ -20,6 +20,8 @@ Item {
 		this.element.on("focus", function() { this.forceActiveFocus(); }.bind(this))
 		this.element.on("blur", function() { /* fixme: remove focus from current input */ }.bind(this))
 		this.element.on("change", function() { this.change() }.bind(this))
+		this.element.style('pointer-events', 'auto')
+		this.element.style('touch-action', 'auto')
 	}
 
 	/// @private
