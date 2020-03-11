@@ -5,15 +5,18 @@ BaseMixin {
 	///@private
 	constructor: {
 		var parent = this.parent
+		var element = parent.element
+		element.style('pointer-events', 'auto')
+		element.style('touch-action', 'auto')
 
-		parent.element.on('dragover', function(e) {
+		element.on('dragover', function(e) {
 			e.stopPropagation();
 			e.preventDefault();
 			e.dataTransfer.dropEffect = 'copy';
 		})
 
 		var self = this
-		parent.element.on('drop', function (e) {
+		element.on('drop', function(e) {
 			e.stopPropagation();
 			e.preventDefault();
 			self.filesAdded(e.dataTransfer.files)
