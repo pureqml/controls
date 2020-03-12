@@ -29,7 +29,9 @@ Object {
 	function setPlaceholderColor(color) {
 		var cls = this.getClass()
 
-		var rgba = new _globals.core.Color(color).rgba()
+		var rgba = $core.Color.normalize(color)
+		this.parent.element.style('-pure-placeholder-color', rgba)
+
 		//fixme: port to modernizr
 		var selectors = ['::-webkit-input-placeholder', '::-moz-placeholder', ':-moz-placeholder', ':-ms-input-placeholder']
 		selectors.forEach(function(selector) {
