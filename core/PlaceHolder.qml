@@ -36,7 +36,7 @@ Object {
 		var selectors = ['::-webkit-input-placeholder', '::-moz-placeholder', ':-moz-placeholder', ':-ms-input-placeholder']
 		selectors.forEach(function(selector) {
 			try {
-				this._context.stylesheet._addRule('.' + cls + selector, 'color: ' + rgba)
+				this._context.stylesheet.addRule('.' + cls + selector, 'color: ' + rgba)
 				log('added rule for .' + cls + selector)
 			} catch(ex) {
 				//log(ex)
