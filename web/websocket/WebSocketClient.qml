@@ -3,18 +3,9 @@ Object {
 	signal closed;
 	signal message;
 	property bool connected;
-	property bool emulateKeyPressing: true;
 	property string ip;
 	property string port;
 	property string host: "ws://" + ip + ":" + port;
-
-	pressKey(key): {
-		var keyCode = _globals.core.getKeyCodeByName(key)
-		if (keyCode) {
-			var event = { keyCode : keyCode , timeStamp: new Date().getTime() }
-			this.parent._context.processKey(event)
-		}
-	}
 
 	send(msg): {
 		log("send:", this.connected, "socket", this._socket)
@@ -32,9 +23,7 @@ Object {
 		var socket = new WebSocket(this.host)
 		log("socket created", socket)
 		var context = this._context
-		log("context")
 		var self = this
-		log("self")
 
 		socket.onopen = context.wrapNativeCallback(function() {
 			log("Sonnection opened")
@@ -52,11 +41,7 @@ Object {
 
 		socket.onmessage = context.wrapNativeCallback(function(event) {
 			var data = JSON.parse(event.data)
-			if (self.emulateKeyPressing && data && data.key)
-				self.pressKey(data.key)
 			self.message(data)
 		})
-
-		log("configured")
 	}
 }
