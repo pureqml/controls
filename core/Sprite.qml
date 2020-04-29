@@ -3,6 +3,7 @@ Image {
 	property int offsetX;	///< sprite horizontal offset
 	property int offsetY;	///< sprite vertical offset
 	fillMode: Image.Tile;	///< sprite image filling mode
+	horizontalAlignment: Image.AlignLeft;
 
 	onOffsetYChanged,
 	onOffsetXChanged: {
