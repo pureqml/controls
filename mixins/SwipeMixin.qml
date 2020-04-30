@@ -2,6 +2,7 @@
 BaseMixin {
 	signal touchMove;			///< @private
 	signal touchStart;			///< @private
+	signal touchEnd;			///< @private
 	signal verticalSwiped;		///< emitted on vertical swipe
 	signal horizontalSwiped;	///< emitted on horizontal swipe
 	property bool enabled: true;	///< enable mixin flag
@@ -14,8 +15,9 @@ BaseMixin {
 	function _bindTouch(value) {
 		if (value && !this._touchBinder) {
 			this._touchBinder = new _globals.core.EventBinder(this.parent.element)
-			this._touchBinder.on('touchstart', 	function(event) { this.touchStart(event) }.bind(this))
-			this._touchBinder.on('touchmove', 	function(event) { this.touchMove(event) }.bind(this))
+			this._touchBinder.on('touchstart', function(event) { this.touchStart(event) }.bind(this))
+			this._touchBinder.on('touchend', function(event) { this.touchEnd(event) }.bind(this))
+			this._touchBinder.on('touchmove', function(event) { this.touchMove(event) }.bind(this))
 		}
 		if (this._touchBinder)
 			this._touchBinder.enable(value)
