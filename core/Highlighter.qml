@@ -11,12 +11,12 @@ Rectangle {
 		var item = target.getItemPosition(target[this.updatePositionProperty])
 		var horizontal = target.orientation ===  _globals.core.ListView.prototype.Horizontal
 		if (horizontal) {
-			this.x = target.x + item[0]
+			this.x = target.x + item[0] - target.contentX
 			this.y = target.y
 			this.width = item[2]
 		} else {
 			this.x = target.x
-			this.y = target.y + item[1]
+			this.y = target.y + item[1] - target.contentY
 			this.height = item[3]
 		}
 	}
