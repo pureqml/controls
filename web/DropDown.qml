@@ -17,6 +17,8 @@ Item {
 			this.currentIndex = idx
 			this.text = this.element.dom[idx].label
 		}.bind(this))
+		this.element.style('pointer-events', 'auto')
+		this.element.style('touch-action', 'auto')
 	}
 
 	/// @private
