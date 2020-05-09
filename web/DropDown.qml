@@ -11,6 +11,8 @@ Item {
 
 	constructor: {
 		this.count = 0
+		this.element.style('pointer-events', 'auto')
+		this.element.style('touch-action', 'auto')
 		this.element.on("change", function() {
 			this.value = this.element.dom.value
 			var idx = this.element.dom.selectedIndex
