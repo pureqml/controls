@@ -75,6 +75,10 @@ Item {
 		--this.count
 	}
 
+	onCurrentIndexChanged: {
+		this.element.dom.value = this.element.dom.options[value].value
+	}
+
 	onCountChanged: {
 		if (value == 1) {
 			this.value = this.element.dom.value
