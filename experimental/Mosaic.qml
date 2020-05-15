@@ -11,14 +11,14 @@ GridView {
 	model: ListModel { }
 	delegate: WebItem {
 		signal pressed;
-		// property string startTime;
-		// property string endTime;
-		// property real progress;
 		width: 290s;
 		height: 170s;
 		color: "#464646";
 		transform.scaleX: activeFocus ? 1.1 : 1;
 		transform.scaleY: activeFocus ? 1.1 : 1;
+		effects.shadow.spread: 1;
+		effects.shadow.blur: 10;
+		effects.shadow.color: activeFocus ? "#00f" : "#0000";
 		z: activeFocus ? parent.z + 1 : parent.z;
 
 		Image {
@@ -46,8 +46,9 @@ GridView {
 		}
 
 		Image {
-			width: 50s;
-			height: 50s;
+			x: 10s;
+			width: 100s;
+			height: 70s;
 			anchors.bottom: parent.bottom;
 			anchors.bottomMargin: 21s;
 			fillMode: Image.PreserveAspectFit;

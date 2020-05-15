@@ -2,7 +2,8 @@ VideoPlayer {
 	property bool display;
 	width: 290s;
 	height: 170s;
-	transform.scaleX: display ? 1 : 0.001;
+	transform.scaleX: display ? 1.1 : 0.001;
+	transform.scaleY: 1.1;
 	autoPlay: true;
 	visible: false;
 
