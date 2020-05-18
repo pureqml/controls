@@ -1,25 +1,27 @@
 GridView {
 	id: nowonTvGrid;
+	property int selectedIndex;
 	signal play;
 	signal itemFocused;
 	width: 100%;
 	height: 100%;
-	cellWidth: 300s;
-	cellHeight: 180s;
+	cellWidth: width * 0.25;
+	cellHeight: cellWidth * 0.625;
 	keyNavigationWraps: false;
 	content.cssTranslatePositioning: true;
 	model: ListModel { }
 	delegate: WebItem {
 		signal pressed;
-		width: 290s;
-		height: 170s;
+		property bool active: model.index == parent.selectedIndex;
+		width: parent.cellWidth - 10s;
+		height: parent.cellHeight - 10s;
 		color: "#464646";
-		transform.scaleX: activeFocus ? 1.1 : 1;
-		transform.scaleY: activeFocus ? 1.1 : 1;
+		transform.scaleX: active ? 1.1 : 1;
+		transform.scaleY: active ? 1.1 : 1;
 		effects.shadow.spread: 1;
 		effects.shadow.blur: 10;
-		effects.shadow.color: activeFocus ? "#00f" : "#0000";
-		z: activeFocus ? parent.z + 1 : parent.z;
+		effects.shadow.color: active ? "#00f" : "#0000";
+		z: active ? parent.z + 1 : parent.z;
 
 		Image {
 			id: programImage;
@@ -93,7 +95,7 @@ GridView {
 			}
 		}
 
-		onActiveFocusChanged: {
+		onActiveChanged: {
 			if (!value)
 				return
 
@@ -103,9 +105,12 @@ GridView {
 		onClicked: { this.pressed() }
 		onSelectPressed: { this.pressed() }
 		onPressed: { this.parent.play(model.index) }
+		onHoverChanged: { if (value) this.parent.selectedIndex = model.index }
 
 		Behavior on transform { Animation { duration: 300; } }
 	}
+
+	onCurrentIndexChanged: { this.selectedIndex = value }
 
 	fill(items, mappingFunc): {
 		var res = []
