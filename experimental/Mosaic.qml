@@ -106,4 +106,14 @@ GridView {
 
 		Behavior on transform { Animation { duration: 300; } }
 	}
+
+	fill(items, mappingFunc): {
+		var res = []
+		for (var i in items) {
+			var row = mappingFunc(items[i])
+			if (row)
+				res.push(row)
+		}
+		this.model.assign(res)
+	}
 }
