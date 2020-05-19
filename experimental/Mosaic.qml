@@ -1,6 +1,6 @@
 GridView {
 	id: nowonTvGrid;
-	property int selectedIndex;
+	property bool hoverMode;
 	signal play;
 	signal itemFocused;
 	width: 100%;
@@ -9,10 +9,11 @@ GridView {
 	cellHeight: cellWidth * 0.625;
 	keyNavigationWraps: false;
 	content.cssTranslatePositioning: true;
+	contentFollowsCurrentItem: !hoverMode;
 	model: ListModel { }
 	delegate: WebItem {
 		signal pressed;
-		property bool active: model.index == parent.selectedIndex;
+		property bool active: model.index == parent.currentIndex;
 		width: parent.cellWidth - 10s;
 		height: parent.cellHeight - 10s;
 		color: "#464646";
@@ -21,7 +22,16 @@ GridView {
 		effects.shadow.spread: 1;
 		effects.shadow.blur: 10;
 		effects.shadow.color: active ? "#00f" : "#0000";
+		radius: 5s;
+		clip: true;
 		z: active ? parent.z + 1 : parent.z;
+
+		MouseMoveMixin {
+			onMouseMove: {
+				nowonTvGrid.hoverMode = true
+				nowonTvGrid.currentIndex = model.index
+			}
+		}
 
 		Image {
 			id: programImage;
@@ -88,7 +98,7 @@ GridView {
 			interval: 3000;
 
 			onTriggered: {
-				if (!this.parent.activeFocus)
+				if (!this.parent.active)
 					return
 				this.parent.transform.scaleX = 0
 				nowonTvGrid.itemFocused(model.index)
@@ -105,12 +115,14 @@ GridView {
 		onClicked: { this.pressed() }
 		onSelectPressed: { this.pressed() }
 		onPressed: { this.parent.play(model.index) }
-		onHoverChanged: { if (value) this.parent.selectedIndex = model.index }
 
 		Behavior on transform { Animation { duration: 300; } }
 	}
 
-	onCurrentIndexChanged: { this.selectedIndex = value }
+	onKeyPressed: {
+		this.hoverMode = false
+		return false
+	}
 
 	fill(items, mappingFunc): {
 		var res = []
