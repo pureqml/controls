@@ -36,7 +36,7 @@ GridView {
 		Image {
 			id: programImage;
 			property bool display;
-			source: model.preview;
+			source: model.preview? model.preview: '';
 			anchors.fill: parent;
 			fillMode: Image.PreserveAspectCrop;
 			visible: source;
@@ -64,7 +64,7 @@ GridView {
 			anchors.bottom: parent.bottom;
 			anchors.bottomMargin: 21s;
 			fillMode: Image.PreserveAspectFit;
-			source: model.icon;
+			source: model.icon? model.icon: '';
 			verticalAlignment: Image.AlignTop;
 			horizontalAlignment: Image.AlignRight;
 		}
