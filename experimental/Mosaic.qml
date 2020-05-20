@@ -13,7 +13,7 @@ GridView {
 	model: ListModel { }
 	delegate: WebItem {
 		signal pressed;
-		property bool active: model.index == parent.currentIndex;
+		property bool active: activeFocus;
 		width: parent.cellWidth - 10s;
 		height: parent.cellHeight - 10s;
 		color: "#464646";
@@ -105,14 +105,14 @@ GridView {
 			}
 		}
 
-		onActiveChanged: {
+		onActiveFocusChanged: {
 			if (!value)
 				return
 
 			flipTimer.restart()
 		}
 
-		onClicked: { this.pressed() }
+		onClicked: { this.currentIndex = model.index; this.pressed() }
 		onSelectPressed: { this.pressed() }
 		onPressed: { this.parent.play(model.index) }
 
