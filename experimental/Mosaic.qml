@@ -22,7 +22,7 @@ GridView {
 		effects.shadow.spread: 1;
 		effects.shadow.blur: 10;
 		effects.shadow.color: active ? "#00f" : "#0000";
-		radius: 5s;
+		radius: 20s;
 		clip: true;
 		z: active ? parent.z + 1 : parent.z;
 
