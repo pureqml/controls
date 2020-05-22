@@ -5,7 +5,7 @@ GridView {
 	signal itemFocused;
 	width: 100%;
 	height: 100%;
-	cellWidth: width * 0.25;
+	cellWidth: (context.width > context.height ? 0.25 : 0.5) * width;
 	cellHeight: cellWidth * 0.625;
 	keyNavigationWraps: false;
 	content.cssTranslatePositioning: true;
