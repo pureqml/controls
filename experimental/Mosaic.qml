@@ -11,9 +11,11 @@ GridView {
 	content.cssTranslatePositioning: true;
 	contentFollowsCurrentItem: !hoverMode;
 	model: ListModel { }
-	delegate: WebItem {
+	delegate: Rectangle {
 		signal pressed;
 		property bool active: activeFocus;
+		property Mixin hoverMixin: HoverClickMixin { }
+		property alias hover: hoverMixin.value;
 		width: parent.cellWidth - 10s;
 		height: parent.cellHeight - 10s;
 		color: "#464646";
@@ -112,11 +114,21 @@ GridView {
 			flipTimer.restart()
 		}
 
-		onClicked: { this.currentIndex = model.index; this.pressed() }
+		onClicked: { this.parent.currentIndex = model.index; this.pressed() }
 		onSelectPressed: { this.pressed() }
 		onPressed: { this.parent.play(model.index) }
 
 		Behavior on transform { Animation { duration: 300; } }
+	}
+
+	WheelMixin { }
+
+	onWheel(delta): {
+		this.hoverMode = false
+		if (delta.wheelDeltaY < 0)
+			this.moveDown()
+		else
+			this.moveUp()
 	}
 
 	onKeyPressed: {
