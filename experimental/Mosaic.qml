@@ -3,6 +3,7 @@ GridView {
 	property bool hoverMode;
 	signal play;
 	signal itemFocused;
+	property int delegateRadius;
 	width: 100%;
 	height: 100%;
 	cellWidth: (context.width > context.height ? 0.25 : 0.5) * width;
@@ -24,7 +25,7 @@ GridView {
 		effects.shadow.spread: 1;
 		effects.shadow.blur: 10;
 		effects.shadow.color: active ? "#00f" : "#0000";
-		radius: 20s;
+		radius: nowonTvGrid.delegateRadius;
 		clip: true;
 		z: active ? parent.z + 1 : parent.z;
 
