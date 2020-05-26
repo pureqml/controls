@@ -11,7 +11,7 @@ BaseMixin {
 	function _bindClicked(value) {
 		if (value && !this._dblClickedBinder) {
 			this._dblClickedBinder = new _globals.core.EventBinder(this.element)
-			this._dblClickedBinder.on('click', $core.createSignalForwarder(this.parent, 'doubleClicked').bind(this))
+			this._dblClickedBinder.on('dblclick', $core.createSignalForwarder(this.parent, 'doubleClicked').bind(this))
 		}
 		if (this._dblClickedBinder)
 			this._dblClickedBinder.enable(value)
