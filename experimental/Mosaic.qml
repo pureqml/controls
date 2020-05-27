@@ -81,7 +81,7 @@ GridView {
 			width: 270s;
 			anchors.bottom: parent.bottom;
 			anchors.bottomMargin: 6s;
-			font.pixelSize: nowonTvGrid.mobile;
+			font.pixelSize: nowonTvGrid.mobile ? 9s : 18s;
 			color: "#fff";
 			text: model.title;
 		}
