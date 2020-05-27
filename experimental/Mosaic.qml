@@ -1,15 +1,19 @@
 GridView {
 	id: nowonTvGrid;
 	property bool hoverMode;
+	property bool mobile: context.system.device === context.system.Mobile;
+	property int offset;
 	signal play;
 	signal itemFocused;
 	property int delegateRadius;
 	width: 100%;
 	height: 100%;
-	cellWidth: (context.width > context.height ? 0.25 : 0.5) * width;
+	cellWidth: (context.width > context.height ? 0.24 : 0.49) * width;
+	spacing: 10s;
 	cellHeight: cellWidth * 0.625;
 	keyNavigationWraps: false;
 	content.cssTranslatePositioning: true;
+	nativeScrolling: true;
 	contentFollowsCurrentItem: !hoverMode;
 	model: ListModel { }
 	delegate: Rectangle {
@@ -17,15 +21,15 @@ GridView {
 		property bool active: activeFocus;
 		property Mixin hoverMixin: HoverClickMixin { }
 		property alias hover: hoverMixin.value;
-		width: parent.cellWidth - 10s;
-		height: parent.cellHeight - 10s;
+		width: parent.cellWidth;
+		height: parent.cellHeight;
 		color: "#464646";
-		transform.scaleX: active ? 1.1 : 1;
-		transform.scaleY: active ? 1.1 : 1;
-		effects.shadow.spread: 1;
+		transform.scaleX: active ? 1.05 : 1;
+		transform.scaleY: active ? 1.05 : 1;
 		effects.shadow.blur: 10;
 		effects.shadow.color: active ? "#00f" : "#0000";
 		radius: nowonTvGrid.delegateRadius;
+		effects.shadow.spread: 1;
 		clip: true;
 		z: active ? parent.z + 1 : parent.z;
 
@@ -77,7 +81,7 @@ GridView {
 			width: 270s;
 			anchors.bottom: parent.bottom;
 			anchors.bottomMargin: 6s;
-			font.pixelSize: 18s;
+			font.pixelSize: nowonTvGrid.mobile;
 			color: "#fff";
 			text: model.title;
 		}
@@ -108,7 +112,7 @@ GridView {
 			}
 		}
 
-		onActiveFocusChanged: {
+		onActiveChanged: {
 			if (!value)
 				return
 
@@ -120,16 +124,6 @@ GridView {
 		onPressed: { this.parent.play(model.index) }
 
 		Behavior on transform { Animation { duration: 300; } }
-	}
-
-	WheelMixin { }
-
-	onWheel(delta): {
-		this.hoverMode = false
-		if (delta.wheelDeltaY < 0)
-			this.moveDown()
-		else
-			this.moveUp()
 	}
 
 	onKeyPressed: {
