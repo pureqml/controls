@@ -1,7 +1,5 @@
 Rectangle {
 	property bool display;
-	width: 290s;
-	height: 170s;
 	transform.scaleX: display ? 1.1 : 0.001;
 	transform.scaleY: 1.1;
 	visible: false;
@@ -14,9 +12,7 @@ Rectangle {
 		autoPlay: true;
 	}
 
-	showPlayerAt(x, y, source): {
-		this.x = x
-		this.y = y
+	showAndPlay(source): {
 		this.visible = true
 		this.display = true
 		videoPlayer.source = source
