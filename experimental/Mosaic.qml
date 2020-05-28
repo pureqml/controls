@@ -13,7 +13,6 @@ GridView {
 	spacing: 10s;
 	keyNavigationWraps: false;
 	content.cssTranslatePositioning: true;
-	nativeScrolling: true;
 	contentFollowsCurrentItem: !hoverMode;
 	model: ListModel { }
 	delegate: Rectangle {
