@@ -116,6 +116,11 @@ GridView {
 		}
 
 		onActiveFocusChanged: {
+			if (!this.parent._firstTimeFlag) {
+				this.parent._firstTimeFlag = true
+				return
+			}
+
 			if (!value) {
 				this.transform.rotateZ = 0
 				return
