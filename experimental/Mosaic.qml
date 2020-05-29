@@ -9,7 +9,7 @@ GridView {
 	width: 100%;
 	height: 100%;
 	cellWidth: (context.width > context.height ? 0.25 : 0.5) * width - spacing;
-	cellHeight: cellWidth * 0.625;
+	cellHeight: cellWidth * 0.5625;
 	spacing: 10s;
 	keyNavigationWraps: false;
 	content.cssTranslatePositioning: true;

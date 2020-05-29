@@ -20,7 +20,7 @@ Rectangle {
 
 	hide: {
 		this.visible = false
-		this.display = false
+		videoPlayer.source = ""
 		videoPlayer.stop()
 	}
 
