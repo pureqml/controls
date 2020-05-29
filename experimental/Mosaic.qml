@@ -27,8 +27,8 @@ GridView {
 		transform.scaleY: active ? 1.05 : 1;
 		effects.shadow.blur: 10;
 		effects.shadow.color: active ? "#00f" : "#0000";
-		radius: nowonTvGrid.delegateRadius;
 		effects.shadow.spread: 1;
+		radius: nowonTvGrid.delegateRadius;
 		clip: true;
 		z: active ? parent.z + 1 : parent.z;
 
@@ -122,7 +122,7 @@ GridView {
 		onSelectPressed: { this.pressed() }
 		onPressed: { this.parent.play(model.index) }
 
-		Behavior on transform { Animation { duration: 300; } }
+		Behavior on transform, boxshadow { Animation { duration: 300; } }
 	}
 
 	onKeyPressed: {
