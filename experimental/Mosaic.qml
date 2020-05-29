@@ -26,7 +26,7 @@ GridView {
 		transform.scaleX: active ? 1.05 : 1;
 		transform.scaleY: active ? 1.05 : 1;
 		effects.shadow.blur: 10;
-		effects.shadow.color: active ? "#00f" : "#0000";
+		effects.shadow.color: active ? "#8AF" : "#0000";
 		effects.shadow.spread: 1;
 		radius: nowonTvGrid.delegateRadius;
 		clip: true;
@@ -107,13 +107,17 @@ GridView {
 				if (!this.parent.active)
 					return
 				this.parent.transform.scaleX = 0
+				this.parent.transform.scaleY = 0
+				this.parent.transform.rotateZ = 180
 				nowonTvGrid.itemFocused(model.index)
 			}
 		}
 
 		onActiveChanged: {
-			if (!value)
+			if (!value) {
+				this.transform.rotateZ = 0
 				return
+			}
 
 			flipTimer.restart()
 		}
@@ -122,7 +126,7 @@ GridView {
 		onSelectPressed: { this.pressed() }
 		onPressed: { this.parent.play(model.index) }
 
-		Behavior on transform, boxshadow { Animation { duration: 300; } }
+		Behavior on transform, boxshadow { Animation { duration: 400; } }
 	}
 
 	onKeyPressed: {
