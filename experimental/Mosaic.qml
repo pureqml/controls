@@ -23,14 +23,16 @@ GridView {
 		width: parent.cellWidth;
 		height: parent.cellHeight;
 		color: "#464646";
-		transform.scaleX: active ? 1.05 : 1;
-		transform.scaleY: active ? 1.05 : 1;
+		transform.scaleX: activeFocus ? 1.05 : 1;
+		transform.scaleY: activeFocus ? 1.05 : 1;
 		effects.shadow.blur: 10;
-		effects.shadow.color: active ? "#8AF" : "#0000";
-		effects.shadow.spread: 1;
+		effects.shadow.color: activeFocus ? "#8AF" : "#0000";
+		effects.shadow.spread: 2;
+		border.width: activeFocus ? 1 : 0;
+		border.color: activeFocus ? "#8AF" : "#0000";
 		radius: nowonTvGrid.delegateRadius;
 		clip: true;
-		z: active ? parent.z + 1 : parent.z;
+		z: activeFocus ? parent.z + 1 : parent.z;
 
 		MouseMoveMixin {
 			onMouseMove: {
@@ -104,7 +106,7 @@ GridView {
 			interval: 3000;
 
 			onTriggered: {
-				if (!this.parent.active)
+				if (!this.parent.activeFocus)
 					return
 				this.parent.transform.scaleX = 0
 				this.parent.transform.scaleY = 0
@@ -113,7 +115,7 @@ GridView {
 			}
 		}
 
-		onActiveChanged: {
+		onActiveFocusChanged: {
 			if (!value) {
 				this.transform.rotateZ = 0
 				return
