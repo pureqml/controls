@@ -118,7 +118,7 @@ Item {
             flipTimer.restart()
         }
 
-        onClicked: { this.parent.currentIndex = model.index; this.pressed() }
+        onClicked: { mosaicGrid.currentIndex = model.index; this.pressed() }
         onSelectPressed: { this.pressed() }
         onPressed: { mosaicGrid.play(model.index) }
 
