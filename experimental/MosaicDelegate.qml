@@ -1,120 +1,127 @@
-Rectangle {
-    signal pressed;
-    property bool active: activeFocus;
-    property Mixin hoverMixin: HoverClickMixin { }
-    property alias hover: hoverMixin.value;
+Item {
     width: parent.cellWidth;
     height: parent.cellHeight;
-    color: "#464646";
-    transform.scaleX: activeFocus ? 1.05 : 1;
-    transform.scaleY: activeFocus ? 1.05 : 1;
-    effects.shadow.blur: 10;
-    effects.shadow.color: activeFocus ? "#8AF" : "#0000";
-    effects.shadow.spread: 2;
-    border.width: activeFocus ? 1 : 0;
-    border.color: activeFocus ? "#8AF" : "#0000";
-    radius: nowonTvGrid.delegateRadius;
-    clip: true;
-    z: activeFocus ? parent.z + 1 : parent.z;
 
-    MouseMoveMixin {
-        onMouseMove: {
-            nowonTvGrid.hoverMode = true
-            nowonTvGrid.currentIndex = model.index
-        }
-    }
+    Rectangle {
+        signal pressed;
+        property bool active: parent.activeFocus;
+        property Mixin hoverMixin: HoverClickMixin { }
+        property alias hover: hoverMixin.value;
 
-    Image {
-        id: programImage;
-        property bool display;
-        source: model.preview? model.preview: '';
         anchors.fill: parent;
-        fillMode: Image.PreserveAspectCrop;
-        visible: source;
+        anchors.margins: mosaicGrid.delegateRadius;
 
-        onStatusChanged: {
-            this.display = this.status == this.Ready
-        }
-    }
-
-    Rectangle {
-        width: 100%;
-        height: 70s;
-        anchors.bottom: parent.bottom;
-        anchors.bottomMargin: 2s;
-        gradient: Gradient {
-            GradientStop { color: "#0000"; position: 0.0; }
-            GradientStop { color: "#000"; position: 1.0; }
-        }
-    }
-
-    Image {
-        x: 10s;
-        width: 100s;
-        height: 70s;
-        anchors.bottom: parent.bottom;
-        anchors.bottomMargin: 21s;
-        fillMode: Image.PreserveAspectFit;
-        source: model.icon? model.icon: '';
-        verticalAlignment: Image.AlignTop;
-        horizontalAlignment: Image.AlignRight;
-    }
-
-    EllipsisText {
-        x: 10s;
-        width: 270s;
-        anchors.bottom: parent.bottom;
-        anchors.bottomMargin: 6s;
-        font.pixelSize: nowonTvGrid.mobile ? 9s : 18s;
-        color: "#fff";
-        text: model.title;
-    }
-
-    Rectangle {
-        width: 100%;
-        height: 2s;
-        color: "#000c";
-        anchors.bottom: parent.bottom;
+        color: "#464646";
+        transform.scaleX: active ? 1.05 : 1;
+        transform.scaleY: active ? 1.05 : 1;
+        effects.shadow.blur: 10;
+        effects.shadow.color: active ? "#8AF" : "#0000";
+        effects.shadow.spread: 2;
+        border.width: active ? 1 : 0;
+        border.color: active ? "#8AF" : "#0000";
+        radius: mosaicGrid.delegateRadius;
         clip: true;
+        z: active ? parent.z + 1 : parent.z;
+
+        MouseMoveMixin {
+            onMouseMove: {
+                mosaicGrid.hoverMode = true
+                mosaicGrid.currentIndex = model.index
+            }
+        }
+
+        Image {
+            id: programImage;
+            property bool display;
+            source: model.preview? model.preview: '';
+            anchors.fill: parent;
+            fillMode: Image.PreserveAspectCrop;
+            visible: source;
+
+            onStatusChanged: {
+                this.display = this.status == this.Ready
+            }
+        }
 
         Rectangle {
-            height: 100%;
-            width: parent.width * model.progress;
-            color: "#e53935";
+            width: 100%;
+            height: 70s;
+            anchors.bottom: parent.bottom;
+            anchors.bottomMargin: 2s;
+            gradient: Gradient {
+                GradientStop { color: "#0000"; position: 0.0; }
+                GradientStop { color: "#000"; position: 1.0; }
+            }
         }
-    }
 
-    Timer {
-        id: flipTimer;
-        interval: 3000;
+        Image {
+            x: 10s;
+            width: 100s;
+            height: 70s;
+            anchors.bottom: parent.bottom;
+            anchors.bottomMargin: 21s;
+            fillMode: Image.PreserveAspectFit;
+            source: model.icon? model.icon: '';
+            verticalAlignment: Image.AlignTop;
+            horizontalAlignment: Image.AlignRight;
+        }
 
-        onTriggered: {
-            if (!this.parent.activeFocus)
+        EllipsisText {
+            x: 10s;
+            width: 270s;
+            anchors.bottom: parent.bottom;
+            anchors.bottomMargin: 6s;
+            font.pixelSize: mosaicGrid.mobile ? 9s : 18s;
+            color: "#fff";
+            text: model.title;
+        }
+
+        Rectangle {
+            width: 100%;
+            height: 2s;
+            color: "#000c";
+            anchors.bottom: parent.bottom;
+            clip: true;
+
+            Rectangle {
+                height: 100%;
+                width: parent.width * model.progress;
+                color: "#e53935";
+            }
+        }
+
+        Timer {
+            id: flipTimer;
+            interval: 3000;
+
+            onTriggered: {
+                if (!this.parent.active)
+                    return
+                this.parent.transform.scaleX = 0
+                this.parent.transform.scaleY = 0
+                this.parent.transform.rotateZ = 180
+                mosaicGrid.itemFocused(model.index)
+            }
+        }
+
+        onActiveChanged: {
+            if (!mosaicGrid._firstTimeFlag) {
+                mosaicGrid._firstTimeFlag = true
                 return
-            this.parent.transform.scaleX = 0
-            this.parent.transform.scaleY = 0
-            this.parent.transform.rotateZ = 180
-            nowonTvGrid.itemFocused(model.index)
+            }
+
+            if (!value) {
+                this.transform.rotateZ = 0
+                return
+            }
+
+            flipTimer.restart()
         }
+
+        onClicked: { this.parent.currentIndex = model.index; this.pressed() }
+        onSelectPressed: { this.pressed() }
+        onPressed: { mosaicGrid.play(model.index) }
+
+        Behavior on transform, boxshadow { Animation { duration: 400; } }
     }
-
-    onActiveFocusChanged: {
-        if (!this.parent._firstTimeFlag) {
-            this.parent._firstTimeFlag = true
-            return
-        }
-
-        if (!value) {
-            this.transform.rotateZ = 0
-            return
-        }
-
-        flipTimer.restart()
-    }
-
-    onClicked: { this.parent.currentIndex = model.index; this.pressed() }
-    onSelectPressed: { this.pressed() }
-    onPressed: { this.parent.play(model.index) }
-
-    Behavior on transform, boxshadow { Animation { duration: 400; } }
 }

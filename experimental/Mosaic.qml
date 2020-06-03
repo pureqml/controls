@@ -1,5 +1,5 @@
 GridView {
-	id: nowonTvGrid;
+	id: mosaicGrid;
 	property bool hoverMode;
 	property bool mobile: context.system.device === context.system.Mobile;
 	property int offset;
