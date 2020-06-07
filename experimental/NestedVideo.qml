@@ -14,12 +14,14 @@ Rectangle {
 	}
 
 	showAndPlay(source): {
+		log('VideoPlayer showAndPlay', source)
 		this.visible = true
 		this.display = true
 		videoPlayer.source = source
 	}
 
 	hide: {
+		log('VideoPlayer hide')
 		this.visible = false
 		this.display = false
 		videoPlayer.source = ""

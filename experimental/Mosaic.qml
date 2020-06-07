@@ -16,6 +16,7 @@ GridView {
 	contentFollowsCurrentItem: !hoverMode;
 	model: ListModel { }
 	delegate: MosaicDelegate { }
+	padding: 15s;
 	onKeyPressed: {
 		this.hoverMode = false
 		return false
