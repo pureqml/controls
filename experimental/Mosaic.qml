@@ -8,7 +8,7 @@ GridView {
 	property int delegateRadius;
 	width: 100%;
 	height: 100%;
-	cellWidth: (context.width > context.height ? 0.25 : 0.5) * width - spacing;
+	cellWidth: (context.width > context.height ? 0.25 : 0.5) * (width - padding.left - padding.right) - spacing;
 	cellHeight: cellWidth * 0.5625;
 	spacing: 10s;
 	keyNavigationWraps: false;
