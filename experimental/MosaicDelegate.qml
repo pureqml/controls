@@ -1,14 +1,13 @@
 Rectangle {
     signal pressed;
+    property bool allowOpacity;
+    property bool playing;
     width: parent.cellWidth;
     height: parent.cellHeight;
     property bool active: activeFocus;
     property Mixin hoverMixin: HoverClickMixin { }
     property alias hover: hoverMixin.value;
-
     anchors.margins: mosaicGrid.delegateRadius;
-
-    color: "#464646";
     transform.scaleX: active ? 1.05 : 1;
     transform.scaleY: active ? 1.05 : 1;
     effects.shadow.blur: 10;
@@ -17,7 +16,9 @@ Rectangle {
     border.width: active ? 1 : 0;
     border.color: active ? "#8AF" : "#0000";
     radius: mosaicGrid.delegateRadius;
+    color: "#464646";
     clip: true;
+    opacity: playing && allowOpacity ? 0.0 : 1.0;
     z: active ? parent.z + 1 : parent.z;
 
     MouseMoveMixin {
@@ -94,9 +95,7 @@ Rectangle {
         onTriggered: {
             if (!this.parent.active)
                 return
-            this.parent.transform.scaleX = 0
-            this.parent.transform.scaleY = 0
-            this.parent.transform.rotateZ = 180
+            this.parent.playing = true
             mosaicGrid.itemFocused(model.index)
         }
     }
@@ -108,7 +107,7 @@ Rectangle {
         }
 
         if (!value) {
-            this.transform.rotateZ = 0
+            this.playing = false
             return
         }
 
@@ -119,5 +118,5 @@ Rectangle {
     onSelectPressed: { this.pressed() }
     onPressed: { mosaicGrid.play(model.index) }
 
-    Behavior on transform, boxshadow { Animation { duration: 400; } }
+    Behavior on opacity, transform, boxshadow { Animation { duration: 400; } }
 }

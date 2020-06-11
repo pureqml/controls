@@ -1,5 +1,6 @@
 GridView {
 	id: mosaicGrid;
+	property bool playing;
 	property bool hoverMode;
 	property bool mobile: context.system.device === context.system.Mobile;
 	property int offset;
@@ -15,7 +16,7 @@ GridView {
 	content.cssTranslatePositioning: true;
 	contentFollowsCurrentItem: !hoverMode;
 	model: ListModel { }
-	delegate: MosaicDelegate { }
+	delegate: MosaicDelegate { allowOpacity: parent.playing; }
 	padding: 15s;
 	onKeyPressed: {
 		this.hoverMode = false
