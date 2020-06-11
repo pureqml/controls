@@ -118,5 +118,6 @@ Rectangle {
     onSelectPressed: { this.pressed() }
     onPressed: { mosaicGrid.play(model.index) }
 
-    Behavior on opacity, transform, boxshadow { Animation { duration: 400; } }
+    Behavior on opacity { Animation { duration: 1200; } }
+    Behavior on transform, boxshadow { Animation { duration: 400; } }
 }

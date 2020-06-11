@@ -1,5 +1,7 @@
 Rectangle {
 	property bool display;
+	transform.scaleX: display ? 1.05 : 1.0;
+	transform.scaleY: display ? 1.05 : 1.0;
 	visible: false;
 	clip: true;
 	color: "transparent";
@@ -24,4 +26,6 @@ Rectangle {
 		videoPlayer.source = ""
 		videoPlayer.stop()
 	}
+
+	Behavior on transform { Animation { duration: 400; } }
 }
