@@ -24,7 +24,7 @@ BaseMixin {
 			e = e.changedTouches[0]
 
 		if (this.direction !== this.Horizontal) {
-			var eY = e.clientY !== undefined? e.clientY: e.offsetY, sY = this._startY, top = this.top, bottom = this.bottom
+			var eY = e.clientY, sY = this._startY, top = this.top, bottom = this.bottom
 			if (bottom  && (eY - sY > bottom)) {
 				this.parent.y = bottom
 			}
@@ -36,7 +36,7 @@ BaseMixin {
 			}
 		}
 		if (this.direction !== this.Vertical) {
-			var eX = e.clientX !== undefined? e.clientX: e.offsetX, sX = this._startX, left = this.left, right = this.right
+			var eX = e.clientX, sX = this._startX, left = this.left, right = this.right
 			if (right  && (eX - sX > right)) {
 				this.parent.x = right
 			}
@@ -58,8 +58,8 @@ BaseMixin {
 		if (e.changedTouches)
 			e = e.changedTouches[0]
 
-		this._startX = (e.clientX !== undefined? e.clientX: e.offsetX) - this.parent.x
-		this._startY = (e.clientY !== undefined? e.clientY: e.offsetY) - this.parent.y
+		this._startX = e.clientX - this.parent.x
+		this._startY = e.clientY - this.parent.y
 		if (!this._dmMoveBinder) {
 			this._dmMoveBinder = new _globals.core.EventBinder(context.window || this.element)
 
