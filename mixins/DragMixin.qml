@@ -61,7 +61,7 @@ BaseMixin {
 		this._startX = e.clientX - this.parent.x
 		this._startY = e.clientY - this.parent.y
 		if (!this._dmMoveBinder) {
-			this._dmMoveBinder = new _globals.core.EventBinder(context.window)
+			this._dmMoveBinder = new _globals.core.EventBinder(context.window || this.element)
 
 			this._dmMoveBinder.on('mousemove', this._moveHandler.bind(this))
 			this._dmMoveBinder.on('touchmove', this._moveHandler.bind(this))
