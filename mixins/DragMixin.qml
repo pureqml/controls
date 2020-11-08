@@ -17,7 +17,8 @@ BaseMixin {
 
 	///@private
 	function _moveHandler(e) {
-		e.preventDefault();
+		if ('preventDefault' in e)
+			e.preventDefault();
 
 		if (e.changedTouches)
 			e = e.changedTouches[0]
@@ -50,7 +51,8 @@ BaseMixin {
 
 	///@private
 	function _downHandler(e) {
-		e.preventDefault();
+		if ('preventDefault' in e)
+			e.preventDefault();
 		this.pressed = true
 
 		if (e.changedTouches)
