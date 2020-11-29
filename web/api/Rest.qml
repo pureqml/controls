@@ -1,10 +1,28 @@
+/**
+	Root component for REST API declaration.
+	Normally Rest component contains one or more Method instances.
+	<pre>
+		Rest {
+			id: api;
+			baseUrl: "https://example.com/v1";
+
+			function headers(headers) { headers.token = 'secret'; }
+
+			Method { name: "getList"; path: "list/{name}"; }
+		}
+		//in js:
+		api.getList(name, function() {...}, function () { ... })
+	</pre>
+*/
+
+
 Object {
-	Request { id: apiRequest; }
+	Request { id: apiRequest; } ///< Request object used for ajax requests
 
-	property string baseUrl;
+	property string baseUrl; ///< base url for all requests
 
-	signal error;
-	signal internetConnectionLost;
+	signal error; ///< all errors signalled here
+	signal internetConnectionLost; ///< some platforms signal when internet connection lost, see onError
 
 	constructor: {
 		this._methods = {}
@@ -16,13 +34,16 @@ Object {
 		}
 	}
 
+	/// args function allows to override arguments for all methods, e.g. adding session token
 	function args(args) {
 		return args
 	}
 
+	/// headers function allows to override headers for all methods, e.g. adding session token
 	function headers(headers) {
 	}
 
+	/// @private calls invokes args, headers and ajax, then processes result
 	function _call(name, callback, error, method, data, head) {
 		var headers = head || {}
 
@@ -74,6 +95,7 @@ Object {
 		})
 	}
 
+	/// @internal top-level call implementation
 	function call(name, callback, error, method, data, head) {
 		if (name.indexOf('://') < 0) {
 			var baseUrl = this.baseUrl
@@ -85,6 +107,7 @@ Object {
 		this._call(name, callback, error, method, JSON.stringify(data), head)
 	}
 
+	/// @private method registration
 	function _registerMethod(name, method) {
 		if (!name)
 			return
