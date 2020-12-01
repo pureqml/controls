@@ -4,9 +4,9 @@ WebItem {
 	width: 80;
 	height: 80;
 	transform.rotate: 0;
-	property int squize: 0;
-	property int squizeX: squize * width * 5 / 80;
-	property int squizeY: squize * height * 5 / 80;
+	property int squeeze: 0;
+	property int squeezeX: squeeze * width * 5 / 80;
+	property int squeezeY: squeeze * height * 5 / 80;
 
 	start: {
 		this.running = true;
@@ -18,13 +18,13 @@ WebItem {
 
 	onRunningChanged: {
 		spinnerItem.transform.rotate += 360;
-		spinnerItem.squize = ++spinnerItem.squize % 5;
+		spinnerItem.squeeze = ++spinnerItem.squeeze % 5;
 	}
 
 	Rectangle {
 		id: r1;
-		x: parent.squizeX;
-		y: parent.squizeY;
+		x: parent.squeezeX;
+		y: parent.squeezeY;
 		width: spinnerItem.width * 3/8;
 		height: spinnerItem.height * 3/8;
 		radius: width / 2;
@@ -35,8 +35,8 @@ WebItem {
 
 	Rectangle {
 		id: r2;
-		x: parent.width * 5/8 - parent.squizeX;
-		y: parent.squizeY;
+		x: parent.width * 5/8 - parent.squeezeX;
+		y: parent.squeezeY;
 		width: spinnerItem.width * 3/8;
 		height: spinnerItem.height * 3/8;
 		radius: width / 2;
@@ -46,8 +46,8 @@ WebItem {
 	}
 
 	Rectangle {
-		x: parent.squizeX;
-		y: spinnerItem.height * 5/8 - parent.squizeY;
+		x: parent.squeezeX;
+		y: spinnerItem.height * 5/8 - parent.squeezeY;
 		id: r3;
 		width: spinnerItem.width * 3/8;
 		height: spinnerItem.height * 3/8;
@@ -58,8 +58,8 @@ WebItem {
 	}
 
 	Rectangle {
-		x: spinnerItem.height * 5/8 - parent.squizeX;
-		y: spinnerItem.height * 5/8 - parent.squizeY;
+		x: spinnerItem.height * 5/8 - parent.squeezeX;
+		y: spinnerItem.height * 5/8 - parent.squeezeY;
 		id: r4;
 		width: spinnerItem.width * 3/8;
 		height: spinnerItem.height * 3/8;
@@ -80,8 +80,8 @@ WebItem {
 
 		onTriggered: {
 			spinnerItem.transform.rotate += 360;
-			spinnerItem.squize = ++spinnerItem.squize % 5;
-			if (spinnerItem.squize === 1) {
+			spinnerItem.squeeze = ++spinnerItem.squeeze % 5;
+			if (spinnerItem.squeeze === 1) {
 				var t = r1.z;
 				r1.z = r2.z; r2.z = r3.z; r3.z = r4.z; r4.z = t;
 			}
