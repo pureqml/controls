@@ -60,6 +60,7 @@ Item {
 		var options = this.element.dom.options
 		for (var i = options.length - 1; i >= 0; --i)
 			options[i].remove()
+		this.count = 0;
 	}
 
 	/**
