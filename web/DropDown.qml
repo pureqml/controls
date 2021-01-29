@@ -3,9 +3,10 @@ Item {
 	property Font font: Font {}
 	property Color color: "#000";
 	property int currentIndex;		///< current option index
-	property int count;				///< drop down options count
+	property int count;			///< drop down options count
 	property string value;			///< current option value
 	property string text;			///< current option text
+	property bool disabled: false;		///< set true to disable changing selection
 	width: 100;		///<@private
 	height: 40;		///<@private
 
@@ -22,7 +23,11 @@ Item {
 		this.element.style('pointer-events', 'auto')
 		this.element.style('touch-action', 'auto')
 	}
-
+	
+	onDisabledChanged: {
+		this.element.dom.disabled = this.disabled;
+	}
+	
 	/// @private
 	onWidthChanged, onHeightChanged: { this._updateSize(); }
 
@@ -60,6 +65,7 @@ Item {
 		var options = this.element.dom.options
 		for (var i = options.length - 1; i >= 0; --i)
 			options[i].remove()
+		this.count = 0;
 	}
 
 	/**
