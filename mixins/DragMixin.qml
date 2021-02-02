@@ -12,6 +12,7 @@ BaseMixin {
 	constructor: {
 		this.element = this.parent.element;
 		this._bindPressed(this.enabled)
+		this.moved = $core.createSignalForwarder(this.parent, 'moved')
 	}
 
 	///@private
@@ -21,6 +22,8 @@ BaseMixin {
 
 		if (e.changedTouches)
 			e = e.changedTouches[0]
+
+		this.moved(e)  // emit moved signal to the parent
 
 		if (this.direction !== this.Horizontal) {
 			var eY = e.clientY, sY = this._startY, top = this.top, bottom = this.bottom
@@ -57,29 +60,23 @@ BaseMixin {
 
 		this._startX = e.clientX - this.parent.x
 		this._startY = e.clientY - this.parent.y
-		if (!this._dmMoveBinder || !this._mouseMovebinder) {
+		if (!this._dmMoveBinder) {
 			this._dmMoveBinder = new _globals.core.EventBinder(context.window || this.element)
 
 			this._dmMoveBinder.on('mousemove', this._moveHandler.bind(this))
 			this._dmMoveBinder.on('touchmove', this._moveHandler.bind(this))
 
-			this._mouseMovebinder = new _globals.core.EventBinder(this.element)
-			this._mouseMovebinder.on('mousemove', _globals.core.createSignalForwarder(this.parent, 'moved').bind(this))
-
 			this._dmMoveBinder.on('mouseup', function() {
 				this.pressed = false
 				this._dmMoveBinder.enable(false)
-				this._mouseMovebinder.enable(false)
 			}.bind(this))
 
 			this._dmMoveBinder.on('touchend', function() {
 				this.pressed = false
 				this._dmMoveBinder.enable(false)
-				this._mouseMovebinder.enable(false)
 			}.bind(this))
 		}
 		this._dmMoveBinder.enable(true)
-		this._mouseMovebinder.enable(true)
 
 		this.stopPropagation(e)
 	}
