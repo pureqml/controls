@@ -23,8 +23,6 @@ BaseMixin {
 		if (e.changedTouches)
 			e = e.changedTouches[0]
 
-		this.moved(e)  // emit moved signal to the parent
-
 		if (this.direction !== this.Horizontal) {
 			var eY = e.clientY, sY = this._startY, top = this.top, bottom = this.bottom
 			if (bottom  && (eY - sY > bottom)) {
@@ -47,6 +45,11 @@ BaseMixin {
 				this.parent.x = eX - sX
 			}
 		}
+
+		if (Math.abs(this._initY - e.clientY) < 4 && Math.abs(this._initX - e.clientX) < 4)
+			return 
+
+		this.moved(e)  // emit moved signal to the parent
 	}
 
 	///@private
@@ -60,6 +63,8 @@ BaseMixin {
 
 		this._startX = e.clientX - this.parent.x
 		this._startY = e.clientY - this.parent.y
+		this._initX = e.clientX
+		this._initY = e.clientY
 		if (!this._dmMoveBinder) {
 			this._dmMoveBinder = new _globals.core.EventBinder(context.window || this.element)
 
