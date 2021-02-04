@@ -83,7 +83,7 @@ Item {
 
 	onCurrentIndexChanged: {
 		this.element.dom.value = this.element.dom.options[value].value
-        this.value = this.element.dom.value;
+		this.value = this.element.dom.value;
 	}
 
 	onCountChanged: {
