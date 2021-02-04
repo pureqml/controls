@@ -36,8 +36,8 @@ Rectangle {
 		this.style({ width: 'auto', height: 'auto'}) //no need to reset it to width, it's already there
 		this.element.updateStyle()
 
-		this.paintedWidth = this.element.dom.scrollWidth
-		this.paintedHeight = this.element.dom.scrollHeight
+		this.paintedWidth = this.element.fullWidth()
+		this.paintedHeight = this.element.fullHeight()
 
 		this.style({ width: this.width, height: this.height })
 	}
