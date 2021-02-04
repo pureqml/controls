@@ -12,6 +12,7 @@ Item {
 	property bool nativeFocus: manifest.useNativeFocusForInput; ///< use native focus for input (may trigger IME)
 	property string inputMode;					///< inputmode attribute, numeric keyboard, etc
 	property string autocomplete;				///< autocomplete variants (username, current-password, etc)
+	cssPointerTouchEvents: true;
 	property string emitOnInput: false;			///< set true if you want change signal emitted with each keystroke
 	signal change; 								///< emit signal when input loses focus or IME closes, emitted with argument of the current value
 
