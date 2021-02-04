@@ -12,14 +12,20 @@ Item {
 	property bool nativeFocus: manifest.useNativeFocusForInput; ///< use native focus for input (may trigger IME)
 	property string inputMode;					///< inputmode attribute, numeric keyboard, etc
 	property string autocomplete;				///< autocomplete variants (username, current-password, etc)
-	signal change; 								///< emit signal when input loses focus or IME closes
+	property string emitOnInput: false;			///< set true if you want change signal emitted with each keystroke
+	signal change; 								///< emit signal when input loses focus or IME closes, emitted with argument of the current value
 
 	/// @private
 	constructor: {
 		this._placeholderClass = ''
 		this.element.on("focus", function() { this.forceActiveFocus(); }.bind(this))
 		this.element.on("blur", function() { /* fixme: remove focus from current input */ }.bind(this))
-		this.element.on("change", function() { this.change() }.bind(this))
+		this.element.on("change", function() { this.change(this._getValue()) }.bind(this))
+		this.element.on("input", function() {
+			if(this.emitOnInput) {
+				this.change(this._getValue());
+			}
+		}.bind(this));
 		this.element.style('pointer-events', 'auto')
 		this.element.style('touch-action', 'auto')
 	}
