@@ -54,8 +54,6 @@ BaseMixin {
 
 	///@private
 	function _downHandler(e) {
-		if ('preventDefault' in e)
-			e.preventDefault();
 		this.pressed = true
 
 		if (e.changedTouches)
