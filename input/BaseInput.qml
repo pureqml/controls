@@ -61,7 +61,12 @@ Item {
 	}
 
 	onEnabledChanged: {
-		this.element.setAttribute('disabled', !value)
+		if(value) {
+			this.element.dom.removeAttribute('disabled');
+		}
+		else {
+			this.element.dom.setAttribute('disabled', true);
+		}
 	}
 
 	onAutocompleteChanged: {
