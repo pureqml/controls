@@ -1,5 +1,5 @@
 /// Provide mouse signals: clicked, mouseMove, wheel. And properties: mouseX, mouseY, hover, pressed
-Object {
+BaseMouseMixin {
 	property bool clickable: true;		///< enable mouse click event handling flag
 	property bool hoverable: true;		///< hoverEnabled property alias
 	property bool pressable: true;		///< enable mouse click event handling flag

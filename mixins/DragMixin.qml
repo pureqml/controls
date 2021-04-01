@@ -1,7 +1,6 @@
 /// makes parent item dragable
-BaseMixin {
+BaseMouseMixin {
 	property bool pressed;	///< is mouse pressed flag
-	property bool enabled: true;	///< enable/disable mixin
 	property int top;		///< top border
 	property int left;		///< left border
 	property int right;		///< right border

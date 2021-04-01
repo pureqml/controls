@@ -1,7 +1,5 @@
 /// This mixin provides mouse double click event detecting
-BaseMixin {
-	property bool enabled: true;	///< turn mixin on or off
-
+BaseMouseMixin {
 	constructor: {
 		this.element = this.parent.element;
 		this._bindClicked(this.enabled)
