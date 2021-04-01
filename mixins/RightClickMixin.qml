@@ -1,6 +1,5 @@
 BaseMixin {
 	property bool enabled: true;
-	signal clicked;
 
 	constructor: {
 		this.element = this.parent.element;
@@ -11,11 +10,23 @@ BaseMixin {
 	function _bindClicked(value) {
 		if (value && !this._clickedBinder) {
 			this._clickedBinder = new _globals.core.EventBinder(this.element)
-			var self = this
-			this._clickedBinder.on('mousedown', function(e) { if (e.which === 3) self.clicked(e); self.stopPropagation(e) }.bind(this))
+			this._clickedBinder.on('mousedown', function(e) {
+				if (e.which === 3) {
+					this._emit(e)
+				} else if (e.button === 2) {
+					this._emit(e)
+				}
+			}.bind(this))
 		}
 		if (this._clickedBinder)
 			this._clickedBinder.enable(value)
+	}
+
+	///@private
+	function _emit(e) {
+		this.parent.emitWithArgs('rightClicked', arguments)
+		if (e !== undefined)
+			this.stopPropagation(e)
 	}
 
 	///@private
