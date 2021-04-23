@@ -62,10 +62,10 @@ Item {
 
 	onEnabledChanged: {
 		if(value) {
-			this.element.dom.removeAttribute('disabled');
+			this.element.removeAttribute('disabled');
 		}
 		else {
-			this.element.dom.setAttribute('disabled', true);
+			this.element.setAttribute('disabled', true);
 		}
 	}
 
