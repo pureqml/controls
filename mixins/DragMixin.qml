@@ -80,7 +80,7 @@ BaseMouseMixin {
 		}
 		this._dmMoveBinder.enable(true)
 
-		this.stopPropagation(e)
+		e.stopPropagation()
 	}
 
 	///@private
