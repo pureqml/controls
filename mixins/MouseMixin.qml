@@ -14,10 +14,14 @@ BaseMouseMixin {
 		this._bindPressable(this.pressable)
 		this._bindWheel(this.wheelEnabled)
 
-		exports.addProperty(parent, "real", "mouseX", 0.0)
-		exports.addProperty(parent, "real", "mouseY", 0.0)
-		exports.addProperty(parent, "bool", "hover", false)
-		exports.addProperty(parent, "bool", "pressed", false)
+		if (!exports.hasProperty(parent, "mouseX"))
+			exports.addProperty(parent, "real", "mouseX", 0.0)
+		if (!exports.hasProperty(parent, "mouseY"))
+			exports.addProperty(parent, "real", "mouseY", 0.0)
+		if (!exports.hasProperty(parent, "hover"))
+			exports.addProperty(parent, "bool", "hover", false)
+		if (!exports.hasProperty(parent, "pressed"))
+			exports.addProperty(parent, "bool", "pressed", false)
 	}
 
 	///@private
