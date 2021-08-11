@@ -1,13 +1,11 @@
 /// this mixin provides mouse hover and click events handling
 BaseMouseMixin {
-	property bool enabled: true;				///< enable/disable mixin
 	property bool clickable: true;
 	property bool activeHoverEnabled: false;
 	property bool value;
 	property bool activeHover: false;
 
 	constructor: {
-		this.element = this.parent.element;
 		this._bindClick(this.clickable)
 		this._bindHover(this.enabled)
 		this._bindActiveHover(this.activeHoverEnabled)

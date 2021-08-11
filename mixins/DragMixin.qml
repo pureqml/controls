@@ -9,7 +9,6 @@ BaseMouseMixin {
 
 	///@private
 	constructor: {
-		this.element = this.parent.element;
 		this._bindPressed(this.enabled)
 		this.moved = $core.createSignalForwarder(this.parent, 'moved')
 	}

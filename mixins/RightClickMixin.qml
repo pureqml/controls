@@ -1,6 +1,5 @@
 BaseMouseMixin {
 	constructor: {
-		this.element = this.parent.element;
 		this._bindClicked(this.enabled)
 	}
 

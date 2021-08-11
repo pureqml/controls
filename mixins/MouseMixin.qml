@@ -8,7 +8,6 @@ BaseMouseMixin {
 	///@private
 	constructor: {
 		var parent = this.parent
-		this.element = parent.element;
 		this._bindClick(this.clickable)
 		this._bindHover(this.hoverable)
 		this._bindPressable(this.pressable)

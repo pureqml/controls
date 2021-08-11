@@ -5,7 +5,6 @@ BaseMixin {
 	signal touchEnd;			///< @private
 	signal verticalSwiped;		///< emitted on vertical swipe
 	signal horizontalSwiped;	///< emitted on horizontal swipe
-	property bool enabled: true;	///< enable mixin flag
 
 	constructor: { this._bindTouch(this.enabled) }
 
