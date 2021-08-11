@@ -26,12 +26,14 @@ BaseMouseMixin {
 		if (value && !this._hmHoverBinder) {
 			this._hmHoverBinder = new _globals.core.EventBinder(this.parent.element)
 			if (this._context.backend.capabilities.mouseEnterLeaveSupported) {
-				this._hmHoverBinder.on('mouseenter', function() { this.value = true }.bind(this))
+				this._hmHoverBinder.on('mouseenter', function() { this.value = this._trueUnlessTouchEvent() }.bind(this))
 				this._hmHoverBinder.on('mouseleave', function() { this.value = false }.bind(this))
 			} else {
-				this._hmHoverBinder.on('mouseover', function() { this.value = true }.bind(this))
+				this._hmHoverBinder.on('mouseover', function() { this.value = this._trueUnlessTouchEvent() }.bind(this))
 				this._hmHoverBinder.on('mouseout', function() { this.value = false }.bind(this))
 			}
+			this._hmHoverBinder.on('touchstart', this._setTouchEvent.bind(this))
+			this._hmHoverBinder.on('mouseup', this._resetTouchEvent.bind(this))
 		}
 		if (this._hmHoverBinder)
 			this._hmHoverBinder.enable(value)
@@ -41,8 +43,10 @@ BaseMouseMixin {
 	function _bindActiveHover(value) {
 		if (value && !this._hmActiveHoverBinder) {
 			this._hmActiveHoverBinder = new _globals.core.EventBinder(this.parent.element)
-			this._hmActiveHoverBinder.on('mouseover', function() { this.activeHover = true }.bind(this))
+			this._hmActiveHoverBinder.on('mouseover', function() { this.activeHover = this._trueUnlessTouchEvent() }.bind(this))
 			this._hmActiveHoverBinder.on('mouseout', function() { this.activeHover = false }.bind(this))
+			this._hmActiveHoverBinder.on('touchstart', this._setTouchEvent.bind(this))
+			this._hmActiveHoverBinder.on('mouseup', this._resetTouchEvent.bind(this))
 		}
 		if (this._hmActiveHoverBinder)
 		{

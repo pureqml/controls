@@ -68,7 +68,7 @@ HoverClickMixin {
 
 	/// @private
 	onMouseMove: {
-		this._setHover(true)
+		this._setHover(!this._touchEvent)
 		disableHoverTimer.restart()
 	}
 }
