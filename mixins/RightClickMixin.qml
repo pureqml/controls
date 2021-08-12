@@ -22,8 +22,7 @@ BaseMouseMixin {
 	///@private
 	function _emit(e) {
 		this.parent.emitWithArgs('rightClicked', arguments)
-		if (e !== undefined)
-			e.stopPropagation()
+		$core.callMethod(e, 'stopPropagation')
 	}
 
 	///@private

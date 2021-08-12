@@ -41,7 +41,7 @@ HoverClickMixin {
 			this._mouseMoveBinder = new $core.EventBinder(this.element)
 			this._mouseMoveBinder.on('mousemove', function(event) {
 				if (!this._updatePosition(event))
-					event.preventDefault()
+					$core.callMethod(event, 'preventDefault')
 			}.bind(this))
 		}
 		if (this._mouseMoveBinder)

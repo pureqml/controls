@@ -48,7 +48,7 @@ BaseMouseMixin {
 		var parent = this.parent
 		if (value && !this._hoverBinder) {
 			this._hoverBinder = new $core.EventBinder(this.element)
-			this._hoverBinder.on('mousemove', function(event) { if (this.updatePosition(event)) event.preventDefault() }.bind(this))
+			this._hoverBinder.on('mousemove', function(event) { if (this.updatePosition(event)) $core.callMethod(event, 'preventDefault') }.bind(this))
 			this._hoverBinder.on('mouseenter', function() { parent.hover = true }.bind(this))
 			this._hoverBinder.on('mouseleave', function() { parent.hover = false }.bind(this))
 		}

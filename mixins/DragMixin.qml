@@ -15,9 +15,6 @@ BaseMouseMixin {
 
 	///@private
 	function _moveHandler(e) {
-		if ('preventDefault' in e)
-			e.preventDefault();
-
 		if (e.changedTouches)
 			e = e.changedTouches[0]
 
@@ -79,7 +76,7 @@ BaseMouseMixin {
 		}
 		this._dmMoveBinder.enable(true)
 
-		e.stopPropagation()
+		$core.callMethod(e, 'stopPropagation')
 	}
 
 	///@private
