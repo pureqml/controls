@@ -31,7 +31,8 @@ Item {
             log("Datalist reset, model count:" + mc + ", current option count: " + vc)
 
         if (vc > mc) {
-            var removed = this._elements.splice(mc, vc - mc)
+            var elements = [].slice.call(dom.childNodes);
+            var removed = elements.splice(mc, vc - mc);
             removed.forEach(function(element) {
                 dom.removeChild(element)
             })
