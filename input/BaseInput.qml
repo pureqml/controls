@@ -13,6 +13,7 @@ Item {
 	property string inputMode;					///< inputmode attribute, numeric keyboard, etc
 	property string autocomplete;				///< autocomplete variants (username, current-password, etc)
 	signal change; 								///< emit signal when input loses focus or IME closes
+	cssPointerTouchEvents: true;
 
 	/// @private
 	constructor: {
@@ -20,8 +21,6 @@ Item {
 		this.element.on("focus", function() { this.forceActiveFocus(); }.bind(this))
 		this.element.on("blur", function() { /* fixme: remove focus from current input */ }.bind(this))
 		this.element.on("change", function() { this.change() }.bind(this))
-		this.element.style('pointer-events', 'auto')
-		this.element.style('touch-action', 'auto')
 	}
 
 	/// @private
@@ -62,7 +61,12 @@ Item {
 	}
 
 	onEnabledChanged: {
-		this.element.setAttribute('disabled', !value)
+		if(value) {
+			this.element.removeAttribute('disabled');
+		}
+		else {
+			this.element.setAttribute('disabled', true);
+		}
 	}
 
 	onAutocompleteChanged: {

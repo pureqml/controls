@@ -7,7 +7,7 @@ Item {
 		this.element.setAttribute('type', 'text/javascript')
 		this._onLoad = this._context.wrapNativeCallback(function() {
 			this._loaded = true
-			this.loaded.bind(this)
+			this.loaded();
 		}.bind(this))
 		this._loaded = false
 		this.element.dom.addEventListener('load', this._onLoad)
@@ -22,7 +22,7 @@ Item {
 	///@private
 	function discard() {
 		this._loaded = false
-		this.removeEventListener('load', this._onLoad)
+		this.element.dom.removeEventListener('load', this._onLoad)
 		_globals.core.Item.prototype.discard.call(this)
 	}
 

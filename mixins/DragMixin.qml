@@ -1,8 +1,6 @@
 /// makes parent item dragable
-BaseMixin {
-	property bool moved;	///< is moved flag
+BaseMouseMixin {
 	property bool pressed;	///< is mouse pressed flag
-	property bool enabled: true;	///< enable/disable mixin
 	property int top;		///< top border
 	property int left;		///< left border
 	property int right;		///< right border
@@ -11,14 +9,12 @@ BaseMixin {
 
 	///@private
 	constructor: {
-		this.element = this.parent.element;
 		this._bindPressed(this.enabled)
+		this.moved = $core.createSignalForwarder(this.parent, 'moved')
 	}
 
 	///@private
 	function _moveHandler(e) {
-		e.preventDefault();
-
 		if (e.changedTouches)
 			e = e.changedTouches[0]
 
@@ -30,7 +26,6 @@ BaseMixin {
 			else if (top && (eY - sY < top))
 				this.parent.y = top
 			else {
-				this.moved = true;
 				this.parent.y = eY - sY
 			}
 		}
@@ -42,15 +37,18 @@ BaseMixin {
 			else if (left && (eX - sX < left))
 				this.parent.x = left
 			else {
-				this.moved = true;
 				this.parent.x = eX - sX
 			}
 		}
+
+		if (Math.abs(this._initY - e.clientY) < 4 && Math.abs(this._initX - e.clientX) < 4)
+			return 
+
+		this.moved(e)  // emit moved signal to the parent
 	}
 
 	///@private
 	function _downHandler(e) {
-		e.preventDefault();
 		this.pressed = true
 
 		if (e.changedTouches)
@@ -58,8 +56,10 @@ BaseMixin {
 
 		this._startX = e.clientX - this.parent.x
 		this._startY = e.clientY - this.parent.y
+		this._initX = e.clientX
+		this._initY = e.clientY
 		if (!this._dmMoveBinder) {
-			this._dmMoveBinder = new _globals.core.EventBinder(context.window)
+			this._dmMoveBinder = new _globals.core.EventBinder(context.window || this.element)
 
 			this._dmMoveBinder.on('mousemove', this._moveHandler.bind(this))
 			this._dmMoveBinder.on('touchmove', this._moveHandler.bind(this))
@@ -76,7 +76,7 @@ BaseMixin {
 		}
 		this._dmMoveBinder.enable(true)
 
-		this.stopPropagation(e)
+		$core.callMethod(e, 'stopPropagation')
 	}
 
 	///@private

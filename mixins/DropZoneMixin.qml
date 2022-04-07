@@ -10,15 +10,15 @@ BaseMixin {
 		element.style('touch-action', 'auto')
 
 		element.on('dragover', function(e) {
-			e.stopPropagation();
-			e.preventDefault();
+			$core.callMethod(e, 'stopPropagation')
+			$core.callMethod(e, 'preventDefault')
 			e.dataTransfer.dropEffect = 'copy';
 		})
 
 		var self = this
 		element.on('drop', function(e) {
-			e.stopPropagation();
-			e.preventDefault();
+			$core.callMethod(e, 'stopPropagation')
+			$core.callMethod(e, 'preventDefault')
 			self.filesAdded(e.dataTransfer.files)
 		}.bind(parent));
 	}
