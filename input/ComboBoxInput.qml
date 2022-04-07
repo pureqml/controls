@@ -1,8 +1,9 @@
 TextInput {
+    property bool trace: false;
     property Model model;
     DataList {
         model: parent.model;
-        trace: true;
+        trace: parent.trace;
         onCompleted: {
             var element = this.element
             var input = this.parent
