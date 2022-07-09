@@ -5,6 +5,7 @@ Item {
 	property string code;			///< code string
 	property string language;		///< programming language
 	property Font font: Font {}		///< code text font
+	property int tabWidth: 2;		///< replace tabs with spaces (-1 to turn off)
 	height: contentHeight;
 	width: contentWidth;
 
@@ -12,16 +13,26 @@ Item {
 	onWidthChanged, onHeightChanged: { this._updateSize(); }
 
 	/// @private
+	function _highlightBlock() {
+		if (this.tabWidth >= 0) {
+			//FIXME: this is global - find a way to reconfigure each block or create shared configuration
+			var tab = new Array(this.tabWidth + 1).join(' ')
+			window.hljs.configure({tabReplace: tab})
+		}
+		window.hljs.highlightBlock(this._code.dom)
+	}
+
+	/// @private
 	onCodeChanged: {
 		this._code.dom.innerHTML = value
-		window.hljs.highlightBlock(this._code.dom)
+		this._highlightBlock()
 		this._updateSize()
 	}
 
 	/// @private
 	onLanguageChanged: {
 		this._code.dom.className = value
-		window.hljs.highlightBlock(this._code.dom)
+		this._highlightBlock()
 	}
 
 	/// @private returns tag for corresponding element
