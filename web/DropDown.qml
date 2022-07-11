@@ -1,5 +1,5 @@
 ///html drop down list chooser
-Item {
+ElementWithModel {
 	property Font font: Font {}
 	property Color color: "#000";
 	property int currentIndex;		///< current option index
@@ -7,6 +7,8 @@ Item {
 	property string value;			///< current option value
 	property string text;			///< current option text
 	property bool disabled: false;		///< set true to disable changing selection
+	property string valueProperty: "value";
+	property string textProperty: "text";
 	width: 100;		///<@private
 	height: 40;		///<@private
 
@@ -23,11 +25,11 @@ Item {
 		this.element.style('pointer-events', 'auto')
 		this.element.style('touch-action', 'auto')
 	}
-	
+
 	onDisabledChanged: {
 		this.element.dom.disabled = this.disabled;
 	}
-	
+
 	/// @private
 	onWidthChanged, onHeightChanged: { this._updateSize(); }
 
@@ -50,10 +52,7 @@ Item {
 	 * @param {string} text - new option text
 	 */
 	append(value, text): {
-		var option = this._context.createElement('option')
-		option.dom.value = value
-		option.dom.innerHTML = text
-		this.element.append(option)
+		this.element.append(this._createOption(value, text))
 		++this.count
 	}
 
@@ -92,5 +91,38 @@ Item {
 			this.text = this.element.dom[0].label
 			this.currentIndex = 0
 		}
+	}
+
+	/// @private
+	function _createOption(value, text) {
+		var option = this._context.createElement('option')
+		option.setAttribute('value', value)
+		option.setHtml(text)
+		return option
+	}
+
+	/// @private
+	function _createValue(row) {
+		var value = row[this.valueProperty]
+		var text = row[this.textProperty]
+
+		if (this.trace)
+			log("DataList::createValue", value)
+
+		var el = this._createOption(value, text)
+		return el.dom
+	}
+
+	/// @private
+	function _updateValue(el, row) {
+		var value = row[this.valueProperty]
+		var text = row[this.textProperty]
+
+		if (this.trace)
+			log("DataList::updateValue", value)
+
+		el.setAttribute("value", value)
+		el.innerHTML = text
+		return el
 	}
 }
