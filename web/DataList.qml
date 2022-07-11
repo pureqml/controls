@@ -2,6 +2,7 @@ Item {
     property Model model;
     property bool trace;
     property string domId;
+    property string valueProperty: "value";
 
     constructor: {
         var element = this.element
@@ -61,17 +62,18 @@ Item {
 
         var model = this.model
         var dom = this.element.dom
+        var valueProperty = this.valueProperty
         var n = dom.childNodes.length
         if (begin > n)
             throw new Error("invalid begin in rowsInserted " + begin + "/" + n)
         if (begin < n) {
             var lastChild = dom.childNodes[begin]
             for(var i = begin; i < end; ++i) {
-                dom.insertBefore(this._createValue(model.get(i).value), lastChild)
+                dom.insertBefore(this._createValue(model.get(i)[valueProperty]), lastChild)
             }
         } else {
             for(var i = begin; i < end; ++i) {
-                dom.append(this._createValue(model.get(i).value))
+                dom.append(this._createValue(model.get(i)[valueProperty]))
             }
         }
 	}
@@ -85,8 +87,9 @@ Item {
 
         var model = this.model
         var dom = this.element.dom
+        var valueProperty = this.valueProperty
         for(var i = begin; i < end; ++i) {
-            dom.childNodes[i].setAttribute("value", model.get(i).value)
+            dom.childNodes[i].setAttribute("value", model.get(i)[valueProperty])
         }
 	}
 
