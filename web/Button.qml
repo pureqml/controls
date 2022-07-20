@@ -8,6 +8,7 @@ Rectangle {
 	property color textColor;
 	property int paintedWidth;
 	property int paintedHeight;
+	property bool enabled: true;
 	width: paintedWidth;
 	height: paintedHeight;
 
@@ -22,6 +23,14 @@ Rectangle {
 
 	///@private
 	onTextColorChanged: { this.style('color', _globals.core.Color.normalize(value)); }
+
+	onEnabledChanged: {
+		if (value)
+			this.element.removeAttribute('disabled')
+		else
+			this.element.setAttribute('disabled', '')
+	}
+
 
 	///@private returns tag for corresponding element
 	function getTag() { return 'button' }
