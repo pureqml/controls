@@ -23,6 +23,7 @@ Object {
 
 	signal error; ///< all errors signalled here
 	signal internetConnectionLost; ///< some platforms signal when internet connection lost, see onError
+	property int activeRequests; ///< number of currently running requests.
 
 	constructor: {
 		this._methods = {}
@@ -56,6 +57,7 @@ Object {
 		if (newHeaders !== undefined)
 			headers = newHeaders
 
+		++this.activeRequests
 		var url = name
 		var self = this
 
@@ -66,6 +68,7 @@ Object {
 			url: url,
 			data: data,
 			done: function(res) {
+				--self.activeRequests
 				if (res.target && res.target.status >= 400) {
 					log("Error in request", res)
 					if (error)
@@ -88,6 +91,7 @@ Object {
 				callback(res)
 			},
 			error: function(res) {
+				--self.activeRequests
 				if (error)
 					error(res)
 				self.error({"url": url, "method": method, "response": res})
