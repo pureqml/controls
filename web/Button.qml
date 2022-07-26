@@ -16,13 +16,13 @@ Rectangle {
 	onTextChanged: { this.element.setHtml(value, this); this._updateSize(); }
 
 	///@private
-	onWidthChanged: { this.style("width", value); }
+	onWidthChanged: { this.element.style("width", value); }
 
 	///@private
-	onHeightChanged: { this.style("height", value ); }
+	onHeightChanged: { this.element.style("height", value ); }
 
 	///@private
-	onTextColorChanged: { this.style('color', _globals.core.Color.normalize(value)); }
+	onTextColorChanged: { this.element.style('color', _globals.core.Color.normalize(value)); }
 
 	onEnabledChanged: {
 		if (value)
@@ -30,7 +30,6 @@ Rectangle {
 		else
 			this.element.setAttribute('disabled', '')
 	}
-
 
 	///@private returns tag for corresponding element
 	function getTag() { return 'button' }
@@ -42,13 +41,18 @@ Rectangle {
 
 	///@private
 	function _updateSize() {
-		this.style({ width: 'auto', height: 'auto'}) //no need to reset it to width, it's already there
+		this._context.delayedAction('button:update-size', this, this._updateSizeImpl)
+	}
+
+	///@private
+	function _updateSizeImpl() {
+		this.element.style({ width: 'auto', height: 'auto'}) //no need to reset it to width, it's already there
 		this.element.updateStyle()
 
 		this.paintedWidth = this.element.fullWidth()
 		this.paintedHeight = this.element.fullHeight()
 
-		this.style({ width: this.width, height: this.height })
+		this.element.style({ width: this.width, height: this.height })
 	}
 
 	///@private
