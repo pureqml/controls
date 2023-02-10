@@ -40,9 +40,9 @@ Object {
 
 			var context = this._context
 			var self = this
-			socket.onopen = context.wrapNativeCallback(function() {
+			socket.onopen = context.wrapNativeCallback(function(event) {
 				self.state = self.Open
-				self.opened();
+				self.opened(event);
 			})
 
 			socket.onclose = context.wrapNativeCallback(function(event) {
@@ -50,8 +50,8 @@ Object {
 				self.closed(event)
 			})
 
-			socket.onerror = context.wrapNativeCallback(function(error) {
-				self.error("error")
+			socket.onerror = context.wrapNativeCallback(function(event) {
+				self.error(event)
 			})
 
 			socket.onmessage = context.wrapNativeCallback(function(event) {
