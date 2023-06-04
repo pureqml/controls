@@ -1,5 +1,6 @@
 ///HTML text input item
 BaseInput {
+	property string text;		///< input text string property
 	property int maxLength;		///< max available length for the input text
 	property bool passwordMode: false;	///< show password chars instead of input text flag property
 	property Color cursorColor: "#fff";	///< cursor color
