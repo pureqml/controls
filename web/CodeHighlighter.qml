@@ -35,8 +35,7 @@ Item {
 		this._highlightBlock()
 	}
 
-	/// @private returns tag for corresponding element
-	function getTag() { return 'pre' }
+	htmlTag: "pre";
 
 	/// @private
 	function registerStyle(style, tag) {

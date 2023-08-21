@@ -45,5 +45,5 @@ Item {
 	onSourceChanged:	{ this._delayedLoad() }
 	onCompleted:		{ this._delayedLoad() }
 
-	function getTag() { return 'script' }
+	htmlTag: "script";
 }

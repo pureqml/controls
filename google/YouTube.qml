@@ -15,8 +15,7 @@ Item {
 	///@private
 	onAllowFullScreenChanged: { this.element.dom.allowFullscreen = value; }
 
-	///@private
-	function getTag() { return 'iframe' }
+	htmlTag: "iframe";
 
 	///@private
 	function _updateSize() {

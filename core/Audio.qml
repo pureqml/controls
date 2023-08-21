@@ -3,6 +3,8 @@ Item {
 	property bool autoPlay: true;	///<autoplay flag, audio start to play immediately after source was changed
 	property string source: "";		///<audio source URL
 
+	htmlTag: "audio";
+
 	///@private
 	onSourceChanged: {
 		if (!this.element)
@@ -21,7 +23,4 @@ Item {
 
 	///@private
 	onAutoPlayChanged: { if (value) this.play() }
-
-	/// @private returns tag for corresponding element
-	function getTag() { return 'audio' }
 }

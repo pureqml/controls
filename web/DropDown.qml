@@ -33,8 +33,7 @@ ElementWithModel {
 	/// @private
 	onWidthChanged, onHeightChanged: { this._updateSize(); }
 
-	/// @private
-	function getTag() { return 'select' }
+	htmlTag: "select";
 
 	/// @private
 	function registerStyle(style, tag)

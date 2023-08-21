@@ -7,8 +7,7 @@ BaseInput {
 		this._updateValue(value)
 	}
 
-	/// returns tag for corresponding element
-	function getTag() { return 'textarea' }
+	htmlTag: "textarea";
 
 	function registerStyle(style, tag) {
 		style.addRule('textarea', "position: absolute; visibility: inherit; border-style: solid; border-width: 0px; box-sizing: border-box; resize: none;")
