@@ -4,6 +4,7 @@ Image {
 	property int offsetY;	///< sprite vertical offset
 	fillMode: Image.Tile;	///< sprite image filling mode
 	horizontalAlignment: Image.AlignLeft;
+	verticalAlignment: Image.AlignTop;
 
 	onOffsetYChanged,
 	onOffsetXChanged: {
