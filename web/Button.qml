@@ -31,7 +31,8 @@ Rectangle {
 			this.element.setAttribute('disabled', '')
 	}
 
-	htmlTag: "button";
+	///@private returns tag for corresponding element
+	function getTag() { return 'button' }
 
 	///@private
 	function registerStyle(style, tag) {

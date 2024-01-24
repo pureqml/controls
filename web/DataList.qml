@@ -9,7 +9,9 @@ ElementWithModel {
         this.domId = id
     }
 
-	htmlTag: "datalist";
+    function getTag() {
+        return "datalist"
+    }
 
 	/// @private
     function _createValue(row) {

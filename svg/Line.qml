@@ -6,7 +6,8 @@ SvgBase {
 	property Color color: "red";
 	property int width: 2;
 
-	htmlTag: "line";
+	/// returns tag for corresponding element
+	function getTag() { return 'line' }
 
 	/// @internal
 	onColorChanged,

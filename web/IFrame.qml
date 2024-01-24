@@ -5,7 +5,9 @@ Item {
 	property string origin;		///< readonly property of source's origin for message matching
 	signal message;				///< message from window opened in this IFrame
 
-	htmlTag: "iframe";
+	///@private
+	function getTag() { return 'iframe' }
+	/// Sends message to window
 
 	function postMessage(data) {
 		this.element.dom.contentWindow.postMessage(data, this.source)

@@ -7,7 +7,8 @@ SvgBase {
 	property string fill: "none";
 	property int width: 2;
 
-	htmlTag: "path";
+	/// returns tag for corresponding element
+	function getTag() { return 'path' }
 
 	onColorChanged: {
 		this.element.setAttribute('stroke', _globals.core.Color.normalize(value))

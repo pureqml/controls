@@ -1,3 +1,3 @@
 Repeater {
-	htmlTag: "thead";
+	function getTag() { return 'thead' }
 }

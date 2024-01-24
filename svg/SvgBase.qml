@@ -18,7 +18,8 @@ Object {
 		}
 	}
 
-	htmlTag: "svg";
+	///@private returns tag for corresponding element
+	function getTag() { return 'svg' }
 
 	///@private
 	function registerStyle(style, tag) {

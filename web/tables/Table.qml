@@ -1,5 +1,5 @@
 TableElement {
-	htmlTag: "table";
+	function getTag() { return 'table' }
 
 	property Object model: ListModel { }
 	property Object headerModel: ListModel { }

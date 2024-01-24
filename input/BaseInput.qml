@@ -73,7 +73,8 @@ Item {
 		this.element.setAttribute('autocomplete', value)
 	}
 
-	htmlTag: "input";
+	/// returns tag for corresponding element
+	function getTag() { return 'input' }
 
 	/// @private
 	function registerStyle(style) {

@@ -39,7 +39,8 @@ Item {
 		}
 	}
 
-	htmlTag: "input";
+	/// returns tag for corresponding element
+	function getTag() { return 'input' }
 
 	/// gets element native value
 	function _getValue() {

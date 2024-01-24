@@ -1,5 +1,6 @@
 Item {
-	htmlTag: "svg";
+	/// returns tag for corresponding element
+	function getTag() { return 'svg' }
 
 	/// @private
 	function registerStyle(style, tag) {

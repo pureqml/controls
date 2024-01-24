@@ -1,3 +1,3 @@
 Repeater {
-	htmlTag: "tr";
+	function getTag() { return 'tr' }
 }

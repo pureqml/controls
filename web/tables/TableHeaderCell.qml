@@ -1,3 +1,3 @@
 TableElement {
-	htmlTag: "th";
+	function getTag() { return 'th' }
 }
