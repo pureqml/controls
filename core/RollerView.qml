@@ -249,13 +249,13 @@ BaseView {
 
 	/// @private
 	function _setContentOffset(offset) {
-		this._layout = this._scheduleLayout = function() { } //I LOVE JS
-		if (this.orientation === this.Horizontal)
-			this.contentX = offset
-		else
-			this.contentY = offset
-		delete this._layout
-		delete this._scheduleLayout
+		if (this.orientation === this.Horizontal) {
+			this._setProperty('contentX', offset)
+			this.content._setProperty('x', -offset)
+		} else {
+			this._setProperty('contentY', offset)
+			this.content._setProperty('y', -offset)
+		}
 	}
 
 	/// @private
