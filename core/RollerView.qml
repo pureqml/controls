@@ -20,6 +20,11 @@ BaseView {
 
 	/// @private creates delegate in given item slot
 	function _createDelegate(idx) {
+		var items = this._items
+		var item = items[idx]
+		if (item !== null && item !== undefined)
+			return item
+
 		var item = _globals.core.BaseView.prototype._createDelegate.apply(this, arguments)
 		if (this.orientation === this.Horizontal)
 			item.onChanged('width', this._scheduleLayout.bind(this))
