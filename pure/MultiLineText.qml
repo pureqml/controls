@@ -1,6 +1,7 @@
 Text {
 	property int linesCount: 2;
 	wrapMode: Text.WordWrap;
+	height: font.pixelSize * font.lineHeight * linesCount;
 	clip: true;
 
 	onLinesCountChanged: {
