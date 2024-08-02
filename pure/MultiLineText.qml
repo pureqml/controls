@@ -1,7 +1,6 @@
 Text {
 	property int linesCount: 2;
 	wrapMode: Text.WordWrap;
-	color: consts.textColor;
 	clip: true;
 
 	onLinesCountChanged: {
