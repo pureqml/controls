@@ -1,11 +1,12 @@
 Item {
 	property string label;
 	property string value;
-	height: infoValue.height;
+	height: infoLabel.height;
 	anchors.left: parent.left;
 	anchors.right: parent.right;
 
 	Text {
+		id: infoLabel;
 		height: 35;
 		anchors.left: parent.left;
 		color: "#80D8FF";
