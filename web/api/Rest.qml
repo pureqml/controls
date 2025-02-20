@@ -45,7 +45,7 @@ Object {
 	}
 
 	/// @private calls invokes args, headers and ajax, then processes result
-	function _call(name, callback, error, method, data, head) {
+	function _call(name, callback, error, method, data, head, timeout) {
 		var headers = head || {}
 
 		if (data) {
@@ -65,6 +65,9 @@ Object {
 			method: method || "GET",
 			headers: headers,
 			contentType: 'application/json',
+			settings: {
+				timeout: timeout,
+			},
 			url: url,
 			data: data,
 			done: function(res) {
@@ -100,7 +103,7 @@ Object {
 	}
 
 	/// @internal top-level call implementation
-	function call(name, callback, error, method, data, head) {
+	function call(name, callback, error, method, data, head, timeout) {
 		if (name.indexOf('://') < 0) {
 			var baseUrl = this.baseUrl
 			if (baseUrl[baseUrl.length - 1] === '/' || name[0] === '/')
@@ -108,7 +111,7 @@ Object {
 			else
 				name = baseUrl + '/' + name
 		}
-		this._call(name, callback, error, method, JSON.stringify(data), head)
+		this._call(name, callback, error, method, JSON.stringify(data), head, timeout)
 	}
 
 	/// @private method registration

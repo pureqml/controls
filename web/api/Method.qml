@@ -12,6 +12,7 @@ Object {
 	property string type: "GET"; ///< method type, could be any of supported HTTP request types
 	property string name; ///< method name
 	property string path;
+	property int timeout;
 
 	/// @private call implementation
 	function call(api, args) {
@@ -30,7 +31,7 @@ Object {
 			headers = newHeaders
 		var path = this.pathArgs(this.path, argsargs)
 
-		api.call(path, callback, error, this.type, data, headers)
+		api.call(path, callback, error, this.type, data, headers, this.timeout)
 	}
 
 	/// headers override
