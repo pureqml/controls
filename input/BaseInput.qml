@@ -24,6 +24,12 @@ Item {
 	}
 
 	/// @private
+	function _setId(name) {
+		this.element.setAttribute("name", name)
+		$core.Item.prototype._setId.apply(this, arguments)
+	}
+
+	/// @private
 	onActiveFocusChanged: {
 		if (value)
 			this.focusBrowser()
