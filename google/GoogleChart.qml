@@ -30,6 +30,12 @@ Item {
 
 	/// @private
 	function registerStyle(style) {
-		style.addRule('svg', "position: absolute; visibility: inherit; border-style: solid; border-width: 0px; box-sizing: border-box;")
+		style.addRule('svg', {
+			"position": "absolute",
+			"visibility": "inherit",
+			"border-style": "solid",
+			"border-width": "0px",
+			"box-sizing": "border-box"
+		})
 	}
 }

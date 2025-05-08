@@ -35,7 +35,7 @@ Object {
 		//fixme: port to modernizr
 		var selectors = ['::-webkit-input-placeholder', '::-moz-placeholder', ':-moz-placeholder', ':-ms-input-placeholder']
 		selectors.forEach(function(selector) {
-			this._context.stylesheet.addRule('.' + cls + selector, 'color: ' + rgba)
+			this._context.stylesheet.addRule('.' + cls + selector, {'color': rgba})
 		}.bind(this))
 	}
 }

@@ -36,7 +36,15 @@ Rectangle {
 
 	///@private
 	function registerStyle(style, tag) {
-		style.addRule(tag, "position: absolute; visibility: inherit; text-decoration: none; border: none; outline: none; box-sizing: content-box; padding: 0;")
+		style.addRule(tag, {
+			"position": "absolute",
+			"visibility": "inherit",
+			"text-decoration": "none",
+			"border": "none",
+			"outline": "none",
+			"box-sizing": "content-box",
+			"padding": 0
+		})
 	}
 
 	///@private

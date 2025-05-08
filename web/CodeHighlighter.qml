@@ -40,7 +40,13 @@ Item {
 
 	/// @private
 	function registerStyle(style, tag) {
-		style.addRule(tag, 'position: absolute; visibility: inherit; margin: 0px; pointer-events: auto; touch-action: auto')
+		style.addRule(tag, {
+			'position': 'absolute',
+			'visibility': 'inherit',
+			'margin': '0px',
+			'pointer-events': 'auto',
+			'touch-action': 'auto'
+		})
 	}
 
 	/// @private

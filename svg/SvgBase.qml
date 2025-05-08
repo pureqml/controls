@@ -23,7 +23,11 @@ Object {
 
 	///@private
 	function registerStyle(style, tag) {
-		style.addRule(tag, 'position: absolute; visibility: inherit; overflow: visible;')
+		style.addRule(tag, {
+			"position": "absolute",
+			"visibility": "inherit",
+			"overflow": "visible"
+		})
 	}
 
 	///@private

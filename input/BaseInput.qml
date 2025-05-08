@@ -84,8 +84,14 @@ Item {
 
 	/// @private
 	function registerStyle(style) {
-		style.addRule('input', "position: absolute; visibility: inherit; border-style: solid; border-width: 0px; box-sizing: border-box;")
-		style.addRule('input:focus', "outline: none;")
+		style.addRule('input', {
+			"position": "absolute",
+			"visibility": "inherit",
+			"border-style": "solid",
+			"border-width": "0px",
+			"box-sizing": "border-box"
+		})
+		style.addRule('input:focus', {"outline": "none"})
 	}
 
 	/// @private

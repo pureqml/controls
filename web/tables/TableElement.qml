@@ -9,6 +9,13 @@ Item {
 		this.element.setHtml(this.text, this)
 	}
 
-	function registerStyle(style, tag)
-	{ style.addRule(tag, 'position: default; visibility: inherit; margin: 0px; padding: 0px; border-collapse: collapse;'); }
+	function registerStyle(style, tag) {
+		style.addRule(tag, {
+			'position': 'default',
+			'visibility': 'inherit',
+			'margin': '0px',
+			'padding': '0px',
+			'border-collapse': 'collapse'
+		});
+	}
 }

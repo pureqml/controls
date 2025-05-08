@@ -4,7 +4,11 @@ Item {
 
 	/// @private
 	function registerStyle(style, tag) {
-		style.addRule(tag, 'position: absolute; visibility: inherit; overflow: visible;')
+		style.addRule(tag, {
+			'position': 'absolute',
+			'visibility': 'inherit',
+			'overflow': 'visible'
+		})
 	}
 
 	/// specialized implementation of element creation in a certain namespace.

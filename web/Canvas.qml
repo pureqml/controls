@@ -2,7 +2,12 @@ Item {
 	property bool smooth: true;								///< if false, image will be pixelated
 
 	function getTag() { return 'canvas' }
-	function registerStyle(style, tag) { style.addRule(tag, "position: absolute; visibility: inherit;") }
+	function registerStyle(style, tag) {
+		style.addRule(tag, {
+			"position": "absolute",
+			"visibility": "inherit"
+		})
+	}
 	function getContext(name) { return this.element.dom.getContext(name) }
 
 	onSmoothChanged: {
