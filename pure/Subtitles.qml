@@ -40,6 +40,9 @@ Resource {
 		var endTime = 0
 		var blockNumber = 0
 		var text = ""
+		var extension = this.url.split('.').pop().toLowerCase()
+		var isVtt = extension == "vtt"
+
 		if (!value)
 			return
 		for (var i in lines) {
@@ -59,8 +62,8 @@ Resource {
 					continue
 				var startTimeStr = timeStrings[0].trim()
 				var endTimeStr = timeStrings[1].trim()
-				startTime = this.getTimeDuration(startTimeStr)
-				endTime = this.getTimeDuration(endTimeStr)
+				startTime = this.getTimeDuration(startTimeStr, isVtt)
+				endTime = this.getTimeDuration(endTimeStr, isVtt)
 			} else {
 				if (text)
 					text += "<br>"
@@ -73,12 +76,12 @@ Resource {
 	}
 
 	///@private
-	getTimeDuration(str): {
+	getTimeDuration(str, isVtt): {
 		var parts = str.split(":")
 		var res = 0
 		var hours = parseInt(parts[0]) * 3600
 		var min = parseInt(parts[1]) * 60
-		var sec = parseInt(parts[2].split(",")[0])
+		var sec = parseInt(parts[2].split(isVtt ? "." : ",")[0])
 		res = hours + min + sec
 		return res
 	}
