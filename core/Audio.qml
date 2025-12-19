@@ -1,7 +1,8 @@
 ///COntrol for playing audio
 Item {
 	property bool autoPlay: true;	///<autoplay flag, audio start to play immediately after source was changed
-	property string source: "";		///<audio source URL
+	property bool loop;				///<audio loop flag
+	property string source;			///<audio source URL
 
 	///@private
 	onSourceChanged: {
@@ -21,6 +22,9 @@ Item {
 
 	///@private
 	onAutoPlayChanged: { if (value) this.play() }
+
+	///@private
+	onLoopChanged: { this.element.setAttribute('loop', value) }
 
 	/// @private returns tag for corresponding element
 	function getTag() { return 'audio' }
