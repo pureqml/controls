@@ -1,8 +1,15 @@
-///COntrol for playing audio
+///Control for playing audio
 Item {
+	signal finished;
 	property bool autoPlay: true;	///<autoplay flag, audio start to play immediately after source was changed
 	property bool loop;				///<audio loop flag
 	property string source;			///<audio source URL
+
+	constructor: {
+		var audio = this.element
+		var self = this
+		audio.on('ended', function() { self.finished() }.bind(self))
+	}
 
 	///@private
 	onSourceChanged: {
