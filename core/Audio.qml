@@ -1,6 +1,6 @@
 ///Control for playing audio
 Item {
-	signal finished					///< audio finished signal
+	signal finished;				///< audio finished signal
 	property bool ready;			///< read only property becomes 'true' when audio is ready to play, 'false' otherwise
 	property bool autoPlay: true;	///<autoplay flag, audio start to play immediately after source was changed
 	property bool loop;				///<audio loop flag
