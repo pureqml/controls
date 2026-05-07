@@ -124,4 +124,11 @@ Object {
 			method.call(api, arguments)
 		}
 	}
+
+	/// abort all in-flight requests from this Rest instance
+	function abort() {
+		if (apiRequest && apiRequest.abortAll)
+			apiRequest.abortAll()
+		this.activeRequests = 0
+	}
 }
